@@ -1,0 +1,16 @@
+.css-12mdmh4-MuiCardHeader-root .MuiCardHeader-title {
+  font-size: 35px;
+}
+
+form {
+  padding: 0 15px;
+}
+
+.css-oqo29q-MuiButtonBase-root-MuiButton-root {
+  background-color: #8c7cf0;
+  color: #ffff;
+}
+
+.css-oqo29q-MuiButtonBase-root-MuiButton-root:hover {
+  background-color: rgb(112, 99, 192);
+}
