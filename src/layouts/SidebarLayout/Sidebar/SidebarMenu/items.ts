@@ -56,6 +56,66 @@ const menuItems: MenuItems[] = [
     ],
   },
   {
+    heading: "hosting",
+    items: [
+      {
+        name: "Hosting Window",
+        link: "/account/login",
+        icon: DesignServicesTwoToneIcon,
+      },
+      {
+        name: "Hosting Linux",
+        link: "/account/register",
+        icon: DesignServicesTwoToneIcon,
+      },
+    ],
+  },
+  {
+    heading: "domain",
+    items: [
+      {
+        name: "Register Domain",
+        link: "/account/login",
+        icon: DesignServicesTwoToneIcon,
+      },
+      {
+        name: "List Domain",
+        link: "/account/register",
+        icon: DesignServicesTwoToneIcon,
+      },
+    ],
+  },
+  {
+    heading: "cloud vps",
+    items: [
+      {
+        name: "Cloud VPS basic",
+        link: "/account/login",
+        icon: DesignServicesTwoToneIcon,
+      },
+      {
+        name: "Cloud VPS Pro",
+        link: "/account/register",
+        icon: DesignServicesTwoToneIcon,
+      },
+    ],
+  },
+  {
+    heading: "server",
+    items: [
+      {
+        name: "Server for small business",
+        link: "/account/login",
+        icon: DesignServicesTwoToneIcon,
+      },
+      {
+        name: "Super Server",
+        link: "/account/register",
+        icon: DesignServicesTwoToneIcon,
+      },
+    ],
+  },
+  {
     heading: "Dashboards",
     items: [
       {
