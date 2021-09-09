@@ -164,7 +164,7 @@ const Login = () => {
     <>
       <form className={classes.container} noValidate autoComplete="off">
         <Card className={classes.card}>
-          <p className={classes.header}>Login</p>
+          <p className={classes.header}>Đăng nhập</p>
           <CardContent>
             <div>
               <TextField
@@ -172,8 +172,7 @@ const Login = () => {
                 fullWidth
                 id="username"
                 type="email"
-                label="Username"
-                placeholder="Username"
+                label="Tên đăng nhập"
                 margin="normal"
                 onChange={handleUsernameChange}
                 onKeyPress={handleKeyPress}
@@ -183,8 +182,7 @@ const Login = () => {
                 fullWidth
                 id="password"
                 type="password"
-                label="Password"
-                placeholder="Password"
+                label="Mật khẩu"
                 margin="normal"
                 helperText={state.helperText}
                 onChange={handlePasswordChange}
@@ -201,14 +199,14 @@ const Login = () => {
               onClick={handleLogin}
               disabled={state.isButtonDisabled}
             >
-              Login
+              Đăng nhập
             </Button>
           </CardActions>
         </Card>
       </form>
       <div className={classes.title}>
         Bạn chưa có tài khoản ?&nbsp;
-        <Link to="/account/Register">Đăng ký</Link>
+        <Link to="/account/Register">Đăng nhập</Link>
       </div>
     </>
   );
