@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import { useTranslation } from 'react-i18next';
+import '../../../i18n/config';
+
 import { makeStyles } from '@material-ui/styles';
 import {
   Card,
@@ -50,12 +53,14 @@ const Login = () => {
   const [helperText, setHelperText] = useState('');
   // const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
+  const { t } = useTranslation(['ns1', 'ns2']);
+
   const handleLogin = () => {
     if (email === '1' && password === '1') {
-      setHelperText('Đăng nhập Thành công');
+      setHelperText(`${t('login:5')}`);
       setError(false);
     } else {
-      setHelperText('Tên đăng nhập hoặc mật khẩu không đúng');
+      setHelperText(`${t('login:6')}`);
       setError(true);
     }
   };
@@ -74,7 +79,7 @@ const Login = () => {
     <>
       <form className={classes.container} noValidate autoComplete="off">
         <Card className={classes.card}>
-          <p className={classes.header}>Đăng nhập</p>
+          <p className={classes.header}>{t('login:1')}</p>
           <CardContent>
             <div>
               <TextField
@@ -82,7 +87,7 @@ const Login = () => {
                 fullWidth
                 id="email"
                 type="email"
-                label="Tên đăng nhập"
+                label={`${t('login:2')}`}
                 margin="normal"
                 onChange={ChangeEmail}
               />
@@ -91,7 +96,7 @@ const Login = () => {
                 fullWidth
                 id="password"
                 type="password"
-                label="Mật khẩu"
+                label={`${t('login:3')}`}
                 margin="normal"
                 onChange={ChangePassword}
                 helperText={helperText}
@@ -106,14 +111,14 @@ const Login = () => {
               className={classes.loginBtn}
               onClick={handleLogin}
             >
-              Đăng nhập
+              {t('login:1')}
             </Button>
           </CardActions>
         </Card>
       </form>
       <div className={classes.title}>
-        Bạn chưa có tài khoản ?&nbsp;
-        <Link to="/account/Register">Đăng nhập</Link>
+        {t('login:4')}&nbsp;
+        <Link to="/account/Register">{t('login:1')}</Link>
       </div>
     </>
   );

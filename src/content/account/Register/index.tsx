@@ -1,5 +1,8 @@
-import { useState } from 'react'
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+
+import { useTranslation } from 'react-i18next';
+import '../../../i18n/config';
 
 import { makeStyles } from '@material-ui/styles';
 import {
@@ -51,20 +54,22 @@ const Login = () => {
   const [helperText, setHelperText] = useState('');
   // const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
+  const { t } = useTranslation(['ns1', 'ns2']);
+
   const handleLogin = () => {
     // check input
     if (email !== '' || password !== '' || forgotPassword !== '') {
-      setHelperText('Đăng ký Thành công');
+      setHelperText(`${t('register:8')}`);
       setError(false);
     } else {
-      setHelperText('Bạn chưa nhập tên đăng nhập hoặc mật khẩu');
+      setHelperText(`${t('register:6')}`);
       setError(true);
       return;
     }
 
     // check password
     if (password !== forgotPassword) {
-      setHelperText('Mật khẩu không trùng khớp');
+      setHelperText(`${t('register:7')}`);
       setError(true);
     }
   };
@@ -89,7 +94,7 @@ const Login = () => {
     <>
       <form className={classes.container} noValidate autoComplete="off">
         <Card className={classes.card}>
-          <p className={classes.header}>Đăng kí</p>
+          <p className={classes.header}>{`${t('register:1')}`}</p>
           <CardContent>
             <div>
               <TextField
@@ -97,7 +102,7 @@ const Login = () => {
                 fullWidth
                 id="email"
                 type="email"
-                label="Tên đăng nhập"
+                label={`${t('register:2')}`}
                 margin="normal"
                 onChange={ChangeEmail}
               />
@@ -106,7 +111,7 @@ const Login = () => {
                 fullWidth
                 id="password"
                 type="password"
-                label="Mật khẩu"
+                label={`${t('register:3')}`}
                 margin="normal"
                 onChange={ChangePassword}
               ></TextField>
@@ -115,7 +120,7 @@ const Login = () => {
                 fullWidth
                 id="forgotPassword"
                 type="password"
-                label="Nhập lại mật khẩu"
+                label={`${t('register:4')}`}
                 margin="normal"
                 onChange={ChangeForgotPassword}
                 helperText={helperText}
@@ -130,14 +135,14 @@ const Login = () => {
               className={classes.loginBtn}
               onClick={handleLogin}
             >
-              Đăng kí
+              {`${t('register:1')}`}
             </Button>
           </CardActions>
         </Card>
       </form>
       <div className={classes.title}>
-        Bạn đã có tài khoản ?&nbsp;
-        <Link to="/account/Login">Đăng kí</Link>
+        {`${t('register:5')}`}&nbsp;
+        <Link to="/account/Login">{`${t('register:1')}`}</Link>
       </div>
     </>
   );

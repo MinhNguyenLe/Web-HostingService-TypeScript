@@ -1,17 +1,17 @@
-import i18n from "i18next";
-import ns1 from "./en/ns1.json";
-import ns2 from "./en/ns2.json";
-import { initReactI18next } from "react-i18next";
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
+import login from './en/login.json';
+// import register from './en/register.json';
 
 export const resources = {
   en: {
-    ns1,
-    ns2,
+    login,
+    // register,
   },
 } as const;
 
 i18n.use(initReactI18next).init({
-  lng: "en",
-  ns: ["ns1", "ns2"],
+  lng: 'en',
+  ns: ['login'],
   resources,
 });
