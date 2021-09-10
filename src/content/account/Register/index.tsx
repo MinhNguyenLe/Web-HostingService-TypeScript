@@ -1,14 +1,14 @@
-import { useState } from 'react';
-
+import { useState } from 'react'
 import { Link } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/styles';
-
-import TextField from '@material-ui/core/TextField';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Button from '@material-ui/core/Button';
+import {
+  Card,
+  CardContent,
+  Button,
+  TextField,
+  CardActions,
+} from '@material-ui/core';
 
 const useStyles = makeStyles({
   container: {
@@ -53,7 +53,7 @@ const Login = () => {
 
   const handleLogin = () => {
     // check input
-    if (email !== '' && password !== '' && forgotPassword !== '') {
+    if (email !== '' || password !== '' || forgotPassword !== '') {
       setHelperText('Đăng ký Thành công');
       setError(false);
     } else {
@@ -69,22 +69,21 @@ const Login = () => {
     }
   };
 
-  const handleEmailChange: React.ChangeEventHandler<HTMLInputElement> = (
-    event
-  ) => {
+  const ChangeEmail: React.ChangeEventHandler<HTMLInputElement> = (event) => {
     setEmail(event.target.value);
   };
 
-  const handlePasswordChange: React.ChangeEventHandler<HTMLInputElement> = (
+  const ChangePassword: React.ChangeEventHandler<HTMLInputElement> = (
     event
   ) => {
     setPassword(event.target.value);
   };
 
-  const handleForgotPasswordChange: React.ChangeEventHandler<HTMLInputElement> =
-    (event) => {
-      setForgotPassword(event.target.value);
-    };
+  const ChangeForgotPassword: React.ChangeEventHandler<HTMLInputElement> = (
+    event
+  ) => {
+    setForgotPassword(event.target.value);
+  };
 
   return (
     <>
@@ -96,11 +95,11 @@ const Login = () => {
               <TextField
                 error={error}
                 fullWidth
-                id="username"
+                id="email"
                 type="email"
                 label="Tên đăng nhập"
                 margin="normal"
-                onChange={handleEmailChange}
+                onChange={ChangeEmail}
               />
               <TextField
                 error={error}
@@ -109,7 +108,7 @@ const Login = () => {
                 type="password"
                 label="Mật khẩu"
                 margin="normal"
-                onChange={handlePasswordChange}
+                onChange={ChangePassword}
               ></TextField>
               <TextField
                 error={error}
@@ -118,7 +117,7 @@ const Login = () => {
                 type="password"
                 label="Nhập lại mật khẩu"
                 margin="normal"
-                onChange={handleForgotPasswordChange}
+                onChange={ChangeForgotPassword}
                 helperText={helperText}
               ></TextField>
             </div>
