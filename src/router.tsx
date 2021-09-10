@@ -14,6 +14,9 @@ const Loader = (Component) => (props) =>
     </Suspense>
   );
 
+//test
+// const Test = Loader(lazy(() => import("src/components/...")));
+
 // login
 const Login = Loader(lazy(() => import("src/content/account/Login")));
 const Register = Loader(lazy(() => import("src/content/account/Register")));
@@ -104,6 +107,10 @@ const routes: PartialRouteObject[] = [
         path: "register",
         element: <Navigate to="/account/register" replace />,
       },
+      // {
+      //   path: "test",
+      //   element: <Test to="/test" replace />,
+      // },
       {
         path: "status",
         children: [
