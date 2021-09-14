@@ -1,4 +1,3 @@
-import { ActionType } from "../action-types/index";
 import { Action } from "../actions";
 
 // let validators: { [s: string]: action.DepositAction } = {};
@@ -6,11 +5,13 @@ import { Action } from "../actions";
 interface initState {
   email: string;
   password: string;
+  theme: number;
 }
 
 const initialState: initState = {
-  email: "default",
+  email: "",
   password: "",
+  theme: 1, // light : 1, dark : 2
 };
 
 const reducer = (
@@ -18,17 +19,22 @@ const reducer = (
   action: Action
 ): initState => {
   switch (action.type) {
-    case ActionType.REGISTER:
+    case "REGISTER":
       return {
         ...state,
         email: action.payload.email,
         password: action.payload.password,
       };
-    case ActionType.LOGIN:
+    case "LOGIN":
       return {
         ...state,
         email: action.payload.email,
         password: action.payload.password,
+      };
+    case "THEME":
+      return {
+        ...state,
+        theme: action.payload.theme,
       };
     default:
       return { ...state };

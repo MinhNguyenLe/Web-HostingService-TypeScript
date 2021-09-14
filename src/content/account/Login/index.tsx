@@ -12,10 +12,16 @@ const Login = () => {
 
   const { login } = bindActionCreators(actionCreators, dispatch);
 
-  const verifyLogin = () => {};
+  const verifyLogin = () => {
+    login({
+      email: "111",
+      password: "222",
+    });
+    console.log(1);
+  };
   return (
     <div>
-      <LoginStyle login={verifyLogin} />
+      <LoginStyle verifyLogin={verifyLogin} />
       <span>{state.email}</span>
     </div>
   );

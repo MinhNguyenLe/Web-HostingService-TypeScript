@@ -4,14 +4,13 @@ import {
   ListItem,
   ListItemText,
   Menu,
-  MenuItem
-} from '@material-ui/core';
-import { useRef, useState } from 'react';
+  MenuItem,
+} from "@material-ui/core";
+import { useRef, useState } from "react";
 
-
-import { NavLink } from 'react-router-dom';
-import { experimentalStyled } from '@material-ui/core/styles';
-import ExpandMoreTwoToneIcon from '@material-ui/icons/ExpandMoreTwoTone';
+import { NavLink } from "react-router-dom";
+import { experimentalStyled } from "@material-ui/core/styles";
+import ExpandMoreTwoToneIcon from "@material-ui/icons/ExpandMoreTwoTone";
 
 const ListWrapper = experimentalStyled(Box)(
   ({ theme }) => `
@@ -20,7 +19,7 @@ const ListWrapper = experimentalStyled(Box)(
         }
         
         .MuiListItem-root {
-            transition: ${theme.transitions.create(['color', 'fill'])};
+            transition: ${theme.transitions.create(["color", "fill"])};
             
             &.MuiListItem-indicators {
                 padding: ${theme.spacing(1, 2)};
@@ -65,9 +64,12 @@ const ListWrapper = experimentalStyled(Box)(
 );
 
 function HeaderMenu() {
-
   const ref = useRef<any>(null);
+  const refTheme = useRef<any>(null);
+
   const [isOpen, setOpen] = useState<boolean>(false);
+
+  const [openTheme, setOpenTheme] = useState<boolean>(false);
 
   const handleOpen = (): void => {
     setOpen(true);
@@ -77,12 +79,19 @@ function HeaderMenu() {
     setOpen(false);
   };
 
+  const handleOpenTheme = (): void => {
+    setOpenTheme(true);
+  };
+
+  const handleCloseTheme = (): void => {
+    setOpenTheme(false);
+  };
   return (
     <>
       <ListWrapper>
         <List disablePadding component={Box} display="flex">
           <ListItem
-            classes={{ root: 'MuiListItem-indicators' }}
+            classes={{ root: "MuiListItem-indicators" }}
             button
             component={NavLink}
             to="/components/buttons"
@@ -93,7 +102,7 @@ function HeaderMenu() {
             />
           </ListItem>
           <ListItem
-            classes={{ root: 'MuiListItem-indicators' }}
+            classes={{ root: "MuiListItem-indicators" }}
             button
             component={NavLink}
             to="/components/forms"
@@ -104,7 +113,7 @@ function HeaderMenu() {
             />
           </ListItem>
           <ListItem
-            classes={{ root: 'MuiListItem-indicators' }}
+            classes={{ root: "MuiListItem-indicators" }}
             button
             ref={ref}
             onClick={handleOpen}
@@ -114,6 +123,24 @@ function HeaderMenu() {
               primary={
                 <Box display="flex" alignItems="center">
                   Others
+                  <Box display="flex" alignItems="center" pl={0.3}>
+                    <ExpandMoreTwoToneIcon fontSize="small" />
+                  </Box>
+                </Box>
+              }
+            />
+          </ListItem>
+          <ListItem
+            classes={{ root: "MuiListItem-indicators" }}
+            button
+            ref={refTheme}
+            onClick={handleOpenTheme}
+          >
+            <ListItemText
+              primaryTypographyProps={{ noWrap: true }}
+              primary={
+                <Box display="flex" alignItems="center">
+                  Themes
                   <Box display="flex" alignItems="center" pl={0.3}>
                     <ExpandMoreTwoToneIcon fontSize="small" />
                   </Box>
@@ -135,6 +162,18 @@ function HeaderMenu() {
         </MenuItem>
         <MenuItem sx={{ px: 3 }} component={NavLink} to="/components/modals">
           Modals
+        </MenuItem>
+      </Menu>
+      <Menu
+        anchorEl={refTheme.current}
+        onClose={handleCloseTheme}
+        open={openTheme}
+      >
+        <MenuItem sx={{ px: 3 }} component={NavLink} to="/dashboards/crypto">
+          Dark
+        </MenuItem>
+        <MenuItem sx={{ px: 3 }} component={NavLink} to="/dashboards/crypto">
+          Light
         </MenuItem>
       </Menu>
     </>

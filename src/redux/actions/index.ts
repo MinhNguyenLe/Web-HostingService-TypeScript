@@ -1,5 +1,3 @@
-import { ActionType } from "../action-types/index";
-
 // export namespace action{
 //   export interface DepositAction {
 //     type: ActionType.DEPOSIT;
@@ -7,8 +5,8 @@ import { ActionType } from "../action-types/index";
 //   }
 // }
 
-interface RegisterAction {
-  type: ActionType.REGISTER;
+interface Register {
+  type: "REGISTER";
   payload: {
     email: string;
     password: string;
@@ -16,11 +14,18 @@ interface RegisterAction {
 }
 
 interface LoginAction {
-  type: ActionType.LOGIN;
+  type: "LOGIN";
   payload: {
     email: string;
     password: string;
   };
 }
 
-export type Action = RegisterAction | LoginAction;
+interface Theme {
+  type: "THEME";
+  payload: {
+    theme: number;
+  };
+}
+
+export type Action = Register | LoginAction | Theme;

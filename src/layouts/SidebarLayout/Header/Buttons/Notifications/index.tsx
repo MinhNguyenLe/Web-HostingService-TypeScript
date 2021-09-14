@@ -1,5 +1,6 @@
 import {
   alpha,
+  Switch,
   Badge,
   Box,
   Divider,
@@ -8,13 +9,18 @@ import {
   ListItem,
   Popover,
   Tooltip,
-  Typography
-} from '@material-ui/core';
-import { useRef, useState } from 'react';
-import NotificationsActiveTwoToneIcon from '@material-ui/icons/NotificationsActiveTwoTone';
-import { experimentalStyled } from '@material-ui/core/styles';
+  Typography,
+} from "@material-ui/core";
+import { useRef, useState } from "react";
+import NotificationsActiveTwoToneIcon from "@material-ui/icons/NotificationsActiveTwoTone";
+import { experimentalStyled } from "@material-ui/core/styles";
 
-import { formatDistance, subDays } from 'date-fns';
+import { formatDistance, subDays } from "date-fns";
+
+import { useDispatch, useSelector } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actionCreators } from "src/redux";
+import { RootState } from "src/redux/reducers";
 
 const NotificationsBadge = experimentalStyled(Badge)(
   ({ theme }) => `
@@ -52,15 +58,34 @@ function HeaderNotifications() {
     setOpen(false);
   };
 
+  const initTheme = useSelector((state: RootState) => state.bank.theme);
+  const dispatch = useDispatch();
+
+  const { theme } = bindActionCreators(actionCreators, dispatch);
+
+  // light : 1 dark : 2
+  const [dark, setDark] = useState(initTheme === 2 ? true : false);
+  const handleToggle = () => {
+    theme(!dark ? 2 : 1);
+    console.log(initTheme);
+    setDark(!dark);
+    // window.location.reload();
+  };
   return (
     <>
+      <Switch
+        edge="end"
+        color="primary"
+        onChange={handleToggle}
+        checked={dark}
+      />
       <Tooltip arrow title="Notifications">
         <IconButton color="primary" ref={ref} onClick={handleOpen}>
           <NotificationsBadge
             badgeContent={1}
             anchorOrigin={{
-              vertical: 'top',
-              horizontal: 'right'
+              vertical: "top",
+              horizontal: "right",
             }}
           >
             <NotificationsActiveTwoToneIcon />
@@ -72,28 +97,35 @@ function HeaderNotifications() {
         onClose={handleClose}
         open={isOpen}
         anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right'
+          vertical: "top",
+          horizontal: "right",
         }}
         transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right'
+          vertical: "top",
+          horizontal: "right",
         }}
       >
-        <Box sx={{ p: 2 }} display="flex" alignItems="center" justifyContent="space-between">
+        <Box
+          sx={{ p: 2 }}
+          display="flex"
+          alignItems="center"
+          justifyContent="space-between"
+        >
           <Typography variant="h5">Notifications</Typography>
         </Box>
         <Divider />
         <List sx={{ p: 0 }}>
-          <ListItem sx={{ p: 2, minWidth: 350, display: { xs: 'block', sm: 'flex' } }}>
+          <ListItem
+            sx={{ p: 2, minWidth: 350, display: { xs: "block", sm: "flex" } }}
+          >
             <Box flex="1">
               <Box display="flex" justifyContent="space-between">
-                <Typography sx={{ fontWeight: 'bold' }}>
+                <Typography sx={{ fontWeight: "bold" }}>
                   Messaging Platform
                 </Typography>
-                <Typography variant="caption" sx={{ textTransform: 'none' }}>
+                <Typography variant="caption" sx={{ textTransform: "none" }}>
                   {formatDistance(subDays(new Date(), 3), new Date(), {
-                    addSuffix: true
+                    addSuffix: true,
                   })}
                 </Typography>
               </Box>
@@ -102,7 +134,7 @@ function HeaderNotifications() {
                 variant="body2"
                 color="text.secondary"
               >
-                {' '}
+                {" "}
                 new messages in your inbox
               </Typography>
             </Box>

@@ -3,10 +3,14 @@ import React from "react";
 import { Theme } from "@material-ui/core";
 
 import { PureLightTheme } from "./schemes/PureLightTheme";
-// import { PureDarkTheme } from "./schemes/PureDarkTheme";
+import { PureDarkTheme } from "./schemes/PureDarkTheme";
 
-export function themeCreator(theme: string): Theme {
-  return themeMap[theme];
+export function themeCreatorLight(theme: string): Theme {
+  return themeLight[theme];
+}
+
+export function themeCreatorDark(theme: string): Theme {
+  return themeDark[theme];
 }
 
 declare module "@material-ui/core/styles" {
@@ -236,7 +240,10 @@ declare module "@material-ui/core/styles" {
   }
 }
 
-const themeMap: { [key: string]: Theme } = {
-  // PureDarkTheme,
+const themeLight: { [key: string]: Theme } = {
   PureLightTheme,
+};
+
+const themeDark: { [key: string]: Theme } = {
+  PureDarkTheme,
 };

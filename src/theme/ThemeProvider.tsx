@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ThemeProvider } from "@material-ui/core";
-import { themeCreator } from "./base";
+import { themeCreatorLight } from "./base";
 import { StylesProvider } from "@material-ui/styles";
 
 export const ThemeContext = React.createContext(
@@ -11,7 +11,7 @@ const ThemeProviderWrapper: React.FC = (props) => {
   // const curThemeName = localStorage.getItem("appTheme") || "PureDarkTheme";
   const curThemeName = localStorage.getItem("appTheme") || "PureLightTheme";
   const [themeName, _setThemeName] = useState(curThemeName);
-  const theme = themeCreator(themeName);
+  const theme = themeCreatorLight(themeName);
   const setThemeName = (themeName: string): void => {
     localStorage.setItem("appTheme", themeName);
     _setThemeName(themeName);

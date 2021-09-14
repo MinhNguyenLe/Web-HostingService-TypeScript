@@ -1,11 +1,15 @@
 import { Dispatch } from "redux";
-import { ActionType } from "../action-types";
 import { Action } from "../actions/index";
 
-export const register = (account: { email: string; password: string }) => {
+interface Account {
+  email: string;
+  password: string;
+}
+
+export const register = (account: Account) => {
   return (dispatch: Dispatch<Action>) => {
     dispatch({
-      type: ActionType.REGISTER,
+      type: "REGISTER",
       payload: {
         email: account.email,
         password: account.password,
@@ -14,13 +18,24 @@ export const register = (account: { email: string; password: string }) => {
   };
 };
 
-export const login = (account: { email: string; password: string }) => {
+export const login = (account: Account) => {
   return (dispatch: Dispatch<Action>) => {
     dispatch({
-      type: ActionType.LOGIN,
+      type: "LOGIN",
       payload: {
         email: account.email,
         password: account.password,
+      },
+    });
+  };
+};
+
+export const theme = (theme: number) => {
+  return (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: "THEME",
+      payload: {
+        theme: theme,
       },
     });
   };

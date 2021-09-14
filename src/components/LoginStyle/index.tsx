@@ -41,7 +41,7 @@ const useStyles = makeStyles({
   },
 });
 
-const LoginStyle = ({ login }) => {
+const LoginStyle = ({ verifyLogin }) => {
   const classes = useStyles();
 
   return (
@@ -73,7 +73,7 @@ const LoginStyle = ({ login }) => {
               size="large"
               color="secondary"
               className={classes.loginBtn}
-              onClick={login}
+              onClick={verifyLogin}
             >
               Đăng nhập
             </Button>

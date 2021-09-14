@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 import {
   Card,
   CardHeader,
@@ -8,14 +8,14 @@ import {
   Divider,
   Switch,
   ListItemAvatar,
-  Avatar
-} from '@material-ui/core';
+  Avatar,
+} from "@material-ui/core";
 
-import { experimentalStyled } from '@material-ui/core/styles';
-import LockTwoToneIcon from '@material-ui/icons/LockTwoTone';
-import PhoneLockedTwoToneIcon from '@material-ui/icons/PhoneLockedTwoTone';
-import EmailTwoToneIcon from '@material-ui/icons/EmailTwoTone';
-import Text from 'src/components/Text';
+import { experimentalStyled } from "@material-ui/core/styles";
+import LockTwoToneIcon from "@material-ui/icons/LockTwoTone";
+import PhoneLockedTwoToneIcon from "@material-ui/icons/PhoneLockedTwoTone";
+import EmailTwoToneIcon from "@material-ui/icons/EmailTwoTone";
+import Text from "src/components/Text";
 
 const AvatarWrapperError = experimentalStyled(Avatar)(
   ({ theme }) => `
@@ -39,9 +39,7 @@ const AvatarWrapperWarning = experimentalStyled(Avatar)(
 );
 
 function AccountSecurity() {
-
-
-  const [checked, setChecked] = useState(['phone_verification']);
+  const [checked, setChecked] = useState(["phone_verification"]);
 
   const handleToggle = (value: string) => () => {
     const currentIndex = checked.indexOf(value);
@@ -70,20 +68,20 @@ function AccountSecurity() {
           <ListItemText
             primary={<Text color="black">2FA Authentication</Text>}
             primaryTypographyProps={{
-              variant: 'body1',
-              fontWeight: 'bold',
-              color: 'textPrimary',
+              variant: "body1",
+              fontWeight: "bold",
+              color: "textPrimary",
               gutterBottom: true,
-              noWrap: true
+              noWrap: true,
             }}
             secondary={<Text color="error">Disabled</Text>}
-            secondaryTypographyProps={{ variant: 'body2', noWrap: true }}
+            secondaryTypographyProps={{ variant: "body2", noWrap: true }}
           />
           <Switch
             edge="end"
             color="primary"
-            onChange={handleToggle('2fa')}
-            checked={checked.indexOf('2fa') !== -1}
+            onChange={handleToggle("2fa")}
+            checked={checked.indexOf("2fa") !== -1}
           />
         </ListItem>
         <Divider />
@@ -96,20 +94,20 @@ function AccountSecurity() {
           <ListItemText
             primary={<Text color="black">Phone Verification</Text>}
             primaryTypographyProps={{
-              variant: 'body1',
-              fontWeight: 'bold',
-              color: 'textPrimary',
+              variant: "body1",
+              fontWeight: "bold",
+              color: "textPrimary",
               gutterBottom: true,
-              noWrap: true
+              noWrap: true,
             }}
             secondary={<Text color="success">Active</Text>}
-            secondaryTypographyProps={{ variant: 'body2', noWrap: true }}
+            secondaryTypographyProps={{ variant: "body2", noWrap: true }}
           />
           <Switch
             edge="end"
             color="primary"
-            onChange={handleToggle('phone_verification')}
-            checked={checked.indexOf('phone_verification') !== -1}
+            onChange={handleToggle("phone_verification")}
+            checked={checked.indexOf("phone_verification") !== -1}
           />
         </ListItem>
         <Divider />
@@ -122,20 +120,20 @@ function AccountSecurity() {
           <ListItemText
             primary={<Text color="black">Recovery Email</Text>}
             primaryTypographyProps={{
-              variant: 'body1',
-              fontWeight: 'bold',
-              color: 'textPrimary',
+              variant: "body1",
+              fontWeight: "bold",
+              color: "textPrimary",
               gutterBottom: true,
-              noWrap: true
+              noWrap: true,
             }}
             secondary={<Text color="warning">Not completed</Text>}
-            secondaryTypographyProps={{ variant: 'body2', noWrap: true }}
+            secondaryTypographyProps={{ variant: "body2", noWrap: true }}
           />
           <Switch
             edge="end"
             color="primary"
-            onChange={handleToggle('recovery_email')}
-            checked={checked.indexOf('recovery_email') !== -1}
+            onChange={handleToggle("recovery_email")}
+            checked={checked.indexOf("recovery_email") !== -1}
           />
         </ListItem>
       </List>

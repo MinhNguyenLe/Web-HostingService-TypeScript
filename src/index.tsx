@@ -9,17 +9,21 @@ import "nprogress/nprogress.css";
 import { SidebarProvider } from "./contexts/SidebarContext";
 
 import { Provider } from "react-redux";
-import { store } from "./redux";
+import { store, persistor } from "./redux";
+
+import { PersistGate } from "redux-persist/integration/react";
 
 ReactDOM.render(
   <Provider store={store}>
-    <HelmetProvider>
-      <SidebarProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </SidebarProvider>
-    </HelmetProvider>
+    <PersistGate loading={null} persistor={persistor}>
+      <HelmetProvider>
+        <SidebarProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </SidebarProvider>
+      </HelmetProvider>
+    </PersistGate>
   </Provider>,
   document.getElementById("root")
 );
