@@ -58,7 +58,7 @@ function HeaderNotifications() {
     setOpen(false);
   };
 
-  const initTheme = useSelector((state: RootState) => state.bank.theme);
+  const initTheme = useSelector((state: RootState) => state.theme);
   const dispatch = useDispatch();
 
   const { theme } = bindActionCreators(actionCreators, dispatch);
