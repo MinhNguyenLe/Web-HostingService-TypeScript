@@ -41,26 +41,6 @@ const menuItems: MenuItems[] = [
     ],
   },
   {
-    heading: "",
-    items: [
-      {
-        name: "Theme",
-        icon: AccountCircleTwoToneIcon,
-        link: "/management/profile",
-        items: [
-          {
-            name: "Light Theme",
-            link: "/management/profile/details",
-          },
-          {
-            name: "Dark Theme",
-            link: "/management/profile/settings",
-          },
-        ],
-      },
-    ],
-  },
-  {
     heading: "account",
     items: [
       {

@@ -69,7 +69,6 @@ function HeaderNotifications() {
     theme(!dark ? 2 : 1);
     console.log(initTheme);
     setDark(!dark);
-    // window.location.reload();
   };
   return (
     <>

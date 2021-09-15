@@ -12,6 +12,11 @@ import { NavLink } from "react-router-dom";
 import { experimentalStyled } from "@material-ui/core/styles";
 import ExpandMoreTwoToneIcon from "@material-ui/icons/ExpandMoreTwoTone";
 
+import { RootState } from "src/redux/reducers";
+import { actionCreators } from "src/redux";
+import { bindActionCreators } from "redux";
+import { useDispatch, useSelector } from "react-redux";
+
 const ListWrapper = experimentalStyled(Box)(
   ({ theme }) => `
         .MuiTouchRipple-root {
@@ -64,12 +69,23 @@ const ListWrapper = experimentalStyled(Box)(
 );
 
 function HeaderMenu() {
+  const themeRedux = useSelector((state: RootState) => state.page.theme);
+  const dispatch = useDispatch();
+
+  const { theme } = bindActionCreators(actionCreators, dispatch);
+
   const ref = useRef<any>(null);
   const refTheme = useRef<any>(null);
 
   const [isOpen, setOpen] = useState<boolean>(false);
 
   const [openTheme, setOpenTheme] = useState<boolean>(false);
+
+  // 1 : light 2 : dark
+  const changeTheme = async (number) => {
+    await theme(number);
+    window.location.reload();
+  };
 
   const handleOpen = (): void => {
     setOpen(true);
@@ -169,10 +185,18 @@ function HeaderMenu() {
         onClose={handleCloseTheme}
         open={openTheme}
       >
-        <MenuItem sx={{ px: 3 }} component={NavLink} to="/dashboards/crypto">
+        <MenuItem
+          onClick={() => changeTheme(2)}
+          sx={{ px: 3 }}
+          selected={themeRedux === 1 ? false : true}
+        >
           Dark
         </MenuItem>
-        <MenuItem sx={{ px: 3 }} component={NavLink} to="/dashboards/crypto">
+        <MenuItem
+          onClick={() => changeTheme(1)}
+          sx={{ px: 3 }}
+          selected={themeRedux === 2 ? false : true}
+        >
           Light
         </MenuItem>
       </Menu>

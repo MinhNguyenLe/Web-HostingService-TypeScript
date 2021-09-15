@@ -5,26 +5,33 @@ import storage from "redux-persist/lib/storage";
 import { reducerUser } from "./user";
 import { reducerPage } from "./page";
 
-const rootPersistConfig = {
-  key: "root",
+// const rootPersistConfig = {
+//   key: "root",
+//   storage: storage,
+// };
+
+const tokenPersistConfig = {
+  key: "token",
   storage: storage,
+  whitelist: ["token"],
 };
 
-const userPersistConfig = {
-  key: "user",
+const themePersistConfig = {
+  key: "theme",
   storage: storage,
-  whitelist: ["email"],
+  whitelist: ["theme"],
 };
 
 type userState = ReturnType<typeof reducerUser>;
+type pageState = ReturnType<typeof reducerPage>;
 
 const reducers = combineReducers({
-  user: persistReducer<userState>(userPersistConfig, reducerUser),
-  page: reducerPage,
+  user: persistReducer<userState>(tokenPersistConfig, reducerUser),
+  page: persistReducer<pageState>(themePersistConfig, reducerPage),
 });
 
 export type RootState = ReturnType<typeof reducers>;
 
-const presistedReducer = persistReducer<RootState>(rootPersistConfig, reducers);
+// const presistedReducer = persistReducer<RootState>(rootPersistConfig, reducers);
 
-export default presistedReducer;
+export default reducers;
