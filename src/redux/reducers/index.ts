@@ -16,8 +16,8 @@ const tokenPersistConfig = {
   whitelist: ["token"],
 };
 
-const themePersistConfig = {
-  key: "theme",
+const pagePersistConfig = {
+  key: "page",
   storage: storage,
   whitelist: ["theme"],
 };
@@ -27,7 +27,7 @@ type pageState = ReturnType<typeof reducerPage>;
 
 const reducers = combineReducers({
   user: persistReducer<userState>(tokenPersistConfig, reducerUser),
-  page: persistReducer<pageState>(themePersistConfig, reducerPage),
+  page: persistReducer<pageState>(pagePersistConfig, reducerPage),
 });
 
 export type RootState = ReturnType<typeof reducers>;

@@ -40,3 +40,14 @@ export const theme = (theme: number) => {
     });
   };
 };
+
+export const lang = (lang: number) => {
+  return (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: "LANG",
+      payload: {
+        lang: lang,
+      },
+    });
+  };
+};

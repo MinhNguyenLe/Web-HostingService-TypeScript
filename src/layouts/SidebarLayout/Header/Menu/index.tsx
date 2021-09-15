@@ -17,6 +17,9 @@ import { actionCreators } from "src/redux";
 import { bindActionCreators } from "redux";
 import { useDispatch, useSelector } from "react-redux";
 
+import { useTranslation } from "react-i18next";
+import i18n from "../../../../i18n/config";
+
 const ListWrapper = experimentalStyled(Box)(
   ({ theme }) => `
         .MuiTouchRipple-root {
@@ -69,10 +72,14 @@ const ListWrapper = experimentalStyled(Box)(
 );
 
 function HeaderMenu() {
+  const { t } = useTranslation(["headerMenu"]);
+
   const themeRedux = useSelector((state: RootState) => state.page.theme);
+  const langRedux = useSelector((state: RootState) => state.page.lang);
+
   const dispatch = useDispatch();
 
-  const { theme } = bindActionCreators(actionCreators, dispatch);
+  const { theme, lang } = bindActionCreators(actionCreators, dispatch);
 
   const ref = useRef<any>(null);
   const refTheme = useRef<any>(null);
@@ -85,6 +92,20 @@ function HeaderMenu() {
   const changeTheme = async (number) => {
     await theme(number);
     window.location.reload();
+  };
+
+  // 1 : en 2 : vi
+  const changeLang = () => {
+    if (langRedux === 1) {
+      lang(2);
+      i18n.changeLanguage("vi");
+      // document.querySelector("html").setAttribute("lang", "vi");
+    } else {
+      lang(1);
+      i18n.changeLanguage("en");
+      // document.querySelector("html").setAttribute("lang", "en");
+    }
+    // window.location.reload();
   };
 
   const handleOpen = (): void => {
@@ -138,7 +159,7 @@ function HeaderMenu() {
               primaryTypographyProps={{ noWrap: true }}
               primary={
                 <Box display="flex" alignItems="center">
-                  Others
+                  {langRedux === 1 ? "English" : "Tiếng việt"}
                   <Box display="flex" alignItems="center" pl={0.3}>
                     <ExpandMoreTwoToneIcon fontSize="small" />
                   </Box>
@@ -156,7 +177,7 @@ function HeaderMenu() {
               primaryTypographyProps={{ noWrap: true }}
               primary={
                 <Box display="flex" alignItems="center">
-                  Themes
+                  {t("3")}
                   <Box display="flex" alignItems="center" pl={0.3}>
                     <ExpandMoreTwoToneIcon fontSize="small" />
                   </Box>
@@ -167,17 +188,8 @@ function HeaderMenu() {
         </List>
       </ListWrapper>
       <Menu anchorEl={ref.current} onClose={handleClose} open={isOpen}>
-        <MenuItem sx={{ px: 3 }} component={NavLink} to="/overview">
-          Overview
-        </MenuItem>
-        <MenuItem sx={{ px: 3 }} component={NavLink} to="/components/tabs">
-          Tabs
-        </MenuItem>
-        <MenuItem sx={{ px: 3 }} component={NavLink} to="/components/cards">
-          Cards
-        </MenuItem>
-        <MenuItem sx={{ px: 3 }} component={NavLink} to="/components/modals">
-          Modals
+        <MenuItem onClick={() => changeLang()} sx={{ px: 3 }}>
+          {langRedux === 1 ? "Tiếng việt" : "English"}
         </MenuItem>
       </Menu>
       <Menu

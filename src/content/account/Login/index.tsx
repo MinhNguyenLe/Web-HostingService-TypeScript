@@ -17,7 +17,6 @@ const Login = () => {
       email: "111",
       password: "222",
     });
-    console.log(1);
   };
   return (
     <div>

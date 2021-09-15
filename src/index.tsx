@@ -1,3 +1,5 @@
+import "./i18n/config";
+
 import Template from "./Template";
 
 import ReactDOM from "react-dom";

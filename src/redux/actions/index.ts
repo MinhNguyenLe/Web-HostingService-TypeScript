@@ -28,4 +28,11 @@ interface Theme {
   };
 }
 
-export type Action = Register | LoginAction | Theme;
+interface Lang {
+  type: "LANG";
+  payload: {
+    lang: number;
+  };
+}
+
+export type Action = Register | LoginAction | Theme | Lang;
