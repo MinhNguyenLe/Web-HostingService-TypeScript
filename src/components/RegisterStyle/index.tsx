@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-
+import { useRef } from "react";
 import { makeStyles } from "@material-ui/styles";
 import {
   Card,
@@ -8,6 +8,8 @@ import {
   TextField,
   CardActions,
 } from "@material-ui/core";
+
+import gql from "graphql-tag";
 
 const useStyles = makeStyles({
   container: {
@@ -40,8 +42,12 @@ const useStyles = makeStyles({
   },
 });
 
-const RegisterStyle = () => {
+const RegisterStyle = ({ submitRegister, setValues, values }) => {
   const classes = useStyles();
+
+  const userNameRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
   return (
     <>
       <form className={classes.container} noValidate autoComplete="off">
@@ -50,25 +56,40 @@ const RegisterStyle = () => {
           <CardContent>
             <div>
               <TextField
+                inputRef={userNameRef}
+                fullWidth
+                id="forgotPassword"
+                type="text"
+                label="Tên người dùng"
+                margin="normal"
+                onChange={() => {
+                  setValues({ ...values, userName: userNameRef.current.value });
+                }}
+              ></TextField>
+              <TextField
+                inputRef={emailRef}
                 fullWidth
                 id="email"
                 type="email"
                 label="Tên đăng nhập"
                 margin="normal"
+                onChange={() => {
+                  setValues({ ...values, email: emailRef.current.value });
+                }}
               />
               <TextField
+                inputRef={passwordRef}
                 fullWidth
                 id="password"
                 type="password"
                 label="Mật khẩu"
                 margin="normal"
-              ></TextField>
-              <TextField
-                fullWidth
-                id="forgotPassword"
-                type="password"
-                label="Nhập lại mật khẩu"
-                margin="normal"
+                onChange={() => {
+                  setValues({
+                    ...values,
+                    password: passwordRef.current.value,
+                  });
+                }}
               ></TextField>
             </div>
           </CardContent>
@@ -78,6 +99,7 @@ const RegisterStyle = () => {
               size="large"
               color="secondary"
               className={classes.loginBtn}
+              onClick={submitRegister}
             >
               Đăng kí
             </Button>
