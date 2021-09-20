@@ -1,6 +1,6 @@
-import { useRef, useState } from 'react';
+import { useRef, useState } from "react";
 
-import { NavLink } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
 
 import {
   Avatar,
@@ -13,15 +13,18 @@ import {
   ListItem,
   ListItemText,
   Popover,
-  Typography
-} from '@material-ui/core';
+  Typography,
+} from "@material-ui/core";
 
-import InboxTwoToneIcon from '@material-ui/icons/InboxTwoTone';
-import { experimentalStyled } from '@material-ui/core/styles';
-import ExpandMoreTwoToneIcon from '@material-ui/icons/ExpandMoreTwoTone';
-import AccountBoxTwoToneIcon from '@material-ui/icons/AccountBoxTwoTone';
-import LockOpenTwoToneIcon from '@material-ui/icons/LockOpenTwoTone';
-import AccountTreeTwoToneIcon from '@material-ui/icons/AccountTreeTwoTone';
+import InboxTwoToneIcon from "@material-ui/icons/InboxTwoTone";
+import { experimentalStyled } from "@material-ui/core/styles";
+import ExpandMoreTwoToneIcon from "@material-ui/icons/ExpandMoreTwoTone";
+import AccountBoxTwoToneIcon from "@material-ui/icons/AccountBoxTwoTone";
+import LockOpenTwoToneIcon from "@material-ui/icons/LockOpenTwoTone";
+import AccountTreeTwoToneIcon from "@material-ui/icons/AccountTreeTwoTone";
+
+import { RootState } from "src/redux/reducers";
+import { useSelector } from "react-redux";
 
 const UserBoxButton = experimentalStyled(Button)(
   ({ theme }) => `
@@ -59,12 +62,12 @@ const UserBoxDescription = experimentalStyled(Typography)(
 );
 
 function HeaderUserbox() {
+  const userRedux = useSelector((state: RootState) => state.user);
 
-  const user =
-  {
-    name: 'Catherine Pike',
-    avatar: '/static/images/avatars/1.jpg',
-    jobtitle: 'Project Manager'
+  const user = {
+    name: userRedux.userName || "Catherine Pike",
+    avatar: "/static/images/avatars/1.jpg",
+    jobtitle: "Project Manager",
   };
 
   const ref = useRef<any>(null);
@@ -99,12 +102,12 @@ function HeaderUserbox() {
         onClose={handleClose}
         open={isOpen}
         anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right'
+          vertical: "top",
+          horizontal: "right",
         }}
         transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right'
+          vertical: "top",
+          horizontal: "right",
         }}
       >
         <MenuUserBox sx={{ minWidth: 210 }} display="flex">
@@ -122,11 +125,7 @@ function HeaderUserbox() {
             <AccountBoxTwoToneIcon fontSize="small" />
             <ListItemText primary="My Profile" />
           </ListItem>
-          <ListItem
-            button
-            to="/dashboards/messenger"
-            component={NavLink}
-          >
+          <ListItem button to="/dashboards/messenger" component={NavLink}>
             <InboxTwoToneIcon fontSize="small" />
             <ListItemText primary="Messenger" />
           </ListItem>

@@ -4,11 +4,15 @@ import {
   InputAdornment,
   Button,
   OutlinedInput,
+  Container,
 } from "@material-ui/core";
 import SearchTwoToneIcon from "@material-ui/icons/SearchTwoTone";
 import { experimentalStyled } from "@material-ui/core/styles";
 
 import axios, { AxiosResponse } from "axios";
+
+import CardDomain from "../../../components/CardDomain";
+import HostingItem from "../../../components/HostingItem";
 
 const ButtonSearch = experimentalStyled(Button)(
   ({ theme }) => `
@@ -50,31 +54,38 @@ const Domain = () => {
   };
   return (
     <div>
-      <OutlinedInputWrapper
-        inputRef={availDomainRef}
-        onKeyPress={(e) => {
-          if (e.key === "Enter")
-            checkAvailableDomain(availDomainRef.current.value);
-        }}
-        type="text"
-        placeholder="Search terms here..."
-        endAdornment={
-          <InputAdornment position="end">
-            <ButtonSearch
-              variant="contained"
-              size="small"
-              onClick={() => checkAvailableDomain(availDomainRef.current.value)}
-            >
-              Search
-            </ButtonSearch>
-          </InputAdornment>
-        }
-        startAdornment={
-          <InputAdornment position="start">
-            <SearchTwoToneIcon />
-          </InputAdornment>
-        }
-      />
+      <HostingItem />
+      <Container maxWidth="sm" sx={{ textAlign: "center", mt: 3, p: 4 }}>
+        <OutlinedInputWrapper
+          fullWidth
+          inputRef={availDomainRef}
+          onKeyPress={(e) => {
+            if (e.key === "Enter")
+              checkAvailableDomain(availDomainRef.current.value);
+          }}
+          type="text"
+          placeholder="Search terms here..."
+          endAdornment={
+            <InputAdornment position="end">
+              <ButtonSearch
+                variant="contained"
+                size="small"
+                onClick={() =>
+                  checkAvailableDomain(availDomainRef.current.value)
+                }
+              >
+                Search
+              </ButtonSearch>
+            </InputAdornment>
+          }
+          startAdornment={
+            <InputAdornment position="start">
+              <SearchTwoToneIcon />
+            </InputAdornment>
+          }
+        />
+      </Container>
+      <CardDomain />
     </div>
   );
 };
