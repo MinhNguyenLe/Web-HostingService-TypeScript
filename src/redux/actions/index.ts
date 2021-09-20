@@ -1,26 +1,16 @@
-// export namespace action{
-//   export interface DepositAction {
-//     type: ActionType.DEPOSIT;
-//     payload: number;
-//   }
-// }
-
-interface Register {
-  type: "REGISTER";
+interface Buyer {
+  type: "BUYER";
   payload: {
     email: string;
-    password: string;
+    idBuyer: string;
+    idUser: string;
+    name: string;
+    userName: string;
+    quantity: number;
+    typeBuyer: number;
+    isPermission: Boolean;
   };
 }
-
-interface LoginAction {
-  type: "LOGIN";
-  payload: {
-    email: string;
-    password: string;
-  };
-}
-
 interface Theme {
   type: "THEME";
   payload: {
@@ -35,4 +25,4 @@ interface Lang {
   };
 }
 
-export type Action = Register | LoginAction | Theme | Lang;
+export type Action = Buyer | Theme | Lang;

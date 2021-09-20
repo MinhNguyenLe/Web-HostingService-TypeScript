@@ -1,31 +1,33 @@
 import { Action } from "../actions";
+import { State } from "../action-creators";
 
-interface initStateUser {
-  email: string;
-  password: string;
-}
-
-const stateUser: initStateUser = {
+const stateUser: State = {
   email: "",
-  password: "",
+  idBuyer: "",
+  idUser: "",
+  name: "",
+  userName: "",
+  quantity: 0,
+  typeBuyer: 1,
+  isPermission: false,
 };
 
 export const reducerUser = (
-  state: initStateUser = stateUser,
+  state: State = stateUser,
   action: Action
-): initStateUser => {
+): State => {
   switch (action.type) {
-    case "REGISTER":
+    case "BUYER":
       return {
         ...state,
         email: action.payload.email,
-        password: action.payload.password,
-      };
-    case "LOGIN":
-      return {
-        ...state,
-        email: action.payload.email,
-        password: action.payload.password,
+        idBuyer: action.payload.idBuyer,
+        idUser: action.payload.idUser,
+        name: action.payload.name,
+        userName: action.payload.userName,
+        quantity: action.payload.quantity,
+        typeBuyer: action.payload.typeBuyer,
+        isPermission: action.payload.isPermission,
       };
     default:
       return { ...state };

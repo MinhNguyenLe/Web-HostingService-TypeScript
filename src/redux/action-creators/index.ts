@@ -3,28 +3,30 @@ import { Action } from "../actions/index";
 
 interface Account {
   email: string;
-  password: string;
+  idBuyer: string;
+  idUser: string;
+  name: string;
+  userName: string;
+  quantity: number;
+  typeBuyer: number;
+  isPermission: Boolean;
 }
 
-export const register = (account: Account) => {
-  return (dispatch: Dispatch<Action>) => {
-    dispatch({
-      type: "REGISTER",
-      payload: {
-        email: account.email,
-        password: account.password,
-      },
-    });
-  };
-};
+export type State = Account;
 
-export const login = (account: Account) => {
+export const buyerRedux = (account: Account) => {
   return (dispatch: Dispatch<Action>) => {
     dispatch({
-      type: "LOGIN",
+      type: "BUYER",
       payload: {
         email: account.email,
-        password: account.password,
+        idBuyer: account.idBuyer,
+        idUser: account.idUser,
+        name: account.name,
+        userName: account.userName,
+        quantity: account.quantity,
+        typeBuyer: account.typeBuyer,
+        isPermission: account.isPermission,
       },
     });
   };

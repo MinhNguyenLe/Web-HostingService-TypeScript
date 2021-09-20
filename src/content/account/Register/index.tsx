@@ -1,10 +1,22 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import RegisterStyle from "../../../components/RegisterStyle";
 
 import { gql, useMutation, useQuery } from "@apollo/client";
 
+import { RootState } from "src/redux/reducers";
+import { actionCreators } from "src/redux";
+import { bindActionCreators } from "redux";
+import { useDispatch, useSelector } from "react-redux";
+
 const Register = () => {
+  const buyer = useSelector((state: RootState) => state.user);
+  const dispatch = useDispatch();
+
+  const { buyerRedux } = bindActionCreators(actionCreators, dispatch);
+
+  const navigate = useNavigate();
+
   const [values, setValues] = useState({
     userName: "",
     password: "",
@@ -14,7 +26,18 @@ const Register = () => {
   });
   const [addUser, { data, loading, error }] = useMutation(REGISTER, {
     update(proxy, result) {
-      console.log(proxy, result);
+      let data = result.data.register;
+      navigate("../../management/profile/details", { replace: true });
+      buyerRedux({
+        email: data.user.email,
+        idBuyer: data._id,
+        idUser: data.user._id,
+        name: data.name,
+        userName: data.user.userName,
+        quantity: data.quantity,
+        typeBuyer: data.typeBuyer,
+        isPermission: data.user.isPermission,
+      });
     },
     variables: values,
   });
@@ -58,6 +81,8 @@ const REGISTER = gql`
         userName
         email
         password
+        isPermission
+        _id
       }
       name
       typeBuyer

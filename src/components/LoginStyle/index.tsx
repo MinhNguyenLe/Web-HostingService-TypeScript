@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef } from "react";
 import { Link } from "react-router-dom";
 
 import { makeStyles } from "@material-ui/styles";
@@ -9,6 +9,7 @@ import {
   TextField,
   CardActions,
 } from "@material-ui/core";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles({
   container: {
@@ -41,28 +42,55 @@ const useStyles = makeStyles({
   },
 });
 
-const LoginStyle = ({ verifyLogin }) => {
+const LoginStyle = ({ verifyLogin, setValues, values }) => {
   const classes = useStyles();
+  const { t } = useTranslation(["login"]);
 
+  const passwordRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+
+  const changeInfo = (value: string, type: string) => {
+    if (type === "member") {
+      setValues({ ...values, quantity: parseInt(value) });
+    }
+    if (type === "userName") {
+      setValues({ ...values, userName: value });
+    }
+    if (type === "name") {
+      setValues({ ...values, name: value });
+    }
+    if (type === "email") {
+      setValues({ ...values, email: value });
+    }
+    if (type === "password") {
+      setValues({ ...values, password: value });
+    }
+  };
   return (
     <>
       <form className={classes.container} noValidate autoComplete="off">
         <Card className={classes.card}>
-          <p className={classes.header}>Đăng nhập</p>
+          <p className={classes.header}>{t("1")}</p>
           <CardContent>
             <div>
               <TextField
                 fullWidth
                 id="email"
                 type="email"
-                label="Tên đăng nhập"
+                inputRef={emailRef}
+                onChange={() => changeInfo(emailRef.current.value, "email")}
+                label={t("2")}
                 margin="normal"
               />
               <TextField
                 fullWidth
                 id="password"
                 type="password"
-                label="Mật khẩu"
+                inputRef={passwordRef}
+                onChange={() =>
+                  changeInfo(passwordRef.current.value, "password")
+                }
+                label={t("3")}
                 margin="normal"
               ></TextField>
             </div>
@@ -75,14 +103,14 @@ const LoginStyle = ({ verifyLogin }) => {
               className={classes.loginBtn}
               onClick={verifyLogin}
             >
-              Đăng nhập
+              {t("1")}
             </Button>
           </CardActions>
         </Card>
       </form>
       <div className={classes.title}>
-        Bạn chưa có tài khoản ?&nbsp;
-        <Link to="/account/Register">Đăng nhập</Link>
+        {t("5")} &nbsp;
+        <Link to="/account/Register">{t("4")}</Link>
       </div>
     </>
   );
