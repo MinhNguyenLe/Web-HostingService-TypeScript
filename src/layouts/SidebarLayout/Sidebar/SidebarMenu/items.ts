@@ -75,12 +75,12 @@ const menuItems: MenuItems[] = [
     items: [
       {
         name: "Register Domain",
-        link: "/account/login",
+        link: "/product/domain",
         icon: DesignServicesTwoToneIcon,
       },
       {
         name: "List Domain",
-        link: "/account/register",
+        link: "/product/domain",
         icon: DesignServicesTwoToneIcon,
       },
     ],
