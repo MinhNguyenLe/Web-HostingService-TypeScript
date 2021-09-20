@@ -5,6 +5,9 @@ import vi_headerMenu from "./vi/header-menu.json";
 import en_login from "./en/login.json";
 import vi_login from "./vi/login.json";
 
+import en_register from "./en/register.json";
+import vi_register from "./vi/register.json";
+
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 
@@ -12,10 +15,12 @@ export const resources = {
   en: {
     headerMenu: en_headerMenu,
     login: en_login,
+    register: en_register,
   },
   vi: {
     headerMenu: vi_headerMenu,
     login: vi_login,
+    register: vi_register,
   },
 } as const;
 
@@ -26,7 +31,7 @@ i18n
     supportedLngs: ["en", "vi"],
     resources: resources,
     fallbackLng: "en",
-    ns: ["headerMenu", "login"],
+    ns: ["headerMenu", "login", "register"],
     detection: {
       order: ["cookie", "htmlTag", "localStorage", "path", "subdomain"],
       caches: ["cookie"],

@@ -9,12 +9,13 @@ import {
   CardActions,
 } from "@material-ui/core";
 
-import gql from "graphql-tag";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles({
   container: {
     display: "flex",
     flexWrap: "wrap",
+    // width: 320, => iphone5
     width: 400,
     margin: "8px auto",
     padding: "0 15px",
@@ -34,7 +35,7 @@ const useStyles = makeStyles({
     margin: "20px",
   },
   card: {
-    marginTop: "80px",
+    marginTop: "20px",
   },
   title: {
     textAlign: "center",
@@ -44,52 +45,151 @@ const useStyles = makeStyles({
 
 const RegisterStyle = ({ submitRegister, setValues, values }) => {
   const classes = useStyles();
+  const { t } = useTranslation(["register"]);
 
   const userNameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
+  const memberRef = useRef<HTMLInputElement>(null);
+  const nameRef = useRef<HTMLInputElement>(null);
+
+  const errUserName = useRef({
+    isErr: false,
+    rules: [
+      {
+        isErr: false,
+        type: "required",
+        text: "This field is required",
+      },
+      {
+        isErr: false,
+        type: "min",
+        text: "This field is required",
+      },
+      {
+        isErr: false,
+        type: "max",
+        text: "This field is required",
+      },
+      {
+        isErr: false,
+        type: "existed",
+        text: "This field is existed",
+      },
+    ],
+    text: () => {
+      // let rule  = {
+      //   isErr: false,
+      //   type: "existed",
+      //   text: "This field is existed",}
+      // [...errUserName.current.rules].forEach((rule,index,arr) => {
+      //   if(rule.isErr) {
+      //     arr.length = 0
+      //   }
+      // })
+
+      // return rule.text
+      return "";
+    },
+  });
+  const errPassword = useRef({
+    isErr: false,
+    text: "",
+  });
+  const errName = useRef({
+    isErr: false,
+    text: "",
+  });
+  const errMember = useRef({
+    isErr: false,
+    text: "",
+  });
+  const errEmail = useRef({
+    isErr: false,
+    text: "",
+  });
+
+  const changeInfo = (value: string, type: string) => {
+    if (type === "member") {
+      setValues({ ...values, quantity: parseInt(value) });
+    }
+    if (type === "userName") {
+      setValues({ ...values, userName: value });
+    }
+    if (type === "name") {
+      setValues({ ...values, name: value });
+    }
+    if (type === "email") {
+      setValues({ ...values, email: value });
+    }
+    if (type === "password") {
+      setValues({ ...values, password: value });
+    }
+  };
+
   return (
     <>
       <form className={classes.container} noValidate autoComplete="off">
         <Card className={classes.card}>
-          <p className={classes.header}>Đăng kí</p>
+          <p className={classes.header}>{t("1")}</p>
           <CardContent>
             <div>
               <TextField
+                error={errUserName.current.isErr}
+                helperText={errUserName.current.text}
                 inputRef={userNameRef}
                 fullWidth
                 id="forgotPassword"
                 type="text"
-                label="Tên người dùng"
+                label={t("2")}
                 margin="normal"
-                onChange={() => {
-                  setValues({ ...values, userName: userNameRef.current.value });
-                }}
+                onChange={() =>
+                  changeInfo(userNameRef.current.value, "userName")
+                }
               ></TextField>
               <TextField
+                error={errMember.current.isErr}
+                helperText={errMember.current.text}
+                inputRef={memberRef}
+                fullWidth
+                type="number"
+                label={t("7")}
+                margin="normal"
+                onChange={() => changeInfo(memberRef.current.value, "member")}
+              ></TextField>
+              <TextField
+                error={errName.current.isErr}
+                helperText={errName.current.text}
+                inputRef={nameRef}
+                fullWidth
+                type="text"
+                label={t("8")}
+                margin="normal"
+                onChange={() => changeInfo(nameRef.current.value, "name")}
+              ></TextField>
+              <TextField
+                error={errEmail.current.isErr}
+                helperText={errEmail.current.text}
                 inputRef={emailRef}
                 fullWidth
                 id="email"
                 type="email"
-                label="Tên đăng nhập"
+                label={t("3")}
                 margin="normal"
-                onChange={() => {
-                  setValues({ ...values, email: emailRef.current.value });
-                }}
+                onChange={() => changeInfo(emailRef.current.value, "email")}
               />
               <TextField
+                error={errPassword.current.isErr}
+                helperText={errPassword.current.text}
                 inputRef={passwordRef}
                 fullWidth
                 id="password"
                 type="password"
-                label="Mật khẩu"
+                label={t("4")}
                 margin="normal"
-                onChange={() => {
-                  setValues({
-                    ...values,
-                    password: passwordRef.current.value,
-                  });
-                }}
+                onChange={() =>
+                  changeInfo(passwordRef.current.value, "password")
+                }
               ></TextField>
             </div>
           </CardContent>
@@ -101,14 +201,14 @@ const RegisterStyle = ({ submitRegister, setValues, values }) => {
               className={classes.loginBtn}
               onClick={submitRegister}
             >
-              Đăng kí
+              {t("1")}
             </Button>
           </CardActions>
         </Card>
       </form>
       <div className={classes.title}>
-        Bạn đã có tài khoản ?&nbsp;
-        <Link to="/account/Login">Đăng kí</Link>
+        {t("5")}&nbsp;
+        <Link to="/account/Login">{t("6")}</Link>
       </div>
     </>
   );

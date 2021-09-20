@@ -9,11 +9,13 @@ const Register = () => {
     userName: "",
     password: "",
     email: "",
+    quantity: 0,
+    name: "",
   });
   const [addUser, { data, loading, error }] = useMutation(REGISTER, {
-    // update(proxy, result) {
-    //   console.log(result);
-    // },
+    update(proxy, result) {
+      console.log(proxy, result);
+    },
     variables: values,
   });
 
@@ -24,25 +26,42 @@ const Register = () => {
     addUser();
   };
   return (
-    <>
+    <div>
       <RegisterStyle
         values={values}
         setValues={setValues}
         submitRegister={submitRegister}
       ></RegisterStyle>
-    </>
+    </div>
   );
 };
 
 const REGISTER = gql`
-  mutation register($userName: String!, $email: String!, $password: String!) {
+  mutation register(
+    $userName: String!
+    $email: String!
+    $password: String!
+    $quantity: Int!
+    $name: String!
+  ) {
     register(
-      register: { userName: $userName, email: $email, password: $password }
+      register: {
+        userName: $userName
+        email: $email
+        password: $password
+        quantity: $quantity
+        name: $name
+      }
     ) {
       _id
-      email
-      userName
-      password
+      user {
+        userName
+        email
+        password
+      }
+      name
+      typeBuyer
+      quantity
       createdAt
       token
     }
