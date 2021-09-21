@@ -14,6 +14,8 @@ import vi_domain from "./vi/domain.json";
 import en_admin from "./en/admin.json";
 import vi_admin from "./vi/admin.json";
 
+import en_addproduct from "./en/add-product.json";
+import vi_addproduct from "./vi/add-product.json";
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 
@@ -24,6 +26,7 @@ export const resources = {
     register: en_register,
     domain: en_domain,
     admin: en_admin,
+    addproduct: en_addproduct,
   },
   vi: {
     headerMenu: vi_headerMenu,
@@ -31,6 +34,7 @@ export const resources = {
     register: vi_register,
     domain: vi_domain,
     admin: vi_admin,
+    addproduct: vi_addproduct,
   },
 } as const;
 
@@ -41,7 +45,7 @@ i18n
     supportedLngs: ["en", "vi"],
     resources: resources,
     fallbackLng: "en",
-    ns: ["headerMenu", "login", "register", "domain", "admin"],
+    ns: ["headerMenu", "login", "register", "domain", "admin", "addproduct"],
     detection: {
       order: ["cookie", "htmlTag", "localStorage", "path", "subdomain"],
       caches: ["cookie"],

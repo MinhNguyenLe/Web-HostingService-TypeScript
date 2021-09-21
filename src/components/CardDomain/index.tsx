@@ -11,7 +11,7 @@ import {
 
 export default function CardDomain() {
   return (
-    <Card sx={{ maxWidth: 345, minWidth: 290 }}>
+    <Card sx={{ maxWidth: 320, minWidth: 290, minHeight: 260 }}>
       <CardActionArea>
         <CardMedia
           component="img"
@@ -23,7 +23,7 @@ export default function CardDomain() {
           </Typography>
           <Typography variant="body2" color="text.secondary">
             Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+            species, r
           </Typography>
         </CardContent>
       </CardActionArea>

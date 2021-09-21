@@ -19,6 +19,8 @@ import CommentTwoToneIcon from "@material-ui/icons/CommentTwoTone";
 import ShareTwoToneIcon from "@material-ui/icons/ShareTwoTone";
 import Text from "src/components/Text";
 
+import { useTranslation } from "react-i18next";
+
 const CardActionsWrapper = experimentalStyled(CardActions)(
   ({ theme }) => `
      background: ${theme.colors.alpha.black[5]};
@@ -27,6 +29,7 @@ const CardActionsWrapper = experimentalStyled(CardActions)(
 );
 
 function AddHosting() {
+  const { t } = useTranslation(["addproduct"]);
   return (
     <Card>
       <CardHeader

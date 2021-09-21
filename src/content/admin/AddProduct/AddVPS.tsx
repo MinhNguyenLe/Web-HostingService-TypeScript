@@ -11,7 +11,10 @@ import {
   Switch,
 } from "@material-ui/core";
 
+import { useTranslation } from "react-i18next";
+
 function AddVPS() {
+  const { t } = useTranslation(["addproduct"]);
   const [state, setState] = useState({
     checkedA: true,
     checkedB: false,

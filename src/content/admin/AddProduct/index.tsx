@@ -11,6 +11,8 @@ import AddHosting from "./AddHosting";
 import AddVPS from "./AddVPS";
 import AddServer from "./AddServer";
 
+import { useTranslation } from "react-i18next";
+
 const TabsWrapper = experimentalStyled(Tabs)(
   () => `
     .MuiTabs-scrollableX {
@@ -20,13 +22,15 @@ const TabsWrapper = experimentalStyled(Tabs)(
 );
 
 function AddProduct() {
-  const [currentTab, setCurrentTab] = useState<string>("activity");
+  const { t } = useTranslation(["addproduct"]);
+
+  const [currentTab, setCurrentTab] = useState<string>("domain");
 
   const tabs = [
-    { value: "activity", label: "Activity" },
-    { value: "edit_profile", label: "Edit Profile" },
-    { value: "notifications", label: "Notifications" },
-    { value: "security", label: "Passwords/Security" },
+    { value: "domain", label: "Domain" },
+    { value: "hosting", label: "Hosting" },
+    { value: "vps", label: "Cloud VPS" },
+    { value: "server", label: "Server" },
   ];
 
   const handleTabsChange = (event: ChangeEvent<{}>, value: string): void => {
@@ -64,10 +68,10 @@ function AddProduct() {
             </TabsWrapper>
           </Grid>
           <Grid item xs={12}>
-            {currentTab === "activity" && <AddDomain />}
-            {currentTab === "edit_profile" && <AddHosting />}
-            {currentTab === "notifications" && <AddVPS />}
-            {currentTab === "security" && <AddServer />}
+            {currentTab === "domain" && <AddDomain />}
+            {currentTab === "hosting" && <AddHosting />}
+            {currentTab === "vps" && <AddVPS />}
+            {currentTab === "server" && <AddServer />}
           </Grid>
         </Grid>
       </Container>

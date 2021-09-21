@@ -30,6 +30,8 @@ import DoneTwoToneIcon from "@material-ui/icons/DoneTwoTone";
 import DeleteTwoToneIcon from "@material-ui/icons/DeleteTwoTone";
 import { format, subHours, subWeeks, subDays } from "date-fns";
 
+import { useTranslation } from "react-i18next";
+
 const ButtonError = experimentalStyled(Button)(
   ({ theme }) => `
      background: ${theme.colors.error.main};
@@ -57,6 +59,7 @@ const AvatarWrapper = experimentalStyled(Avatar)(
 );
 
 function AddServer() {
+  const { t } = useTranslation(["addproduct"]);
   const theme = useTheme();
 
   const [page, setPage] = useState(2);

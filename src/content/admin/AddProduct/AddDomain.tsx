@@ -1,3 +1,5 @@
+import React, { useState } from "react";
+
 import {
   Grid,
   Typography,
@@ -6,6 +8,9 @@ import {
   Box,
   Divider,
   Button,
+  CardActionArea,
+  Tooltip,
+  Avatar,
 } from "@material-ui/core";
 
 import EditTwoToneIcon from "@material-ui/icons/EditTwoTone";
@@ -13,183 +18,93 @@ import DoneTwoToneIcon from "@material-ui/icons/DoneTwoTone";
 import Text from "src/components/Text";
 import Label from "src/components/Label";
 
+import { useTranslation } from "react-i18next";
+
+import AddTwoToneIcon from "@material-ui/icons/AddTwoTone";
+import { experimentalStyled } from "@material-ui/core/styles";
+
+import CardDomain from "../../../components/CardDomain";
+import DialogDomain from "../../../components/DialogDomain";
+
+const CardAddAction = experimentalStyled(Card)(
+  ({ theme }) => `
+        border: ${theme.colors.primary.main} dashed 1px;
+        height: 100%;
+        color: ${theme.colors.primary.main};
+        box-shadow: none;
+        
+        .MuiCardActionArea-root {
+          height: 100%;
+          justify-content: center;
+          align-items: center;
+          display: flex;
+        }
+        
+        .MuiTouchRipple-root {
+          opacity: .2;
+        }
+        
+        &:hover {
+          border-color: ${theme.colors.alpha.black[100]};
+        }
+`
+);
+
+const AvatarAddWrapper = experimentalStyled(Avatar)(
+  ({ theme }) => `
+        background: ${theme.colors.alpha.black[5]};
+        color: ${theme.colors.primary.main};
+        width: ${theme.spacing(8)};
+        height: ${theme.spacing(8)};
+`
+);
+
 function AddDomain() {
+  const { t } = useTranslation(["addproduct"]);
+
+  const [open, setOpen] = useState<boolean>(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
   return (
-    <Grid container spacing={3}>
-      <Grid item xs={12}>
-        <Card>
-          <Box
-            p={3}
-            display="flex"
-            alignItems="center"
-            justifyContent="space-between"
-          >
-            <Box>
-              <Typography variant="h4" gutterBottom>
-                Personal Details
-              </Typography>
-              <Typography variant="subtitle2">
-                Manage informations related to your personal details
-              </Typography>
-            </Box>
-            <Button variant="text" startIcon={<EditTwoToneIcon />}>
-              Edit
-            </Button>
-          </Box>
-          <Divider />
-          <CardContent sx={{ p: 4 }}>
-            <Typography variant="subtitle2">
-              <Grid container spacing={0}>
-                <Grid item xs={12} sm={4} md={3} textAlign={{ sm: "right" }}>
-                  <Box pr={3} pb={2}>
-                    Name:
-                  </Box>
-                </Grid>
-                <Grid item xs={12} sm={8} md={9}>
-                  <Text color="black">
-                    <b>Craig Donin</b>
-                  </Text>
-                </Grid>
-                <Grid item xs={12} sm={4} md={3} textAlign={{ sm: "right" }}>
-                  <Box pr={3} pb={2}>
-                    Date of birth:
-                  </Box>
-                </Grid>
-                <Grid item xs={12} sm={8} md={9}>
-                  <Text color="black">
-                    <b>15 March 1977</b>
-                  </Text>
-                </Grid>
-                <Grid item xs={12} sm={4} md={3} textAlign={{ sm: "right" }}>
-                  <Box pr={3} pb={2}>
-                    Address:
-                  </Box>
-                </Grid>
-                <Grid item xs={12} sm={8} md={9}>
-                  <Box sx={{ maxWidth: { xs: "auto", sm: 300 } }}>
-                    <Text color="black">
-                      1749 High Meadow Lane, SEQUOIA NATIONAL PARK, California,
-                      93262
-                    </Text>
-                  </Box>
-                </Grid>
-              </Grid>
-            </Typography>
-          </CardContent>
-        </Card>
-      </Grid>
-      <Grid item xs={12}>
-        <Card>
-          <Box
-            p={3}
-            display="flex"
-            alignItems="center"
-            justifyContent="space-between"
-          >
-            <Box>
-              <Typography variant="h4" gutterBottom>
-                Account Settings
-              </Typography>
-              <Typography variant="subtitle2">
-                Manage details related to your account
-              </Typography>
-            </Box>
-            <Button variant="text" startIcon={<EditTwoToneIcon />}>
-              Edit
-            </Button>
-          </Box>
-          <Divider />
-          <CardContent sx={{ p: 4 }}>
-            <Typography variant="subtitle2">
-              <Grid container spacing={0}>
-                <Grid item xs={12} sm={4} md={3} textAlign={{ sm: "right" }}>
-                  <Box pr={3} pb={2}>
-                    Language:
-                  </Box>
-                </Grid>
-                <Grid item xs={12} sm={8} md={9}>
-                  <Text color="black">
-                    <b>English (US)</b>
-                  </Text>
-                </Grid>
-                <Grid item xs={12} sm={4} md={3} textAlign={{ sm: "right" }}>
-                  <Box pr={3} pb={2}>
-                    Timezone:
-                  </Box>
-                </Grid>
-                <Grid item xs={12} sm={8} md={9}>
-                  <Text color="black">
-                    <b>GMT +2</b>
-                  </Text>
-                </Grid>
-                <Grid item xs={12} sm={4} md={3} textAlign={{ sm: "right" }}>
-                  <Box pr={3} pb={2}>
-                    Account status:
-                  </Box>
-                </Grid>
-                <Grid item xs={12} sm={8} md={9}>
-                  <Label color="success">
-                    <DoneTwoToneIcon fontSize="small" />
-                    <b>Active</b>
-                  </Label>
-                </Grid>
-              </Grid>
-            </Typography>
-          </CardContent>
-        </Card>
-      </Grid>
-      <Grid item xs={12}>
-        <Card>
-          <Box
-            p={3}
-            display="flex"
-            alignItems="center"
-            justifyContent="space-between"
-          >
-            <Box>
-              <Typography variant="h4" gutterBottom>
-                Email Addresses
-              </Typography>
-              <Typography variant="subtitle2">
-                Manage details related to your associated email addresses
-              </Typography>
-            </Box>
-            <Button variant="text" startIcon={<EditTwoToneIcon />}>
-              Edit
-            </Button>
-          </Box>
-          <Divider />
-          <CardContent sx={{ p: 4 }}>
-            <Typography variant="subtitle2">
-              <Grid container spacing={0}>
-                <Grid item xs={12} sm={4} md={3} textAlign={{ sm: "right" }}>
-                  <Box pr={3} pb={2}>
-                    Email ID:
-                  </Box>
-                </Grid>
-                <Grid item xs={12} sm={8} md={9}>
-                  <Text color="black">
-                    <b>example@demo.com</b>
-                  </Text>
-                  <Box pl={1} component="span">
-                    <Label color="success">Primary</Label>
-                  </Box>
-                </Grid>
-                <Grid item xs={12} sm={4} md={3} textAlign={{ sm: "right" }}>
-                  <Box pr={3} pb={2}>
-                    Email ID:
-                  </Box>
-                </Grid>
-                <Grid item xs={12} sm={8} md={9}>
-                  <Text color="black">
-                    <b>demo@example.com</b>
-                  </Text>
-                </Grid>
-              </Grid>
-            </Typography>
-          </CardContent>
-        </Card>
-      </Grid>
+    <Grid
+      container
+      spacing={3}
+      sx={{ paddingLeft: "24px", display: "flex", flexWrap: "wrap" }}
+    >
+      <DialogDomain open={open} setOpen={setOpen} />
+      <Card
+        onClick={handleClickOpen}
+        sx={{
+          margin: " 8px 16px 8px 0",
+          width: "320px",
+          minWidth: 290,
+          minHeight: 260,
+        }}
+      >
+        <Tooltip arrow title={t("3")}>
+          <CardAddAction>
+            <CardActionArea sx={{ px: 1 }}>
+              <CardContent>
+                <AvatarAddWrapper>
+                  <AddTwoToneIcon fontSize="large" />
+                </AvatarAddWrapper>
+              </CardContent>
+            </CardActionArea>
+          </CardAddAction>
+        </Tooltip>
+      </Card>
+      <Card sx={{ margin: " 8px 16px 8px 0" }}>
+        <CardDomain />
+      </Card>
+      <Card sx={{ margin: " 8px 16px 8px 0" }}>
+        <CardDomain />
+      </Card>
+      <Card sx={{ margin: " 8px 16px 8px 0" }}>
+        <CardDomain />
+      </Card>
     </Grid>
   );
 }
