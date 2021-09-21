@@ -85,7 +85,6 @@ const Domain = () => {
           }
         />
       </Container>
-      <CardDomain />
     </div>
   );
 };

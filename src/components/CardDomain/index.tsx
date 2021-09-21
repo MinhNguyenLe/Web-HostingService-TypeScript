@@ -9,21 +9,17 @@ import {
   CardActionArea,
 } from "@material-ui/core";
 
-export default function CardDomain() {
+export default function CardDomain({ image, price, information }) {
   return (
-    <Card sx={{ maxWidth: 320, minWidth: 290, minHeight: 260 }}>
+    <Card sx={{ width: 320, minWidth: 290, minHeight: 260 }}>
       <CardActionArea>
-        <CardMedia
-          component="img"
-          image="https://assets.hostinger.com/images/domain-checker-2020/tlds-all/icon-link-dc6d553c49.svg"
-        />
+        <CardMedia sx={{ height: "120px" }} component="img" image={image} />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            50.000 VNĐ/năm
+            {price} VNĐ/năm
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, r
+            {information}
           </Typography>
         </CardContent>
       </CardActionArea>

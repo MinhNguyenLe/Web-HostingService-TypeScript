@@ -68,22 +68,17 @@ function AddDomain() {
   const { t } = useTranslation(["addproduct"]);
 
   const [dataDomain, setDataDomain] = useState();
+
+  const {
+    loading: loadDomain,
+    error: errDomain,
+    data: allDomain,
+  } = useQuery(DOMAINS);
   // const {
   //   loading: loadingDomain,
   //   error: errorDomain,
   //   data: dataDomain,
-  // } = useQuery(DOMAINS);
-  const listDomain = useQuery(DOMAINS);
-
-  useEffect(() => {
-    if (listDomain.loading) {
-      console.log("Loading list of list Domain");
-    } else {
-      setDataDomain(listDomain.data);
-      console.log(listDomain.data);
-    }
-  }, []);
-
+  // } = useQuery(DOMAINS)
   const [item, setItem] = useState({
     file: null,
     name: "",
@@ -111,9 +106,11 @@ function AddDomain() {
       information: item?.information,
     },
   });
-
-  if (loading) console.log("loading");
-  if (error) console.log(JSON.stringify(error, null, 2));
+  if (loading || loadDomain) console.log("loading");
+  if (error || errDomain) {
+    if (error) console.log(JSON.stringify(error, null, 2));
+    else console.log(JSON.stringify(errDomain, null, 2));
+  }
 
   const createNew = () => {
     console.log(item);
@@ -121,13 +118,14 @@ function AddDomain() {
     const formData = new FormData();
     formData.append("file", item?.file);
     formData.append("upload_preset", "leminh2k");
-    axios
-      .post("https://api.cloudinary.com/v1_1/djes0pztf/image/upload", formData)
-      .then((res) => {
-        setItem({ ...item, images: res?.data?.secure_url });
-        createDomain();
-        console.log(item);
-      });
+    // axios
+    //   .post("https://api.cloudinary.com/v1_1/djes0pztf/image/upload", formData)
+    //   .then((res) => {
+    //     setItem({ ...item, images: res?.data?.secure_url });
+    //     createDomain();
+    //     console.log(item);
+    //   });
+    console.log(allDomain);
     setOpen(false);
   };
 
@@ -165,14 +163,27 @@ function AddDomain() {
           </CardAddAction>
         </Tooltip>
       </Card>
+      {allDomain?.domains ? (
+        allDomain?.domains.map((item) => {
+          return (
+            <Card sx={{ margin: " 8px 16px 8px 0" }}>
+              <CardDomain
+                image={item["images"][0]}
+                price={item?.price}
+                information={item?.information}
+              />
+            </Card>
+          );
+        })
+      ) : (
+        <div></div>
+      )}
       <Card sx={{ margin: " 8px 16px 8px 0" }}>
-        <CardDomain />
-      </Card>
-      <Card sx={{ margin: " 8px 16px 8px 0" }}>
-        <CardDomain />
-      </Card>
-      <Card sx={{ margin: " 8px 16px 8px 0" }}>
-        <CardDomain />
+        <CardDomain
+          image="https://assets.hostinger.com/images/domain-checker-2020/tlds-all/icon-link-dc6d553c49.svg"
+          price="5000"
+          information="sdjngf oiurnisurdnb iuehbius hgkregh "
+        />
       </Card>
     </Grid>
   );
@@ -210,14 +221,16 @@ const CREATE_DOMAIN = gql`
 
 const DOMAINS = gql`
   query domains {
-    _id
-    dot
-    information
-    images
-    product {
+    domains {
       _id
-      months
-      price
+      dot
+      information
+      images
+      product {
+        _id
+        months
+        price
+      }
     }
   }
 `;
