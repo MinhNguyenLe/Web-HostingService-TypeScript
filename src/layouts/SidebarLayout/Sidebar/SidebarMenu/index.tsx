@@ -1,9 +1,11 @@
-import { ListSubheader, List } from '@material-ui/core';
-import { useLocation, matchPath } from 'react-router-dom';
-import SidebarMenuItem from './item';
-import menuItems, { MenuItem } from './items';
-import { experimentalStyled } from '@material-ui/core/styles';
+import { ListSubheader, List } from "@material-ui/core";
+import { useLocation, matchPath } from "react-router-dom";
+import SidebarMenuItem from "./item";
+import menuItems, { menuItemsAdmin, MenuItem } from "./items";
+import { experimentalStyled } from "@material-ui/core/styles";
 
+import { RootState } from "src/redux/reducers";
+import { useSelector } from "react-redux";
 
 const MenuWrapper = experimentalStyled(List)(
   ({ theme }) => `
@@ -60,7 +62,7 @@ const SubMenuWrapper = experimentalStyled(List)(
     
           .MuiButton-startIcon,
           .MuiButton-endIcon {
-            transition: ${theme.transitions.create(['color'])};
+            transition: ${theme.transitions.create(["color"])};
 
             .MuiSvgIcon-root {
               font-size: inherit;
@@ -124,7 +126,7 @@ const SubMenuWrapper = experimentalStyled(List)(
 
 const renderSidebarMenuItems = ({
   items,
-  path
+  path,
 }: {
   items: MenuItem[];
   path: string;
@@ -137,7 +139,7 @@ const renderSidebarMenuItems = ({
 const reduceChildRoutes = ({
   ev,
   path,
-  item
+  item,
 }: {
   ev: JSX.Element[];
   path: string;
@@ -145,16 +147,26 @@ const reduceChildRoutes = ({
 }): Array<JSX.Element> => {
   const key = item.name;
 
-  const exactMatch = item.link ? !!matchPath({
-    path: item.link,
-    end: true
-  }, path) : false;
+  const exactMatch = item.link
+    ? !!matchPath(
+        {
+          path: item.link,
+          end: true,
+        },
+        path
+      )
+    : false;
 
   if (item.items) {
-    const partialMatch = item.link ? !!matchPath({
-      path: item.link,
-      end: false
-    }, path) : false;
+    const partialMatch = item.link
+      ? !!matchPath(
+          {
+            path: item.link,
+            end: false,
+          },
+          path
+        )
+      : false;
 
     ev.push(
       <SidebarMenuItem
@@ -168,7 +180,7 @@ const reduceChildRoutes = ({
       >
         {renderSidebarMenuItems({
           path,
-          items: item.items
+          items: item.items,
         })}
       </SidebarMenuItem>
     );
@@ -186,15 +198,16 @@ const reduceChildRoutes = ({
   }
 
   return ev;
-}
+};
 
 function SidebarMenu() {
   const location = useLocation();
 
+  const userRedux = useSelector((state: RootState) => state.user);
 
   return (
     <>
-      {menuItems.map((section) => (
+      {(userRedux.isPermission ? menuItems : menuItemsAdmin).map((section) => (
         <MenuWrapper
           key={section.heading}
           subheader={
@@ -203,7 +216,7 @@ function SidebarMenu() {
         >
           {renderSidebarMenuItems({
             items: section.items,
-            path: location.pathname
+            path: location.pathname,
           })}
         </MenuWrapper>
       ))}
