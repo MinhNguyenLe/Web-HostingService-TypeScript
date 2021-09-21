@@ -1,3 +1,4 @@
+// require("dotenv").config();
 import React, { useState } from "react";
 
 import {
@@ -25,6 +26,8 @@ import { experimentalStyled } from "@material-ui/core/styles";
 
 import CardDomain from "../../../components/CardDomain";
 import DialogDomain from "../../../components/DialogDomain";
+
+import axios from "axios";
 
 const CardAddAction = experimentalStyled(Card)(
   ({ theme }) => `
@@ -62,10 +65,23 @@ const AvatarAddWrapper = experimentalStyled(Avatar)(
 function AddDomain() {
   const { t } = useTranslation(["addproduct"]);
 
+  const [item, setItem] = useState({
+    file: null,
+  });
   const [open, setOpen] = useState<boolean>(false);
 
   const handleClickOpen = () => {
     setOpen(true);
+  };
+
+  const createNew = () => {
+    const formData = new FormData();
+    formData.append("file", item?.file);
+    formData.append("upload_preset", "leminh2k");
+    axios.post(process.env.API_CLOUDINARY, formData).then((res) => {
+      console.log(res?.data?.secure_url);
+    });
+    setOpen(false);
   };
 
   return (
@@ -74,7 +90,12 @@ function AddDomain() {
       spacing={3}
       sx={{ paddingLeft: "24px", display: "flex", flexWrap: "wrap" }}
     >
-      <DialogDomain open={open} setOpen={setOpen} />
+      <DialogDomain
+        setItem={setItem}
+        open={open}
+        setOpen={setOpen}
+        createNew={createNew}
+      />
       <Card
         onClick={handleClickOpen}
         sx={{
