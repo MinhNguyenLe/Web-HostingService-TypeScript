@@ -56,83 +56,38 @@ const menuItems: MenuItems[] = [
     ],
   },
   {
-    heading: "hosting",
+    heading: "Products",
     items: [
       {
-        name: "Hosting Window",
-        link: "/account/login",
+        name: "Hosting",
+        link: "/product/hosting",
         icon: DesignServicesTwoToneIcon,
       },
       {
-        name: "Hosting Linux",
-        link: "/account/register",
-        icon: DesignServicesTwoToneIcon,
-      },
-    ],
-  },
-  {
-    heading: "domain",
-    items: [
-      {
-        name: "Register Domain",
+        name: "Domain",
         link: "/product/domain",
         icon: DesignServicesTwoToneIcon,
       },
       {
-        name: "List Domain",
-        link: "/product/domain",
-        icon: DesignServicesTwoToneIcon,
-      },
-    ],
-  },
-  {
-    heading: "cloud vps",
-    items: [
-      {
-        name: "Cloud VPS basic",
-        link: "/account/login",
+        name: "Cloud VPS",
+        link: "/product/vps",
         icon: DesignServicesTwoToneIcon,
       },
       {
-        name: "Cloud VPS Pro",
-        link: "/account/register",
+        name: "Server",
+        link: "/product/server",
         icon: DesignServicesTwoToneIcon,
-      },
-    ],
-  },
-  {
-    heading: "server",
-    items: [
-      {
-        name: "Server for small business",
-        link: "/account/login",
-        icon: DesignServicesTwoToneIcon,
-      },
-      {
-        name: "Super Server",
-        link: "/account/register",
-        icon: DesignServicesTwoToneIcon,
-      },
-    ],
-  },
-  {
-    heading: "Dashboards",
-    items: [
-      {
-        name: "Crypto",
-        link: "/dashboards/crypto",
-        icon: BrightnessLowTwoToneIcon,
-      },
-      {
-        name: "Messenger",
-        icon: MmsTwoToneIcon,
-        link: "/dashboards/messenger",
       },
     ],
   },
   {
     heading: "Management",
     items: [
+      {
+        name: "You are Manager",
+        icon: TableChartTwoToneIcon,
+        link: "/management/admin",
+      },
       {
         name: "Transactions",
         icon: TableChartTwoToneIcon,
@@ -152,6 +107,21 @@ const menuItems: MenuItems[] = [
             link: "/management/profile/settings",
           },
         ],
+      },
+    ],
+  },
+  {
+    heading: "Dashboards",
+    items: [
+      {
+        name: "Crypto",
+        link: "/dashboards/crypto",
+        icon: BrightnessLowTwoToneIcon,
+      },
+      {
+        name: "Messenger",
+        icon: MmsTwoToneIcon,
+        link: "/dashboards/messenger",
       },
     ],
   },

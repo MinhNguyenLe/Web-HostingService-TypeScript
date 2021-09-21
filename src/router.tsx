@@ -175,23 +175,17 @@ const routes: PartialRouteObject[] = [
         path: "domain",
         element: <Domain />,
       },
-    ],
-  },
-  {
-    path: "dashboards",
-    element: <SidebarLayout />,
-    children: [
       {
-        path: "/",
-        element: <Navigate to="/dashboards/crypto" replace />,
+        path: "hosting",
+        element: <Domain />,
       },
       {
-        path: "crypto",
-        element: <Crypto />,
+        path: "vps",
+        element: <Domain />,
       },
       {
-        path: "messenger",
-        element: <Messenger />,
+        path: "server",
+        element: <Domain />,
       },
     ],
   },
@@ -202,6 +196,10 @@ const routes: PartialRouteObject[] = [
       {
         path: "/",
         element: <Navigate to="/management/transactions" replace />,
+      },
+      {
+        path: "admin",
+        element: <Transactions />,
       },
       {
         path: "transactions",
@@ -223,6 +221,24 @@ const routes: PartialRouteObject[] = [
             element: <UserSettings />,
           },
         ],
+      },
+    ],
+  },
+  {
+    path: "dashboards",
+    element: <SidebarLayout />,
+    children: [
+      {
+        path: "/",
+        element: <Navigate to="/dashboards/crypto" replace />,
+      },
+      {
+        path: "crypto",
+        element: <Crypto />,
+      },
+      {
+        path: "messenger",
+        element: <Messenger />,
       },
     ],
   },
