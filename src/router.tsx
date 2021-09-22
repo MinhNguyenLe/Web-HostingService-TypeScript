@@ -20,6 +20,10 @@ const Loader = (Component) => (props) =>
 //test
 // const Test = Loader(lazy(() => import("src/components/...")));
 
+//cart
+const ViewCart = Loader(lazy(() => import("src/content/cart/ViewCart")));
+const Payment = Loader(lazy(() => import("src/content/cart/Payment")));
+
 //admion
 const AddProduct = Loader(lazy(() => import("src/content/admin/AddProduct")));
 
@@ -202,6 +206,14 @@ const routes: PartialRouteObject[] = [
       {
         path: "/",
         element: <Navigate to="/management/transactions" replace />,
+      },
+      {
+        path: "cart",
+        element: <ViewCart />,
+      },
+      {
+        path: "cart/payment",
+        element: <Payment />,
       },
       {
         path: "transactions",
@@ -420,6 +432,14 @@ export const routesAdmin: PartialRouteObject[] = [
             element: <Transactions />,
           },
         ],
+      },
+      {
+        path: "cart",
+        element: <ViewCart />,
+      },
+      {
+        path: "cart/payment",
+        element: <Payment />,
       },
       {
         path: "transactions",

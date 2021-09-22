@@ -24,8 +24,8 @@ import { useTranslation } from "react-i18next";
 import AddTwoToneIcon from "@material-ui/icons/AddTwoTone";
 import { experimentalStyled } from "@material-ui/core/styles";
 
-import CardDomain from "../../../components/CardDomain";
-import DialogDomain from "../../../components/DialogDomain";
+import CardDomain from "../../../components/Domain/CardDomain";
+import DialogDomain from "../../../components/Dialog/DialogDomain";
 
 import axios from "axios";
 

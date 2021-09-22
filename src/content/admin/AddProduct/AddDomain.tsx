@@ -21,48 +21,13 @@ import Label from "src/components/Label";
 
 import { useTranslation } from "react-i18next";
 
-import AddTwoToneIcon from "@material-ui/icons/AddTwoTone";
-import { experimentalStyled } from "@material-ui/core/styles";
-
-import CardDomain from "../../../components/CardDomain";
-import DialogDomain from "../../../components/DialogDomain";
+import CardDomain from "../../../components/Domain/CardDomain";
+import DialogDomain from "../../../components/Dialog/DialogDomain";
+import AddNewProduct from "../../../components/Product/AddNewProduct";
 
 import axios from "axios";
 
 import { gql, useMutation, useQuery } from "@apollo/client";
-
-const CardAddAction = experimentalStyled(Card)(
-  ({ theme }) => `
-        border: ${theme.colors.primary.main} dashed 1px;
-        height: 100%;
-        color: ${theme.colors.primary.main};
-        box-shadow: none;
-        
-        .MuiCardActionArea-root {
-          height: 100%;
-          justify-content: center;
-          align-items: center;
-          display: flex;
-        }
-        
-        .MuiTouchRipple-root {
-          opacity: .2;
-        }
-        
-        &:hover {
-          border-color: ${theme.colors.alpha.black[100]};
-        }
-`
-);
-
-const AvatarAddWrapper = experimentalStyled(Avatar)(
-  ({ theme }) => `
-        background: ${theme.colors.alpha.black[5]};
-        color: ${theme.colors.primary.main};
-        width: ${theme.spacing(8)};
-        height: ${theme.spacing(8)};
-`
-);
 
 function AddDomain() {
   const { t } = useTranslation(["addproduct"]);
@@ -120,6 +85,12 @@ function AddDomain() {
     setOpen(false);
   };
 
+  const sx = {
+    margin: " 8px 16px 8px 0",
+    width: "320px",
+    minWidth: 290,
+    minHeight: 260,
+  };
   return (
     <Grid
       container
@@ -133,34 +104,14 @@ function AddDomain() {
         setOpen={setOpen}
         createNew={createNew}
       />
-      <Card
-        onClick={handleClickOpen}
-        sx={{
-          margin: " 8px 16px 8px 0",
-          width: "320px",
-          minWidth: 290,
-          minHeight: 260,
-        }}
-      >
-        <Tooltip arrow title={t("3")}>
-          <CardAddAction>
-            <CardActionArea sx={{ px: 1 }}>
-              <CardContent>
-                <AvatarAddWrapper>
-                  <AddTwoToneIcon fontSize="large" />
-                </AvatarAddWrapper>
-              </CardContent>
-            </CardActionArea>
-          </CardAddAction>
-        </Tooltip>
-      </Card>
+      <AddNewProduct sx={sx} handleClickOpen={handleClickOpen} />
       {allDomain?.domains ? (
         allDomain?.domains.map((item) => {
           return (
             <Card sx={{ margin: " 8px 16px 8px 0" }} key={item._id}>
               <CardDomain
                 image={item["images"][0]}
-                price={item?.price}
+                price={item?.product?.price}
                 information={item?.information}
               />
             </Card>

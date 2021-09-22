@@ -1,31 +1,14 @@
 import { useRef } from "react";
-import {
-  TextField,
-  InputAdornment,
-  Button,
-  OutlinedInput,
-  Container,
-} from "@material-ui/core";
-import SearchTwoToneIcon from "@material-ui/icons/SearchTwoTone";
-import { experimentalStyled } from "@material-ui/core/styles";
+import { Card, Grid, Container } from "@material-ui/core";
 
 import axios, { AxiosResponse } from "axios";
 
-import CardDomain from "../../../components/CardDomain";
-import HostingItem from "../../../components/HostingItem";
+import CardDomain from "../../../components/Domain/CardDomain";
+import SearchAvailable from "../../../components/Domain/SearchAvailable";
 
-const ButtonSearch = experimentalStyled(Button)(
-  ({ theme }) => `
-    margin-right: -${theme.spacing(1)};
-`
-);
+import { gql, useMutation, useQuery } from "@apollo/client";
 
-const OutlinedInputWrapper = experimentalStyled(OutlinedInput)(
-  ({ theme }) => `
-  background-color: ${theme.colors.alpha.white[100]};
-`
-);
-
+import { useTranslation } from "react-i18next";
 interface availDomain {
   data: {
     DomainInfo: Object;
@@ -40,6 +23,17 @@ declare module "axios" {
 }
 
 const Domain = () => {
+  const {
+    loading: loadDomain,
+    error: errDomain,
+    data: allDomain,
+  } = useQuery(DOMAINS);
+
+  if (loadDomain) console.log("loading domain");
+  if (errDomain) {
+    console.log(JSON.stringify(errDomain, null, 2));
+  }
+
   const availDomainRef = useRef<HTMLInputElement>(null);
 
   const checkAvailableDomain = (domain: string) => {
@@ -54,39 +48,49 @@ const Domain = () => {
   };
   return (
     <div>
-      <HostingItem />
-      <Container maxWidth="sm" sx={{ textAlign: "center", mt: 3, p: 4 }}>
-        <OutlinedInputWrapper
-          fullWidth
-          inputRef={availDomainRef}
-          onKeyPress={(e) => {
-            if (e.key === "Enter")
-              checkAvailableDomain(availDomainRef.current.value);
-          }}
-          type="text"
-          placeholder="Search terms here..."
-          endAdornment={
-            <InputAdornment position="end">
-              <ButtonSearch
-                variant="contained"
-                size="small"
-                onClick={() =>
-                  checkAvailableDomain(availDomainRef.current.value)
-                }
-              >
-                Search
-              </ButtonSearch>
-            </InputAdornment>
-          }
-          startAdornment={
-            <InputAdornment position="start">
-              <SearchTwoToneIcon />
-            </InputAdornment>
-          }
-        />
-      </Container>
+      <SearchAvailable
+        checkAvailableDomain={checkAvailableDomain}
+        availDomainRef={availDomainRef}
+      />
+      <Grid
+        container
+        spacing={3}
+        sx={{ paddingLeft: "24px", display: "flex", flexWrap: "wrap" }}
+      >
+        {allDomain?.domains ? (
+          allDomain?.domains.map((item) => {
+            return (
+              <Card sx={{ margin: " 8px 16px 8px 0" }} key={item._id}>
+                <CardDomain
+                  image={item["images"][0]}
+                  price={item?.product?.price}
+                  information={item?.information}
+                />
+              </Card>
+            );
+          })
+        ) : (
+          <div></div>
+        )}
+      </Grid>
     </div>
   );
 };
+
+const DOMAINS = gql`
+  query domains {
+    domains {
+      _id
+      dot
+      information
+      images
+      product {
+        _id
+        months
+        price
+      }
+    }
+  }
+`;
 
 export default Domain;

@@ -84,6 +84,11 @@ const menuItems: MenuItems[] = [
     heading: "Management",
     items: [
       {
+        name: "Cart",
+        icon: TableChartTwoToneIcon,
+        link: "/management/cart",
+      },
+      {
         name: "Transactions",
         icon: TableChartTwoToneIcon,
         link: "/management/transactions",
@@ -254,6 +259,11 @@ export const menuItemsAdmin: MenuItems[] = [
   {
     heading: "Management",
     items: [
+      {
+        name: "Cart",
+        icon: TableChartTwoToneIcon,
+        link: "/management/cart",
+      },
       {
         name: "Transactions",
         icon: TableChartTwoToneIcon,
