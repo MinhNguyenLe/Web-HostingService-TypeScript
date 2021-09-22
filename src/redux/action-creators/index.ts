@@ -1,5 +1,5 @@
 import { Dispatch } from "redux";
-import { Action } from "../actions/index";
+import { Action, DomainType } from "../actions/index";
 
 export interface AccountType {
   email: string;
@@ -12,24 +12,13 @@ export interface AccountType {
   isPermission: boolean;
 }
 
-export interface DomainType {
-  idDomain: string;
-  nameUrl: string;
-  dot: string;
-  product: {
-    idProduct: string;
-    price: number;
-    months: number;
-  };
-}
-
 export interface CartType {
-  domain: [Object];
+  domain: Array<DomainType>;
 }
 
 // export type State = Account | Cart;
 
-export const cartDomain = (domain: [Object]) => {
+export const cartDomain = (domain: Array<DomainType>) => {
   return (dispatch: Dispatch<Action>) => {
     dispatch({
       type: "CART_DOMAIN",

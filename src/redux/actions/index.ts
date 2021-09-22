@@ -18,10 +18,21 @@ interface Theme {
   };
 }
 
+export interface DomainType {
+  idDomain: string;
+  nameUrl: string;
+  dot: string;
+  product: {
+    idProduct: string;
+    price: number;
+    months: number;
+  };
+}
+
 interface Cart {
   type: "CART_DOMAIN";
   payload: {
-    domain: [Object];
+    domain: Array<DomainType>;
   };
 }
 

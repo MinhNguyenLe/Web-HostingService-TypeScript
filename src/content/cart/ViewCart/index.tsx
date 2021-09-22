@@ -1,4 +1,4 @@
-import { useState, MouseEvent, ChangeEvent } from "react";
+import { useState, MouseEvent, useRef } from "react";
 import {
   Card,
   Grid,
@@ -15,6 +15,14 @@ import { experimentalStyled } from "@material-ui/core/styles";
 import DoneTwoToneIcon from "@material-ui/icons/DoneTwoTone";
 
 import { useTranslation } from "react-i18next";
+
+import { RootState } from "src/redux/reducers";
+import { actionCreators } from "src/redux";
+import { useSelector } from "react-redux";
+
+import { Link, useNavigate } from "react-router-dom";
+
+import { gql, useMutation, useQuery } from "@apollo/client";
 
 const ButtonError = experimentalStyled(Button)(
   ({ theme }) => `
@@ -37,10 +45,47 @@ const AvatarSuccess = experimentalStyled(Avatar)(
 
 const ViewCart = () => {
   const { t } = useTranslation(["cart"]);
+  const navigate = useNavigate();
+  const domainRedux = useSelector((state: RootState) => state.cart.domain);
 
+  const oneDomain = useRef({
+    nameUrl: "",
+    user: "",
+    domain: "",
+    product: "",
+  });
+
+  const [buy, { data, loading, error }] = useMutation(BUY_ONE, {
+    update(proxy, result) {
+      // navigate("/payment", { replace: true });
+      console.log(result.data.createUserDomain);
+    },
+    variables: {
+      nameUrl: "hihihihi",
+      user: "614ada30b7882e49b4405852",
+      domain: "6149b5abbcbf0251e06d2368",
+      product: "6149b5abbcbf0251e06d2366",
+      // nameUrl: oneDomain.current.nameUrl,
+      // user: oneDomain.current.user,
+      // domain: oneDomain.current.domain,
+      // product: oneDomain.current.product,
+    },
+  });
+
+  if (loading) console.log("loading");
+  if (error) console.log(JSON.stringify(error, null, 2));
+
+  const buyOne = (item) => {
+    oneDomain.current.nameUrl = item.nameUrl;
+    oneDomain.current.domain = item.idDomain;
+    oneDomain.current.user = "614ada30b7882e49b4405852";
+    oneDomain.current.product = item.product.idProduct;
+    console.log(oneDomain.current);
+    buy();
+  };
   return (
     <Grid container spacing={3} sx={{ marginTop: "20px" }}>
-      <Grid sx={{ margin: "auto" }} xs={10}>
+      <Grid sx={{ margin: "auto" }} item xs={10}>
         <Grid item xs={12}>
           <Card>
             <List>
@@ -62,7 +107,40 @@ const ViewCart = () => {
                 </Button>
               </ListItem>
 
-              <Divider component="li" />
+              {domainRedux.map((item) => {
+                return (
+                  <div key={item.idDomain}>
+                    <Divider component="li" />
+                    <ListItem sx={{ p: 3 }}>
+                      <ListItemAvatar sx={{ pr: 2 }}>
+                        <AvatarSuccess>
+                          <DoneTwoToneIcon />
+                        </AvatarSuccess>
+                      </ListItemAvatar>
+                      <ListItemText
+                        primaryTypographyProps={{
+                          variant: "h5",
+                          gutterBottom: true,
+                        }}
+                        secondaryTypographyProps={{
+                          variant: "subtitle2",
+                          lineHeight: 1,
+                        }}
+                        primary={`${item?.nameUrl + item?.dot}`}
+                        secondary="Your Twitter account was last syncronized 6 days ago"
+                      />
+                      <Button
+                        onClick={() => buyOne(item)}
+                        size="large"
+                        variant="outlined"
+                      >
+                        {t("2")}
+                      </Button>
+                    </ListItem>
+                  </div>
+                );
+              })}
+              {/* <Divider component="li" />
               <ListItem sx={{ p: 3 }}>
                 <ListItemAvatar sx={{ pr: 2 }}>
                   <AvatarSuccess>
@@ -81,7 +159,7 @@ const ViewCart = () => {
                 <Button size="large" variant="outlined">
                   {t("2")}
                 </Button>
-              </ListItem>
+              </ListItem> */}
             </List>
           </Card>
         </Grid>
@@ -89,5 +167,32 @@ const ViewCart = () => {
     </Grid>
   );
 };
+
+const BUY_ONE = gql`
+  mutation createUserDomain(
+    $nameUrl: String!
+    $user: ID!
+    $domain: ID!
+    $product: ID!
+  ) {
+    createUserDomain(
+      createUserDomain: {
+        nameUrl: $nameUrl
+        user: $user
+        domain: $domain
+        product: $product
+      }
+    ) {
+      _id
+      userProduct {
+        price
+        months
+        _id
+      }
+      nameUrl
+      dot
+    }
+  }
+`;
 
 export default ViewCart;
