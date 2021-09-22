@@ -67,18 +67,12 @@ const AvatarAddWrapper = experimentalStyled(Avatar)(
 function AddDomain() {
   const { t } = useTranslation(["addproduct"]);
 
-  const [dataDomain, setDataDomain] = useState();
-
   const {
     loading: loadDomain,
     error: errDomain,
     data: allDomain,
   } = useQuery(DOMAINS);
-  // const {
-  //   loading: loadingDomain,
-  //   error: errorDomain,
-  //   data: dataDomain,
-  // } = useQuery(DOMAINS)
+
   const [item, setItem] = useState({
     file: null,
     name: "",
@@ -113,19 +107,16 @@ function AddDomain() {
   }
 
   const createNew = () => {
-    console.log(item);
-
     const formData = new FormData();
     formData.append("file", item?.file);
     formData.append("upload_preset", "leminh2k");
-    // axios
-    //   .post("https://api.cloudinary.com/v1_1/djes0pztf/image/upload", formData)
-    //   .then((res) => {
-    //     setItem({ ...item, images: res?.data?.secure_url });
-    //     createDomain();
-    //     console.log(item);
-    //   });
-    console.log(allDomain);
+    axios
+      .post("https://api.cloudinary.com/v1_1/djes0pztf/image/upload", formData)
+      .then((res) => {
+        setItem({ ...item, images: res?.data?.secure_url });
+        createDomain();
+        console.log(item);
+      });
     setOpen(false);
   };
 
@@ -166,7 +157,7 @@ function AddDomain() {
       {allDomain?.domains ? (
         allDomain?.domains.map((item) => {
           return (
-            <Card sx={{ margin: " 8px 16px 8px 0" }}>
+            <Card sx={{ margin: " 8px 16px 8px 0" }} key={item._id}>
               <CardDomain
                 image={item["images"][0]}
                 price={item?.price}

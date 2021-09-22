@@ -12,7 +12,6 @@ import { useSelector } from "react-redux";
 const App = () => {
   const userRedux = useSelector((state: RootState) => state.user);
   const content = useRoutes(userRedux.isPermission ? routes : routesAdmin);
-
   return (
     <ThemeProvider>
       <LocalizationProvider dateAdapter={AdapterDateFns}>
