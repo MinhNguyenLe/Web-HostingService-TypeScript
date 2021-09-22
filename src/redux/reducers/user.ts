@@ -1,7 +1,7 @@
 import { Action } from "../actions";
-import { State } from "../action-creators";
+import { AccountType } from "../action-creators";
 
-const stateUser: State = {
+const stateUser: AccountType = {
   email: "",
   idBuyer: "",
   idUser: "",
@@ -13,9 +13,9 @@ const stateUser: State = {
 };
 
 export const reducerUser = (
-  state: State = stateUser,
+  state: AccountType = stateUser,
   action: Action
-): State => {
+): AccountType => {
   switch (action.type) {
     case "BUYER":
       return {

@@ -9,10 +9,17 @@ import {
   CardActionArea,
 } from "@material-ui/core";
 
-export default function CardDomain({ image, price, information }) {
+export default function CardDomain({
+  item,
+  registerDomain,
+  image,
+  price,
+  information,
+  chooseDot,
+}) {
   return (
     <Card sx={{ width: 320, minWidth: 290, minHeight: 260 }}>
-      <CardActionArea>
+      <CardActionArea onClick={() => chooseDot(item?.dot)}>
         <CardMedia sx={{ height: "120px" }} component="img" image={image} />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
@@ -24,7 +31,11 @@ export default function CardDomain({ image, price, information }) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="medium" color="primary">
+        <Button
+          onClick={() => registerDomain(item)}
+          size="medium"
+          color="primary"
+        >
           Register
         </Button>
       </CardActions>

@@ -31,10 +31,8 @@ import axios from "axios";
 
 import { gql, useMutation, useQuery } from "@apollo/client";
 
-import PaymentForm from "src/components/PaymentForm";
-
 function AddHosting() {
-  return <PaymentForm />;
+  return <div>aaaaahosting </div>;
 }
 
 export default AddHosting;

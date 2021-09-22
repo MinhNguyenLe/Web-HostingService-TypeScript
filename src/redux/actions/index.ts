@@ -8,13 +8,20 @@ interface Buyer {
     userName: string;
     quantity: number;
     typeBuyer: number;
-    isPermission: Boolean;
+    isPermission: boolean;
   };
 }
 interface Theme {
   type: "THEME";
   payload: {
     theme: number;
+  };
+}
+
+interface Cart {
+  type: "CART_DOMAIN";
+  payload: {
+    domain: [Object];
   };
 }
 
@@ -25,4 +32,4 @@ interface Lang {
   };
 }
 
-export type Action = Buyer | Theme | Lang;
+export type Action = Buyer | Theme | Lang | Cart;

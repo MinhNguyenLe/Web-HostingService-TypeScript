@@ -110,6 +110,9 @@ function AddDomain() {
           return (
             <Card sx={{ margin: " 8px 16px 8px 0" }} key={item._id}>
               <CardDomain
+                chooseDot={() => console.log(1111)}
+                item={1}
+                registerDomain={() => console.log("aaaaaaaaa")}
                 image={item["images"][0]}
                 price={item?.product?.price}
                 information={item?.information}
@@ -122,6 +125,9 @@ function AddDomain() {
       )}
       <Card sx={{ margin: " 8px 16px 8px 0" }}>
         <CardDomain
+          chooseDot={() => console.log(1111)}
+          item={1}
+          registerDomain={() => console.log("aaaaaaaaa")}
           image="https://assets.hostinger.com/images/domain-checker-2020/tlds-all/icon-link-dc6d553c49.svg"
           price="5000"
           information="sdjngf oiurnisurdnb iuehbius hgkregh "

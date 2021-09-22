@@ -1,7 +1,7 @@
 import { Dispatch } from "redux";
 import { Action } from "../actions/index";
 
-interface Account {
+export interface AccountType {
   email: string;
   idBuyer: string;
   idUser: string;
@@ -9,12 +9,38 @@ interface Account {
   userName: string;
   quantity: number;
   typeBuyer: number;
-  isPermission: Boolean;
+  isPermission: boolean;
 }
 
-export type State = Account;
+export interface DomainType {
+  idDomain: string;
+  nameUrl: string;
+  dot: string;
+  product: {
+    idProduct: string;
+    price: number;
+    months: number;
+  };
+}
 
-export const buyerRedux = (account: Account) => {
+export interface CartType {
+  domain: [Object];
+}
+
+// export type State = Account | Cart;
+
+export const cartDomain = (domain: [Object]) => {
+  return (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: "CART_DOMAIN",
+      payload: {
+        domain: domain,
+      },
+    });
+  };
+};
+
+export const buyerRedux = (account: AccountType) => {
   return (dispatch: Dispatch<Action>) => {
     dispatch({
       type: "BUYER",

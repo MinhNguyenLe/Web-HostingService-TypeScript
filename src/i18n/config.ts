@@ -19,6 +19,10 @@ import vi_dialog from "./vi/dialog.json";
 
 import en_addproduct from "./en/add-product.json";
 import vi_addproduct from "./vi/add-product.json";
+
+import en_cart from "./en/cart.json";
+import vi_cart from "./vi/cart.json";
+
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 
@@ -31,6 +35,7 @@ export const resources = {
     admin: en_admin,
     addproduct: en_addproduct,
     dialog: en_dialog,
+    cart: en_cart,
   },
   vi: {
     headerMenu: vi_headerMenu,
@@ -40,6 +45,7 @@ export const resources = {
     admin: vi_admin,
     addproduct: vi_addproduct,
     dialog: vi_dialog,
+    cart: vi_cart,
   },
 } as const;
 
@@ -58,6 +64,7 @@ i18n
       "admin",
       "addproduct",
       "dialog",
+      "cart",
     ],
     detection: {
       order: ["cookie", "htmlTag", "localStorage", "path", "subdomain"],

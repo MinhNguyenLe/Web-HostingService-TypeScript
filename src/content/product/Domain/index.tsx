@@ -9,6 +9,14 @@ import SearchAvailable from "../../../components/Domain/SearchAvailable";
 import { gql, useMutation, useQuery } from "@apollo/client";
 
 import { useTranslation } from "react-i18next";
+
+import { Link, useNavigate } from "react-router-dom";
+
+import { RootState } from "src/redux/reducers";
+import { actionCreators } from "src/redux";
+import { bindActionCreators } from "redux";
+import { useDispatch, useSelector } from "react-redux";
+
 interface availDomain {
   data: {
     DomainInfo: Object;
@@ -23,6 +31,11 @@ declare module "axios" {
 }
 
 const Domain = () => {
+  const cartRedux = useSelector((state: RootState) => state.cart);
+  const dispatch = useDispatch();
+  const { cartDomain } = bindActionCreators(actionCreators, dispatch);
+
+  const navigate = useNavigate();
   const {
     loading: loadDomain,
     error: errDomain,
@@ -36,15 +49,50 @@ const Domain = () => {
 
   const availDomainRef = useRef<HTMLInputElement>(null);
 
+  const nameUrl = useRef<string>("");
+  const dotRef = useRef<string>("");
+  const available = useRef<boolean>(false);
+
+  const chooseDot = (dot) => {
+    dotRef.current = dot;
+  };
+
   const checkAvailableDomain = (domain: string) => {
     axios
       .get<availDomain>(
-        `https://domain-availability.whoisxmlapi.com/api/v1?apiKey=at_euKgMtfT4h6beO1APHUGNrP1r7URW&domainName=${domain}&credits=DA`
+        `https://domain-availability.whoisxmlapi.com/api/v1?apiKey=at_euKgMtfT4h6beO1APHUGNrP1r7URW&domainName=${
+          domain + dotRef.current
+        }&credits=DA`
       )
       .then((res: AxiosResponse) => {
         console.log(res?.data?.DomainInfo);
+
+        if (res?.data?.DomainInfo.domainAvailability === "AVAILABLE")
+          available.current = true;
+        else available.current = false;
+
+        nameUrl.current = res?.data?.DomainInfo.domainName;
       })
       .catch();
+  };
+  const registerDomain = (item) => {
+    if (available.current) {
+      let newCart = cartRedux.domain;
+      newCart.push({
+        idDomain: item?._id,
+        nameUrl: nameUrl.current,
+        dot: item?.dot,
+        product: {
+          idProduct: item?.product._id,
+          price: item?.product.price,
+          months: item?.product.months,
+        },
+      });
+      cartDomain(newCart);
+      navigate("../../management/cart", { replace: true });
+    } else {
+      console.log("fail roi thang ngu");
+    }
   };
   return (
     <div>
@@ -62,6 +110,9 @@ const Domain = () => {
             return (
               <Card sx={{ margin: " 8px 16px 8px 0" }} key={item._id}>
                 <CardDomain
+                  chooseDot={chooseDot}
+                  item={item}
+                  registerDomain={registerDomain}
                   image={item["images"][0]}
                   price={item?.product?.price}
                   information={item?.information}
