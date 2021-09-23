@@ -51,6 +51,10 @@ const menuItemsWithPermission = (isPermission: boolean): MenuItems[] => {
           link: "/management/admin/add",
         },
         {
+          name: "Products are using",
+          link: "/management/admin/user-product",
+        },
+        {
           name: "Statistic",
           link: "/management/admin/statistic",
         },
@@ -59,15 +63,19 @@ const menuItemsWithPermission = (isPermission: boolean): MenuItems[] => {
     {
       name: "User Profile",
       icon: AccountCircleTwoToneIcon,
-      link: "/management/profile",
+      link: "/management/buyer",
       items: [
         {
+          name: "Your Products",
+          link: "/management/buyer/products",
+        },
+        {
           name: "Profile Details",
-          link: "/management/profile/details",
+          link: "/management/buyer/profile",
         },
         {
           name: "User Settings",
-          link: "/management/profile/settings",
+          link: "/management/buyer/settings",
         },
       ],
     },

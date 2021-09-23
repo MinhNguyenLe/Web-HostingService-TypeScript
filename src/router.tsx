@@ -23,6 +23,7 @@ const Payment = Loader(lazy(() => import("src/content/cart/Payment")));
 
 //admin
 const AddProduct = Loader(lazy(() => import("src/content/admin/AddProduct")));
+const Management = Loader(lazy(() => import("src/content/admin/Management")));
 
 //product
 const Domain = Loader(lazy(() => import("src/content/product/Domain")));
@@ -47,12 +48,9 @@ const Messenger = Loader(
 const Transactions = Loader(
   lazy(() => import("src/content/applications/Transactions"))
 );
-const UserProfile = Loader(
-  lazy(() => import("src/content/applications/Users/profile"))
-);
-const UserSettings = Loader(
-  lazy(() => import("src/content/applications/Users/settings"))
-);
+const UserProfile = Loader(lazy(() => import("src/content/buyer/Profile")));
+const UserSettings = Loader(lazy(() => import("src/content/buyer/Settings")));
+const UserProduct = Loader(lazy(() => import("src/content/buyer/Products")));
 
 // Components
 
@@ -104,11 +102,15 @@ const checkPermissionRouter = (isPermission: boolean): PartialRouteObject[] => {
       children: [
         {
           path: "/",
-          element: <Navigate to="statistic" replace />,
+          element: <Navigate to="/add" replace />,
         },
         {
           path: "add",
           element: <AddProduct />,
+        },
+        {
+          path: "user-product",
+          element: <Management />,
         },
         {
           path: "statistic",
@@ -129,19 +131,23 @@ const checkPermissionRouter = (isPermission: boolean): PartialRouteObject[] => {
       element: <Transactions />,
     },
     {
-      path: "profile",
+      path: "buyer",
       children: [
         {
           path: "/",
-          element: <Navigate to="details" replace />,
+          element: <Navigate to="profile" replace />,
         },
         {
-          path: "details",
+          path: "profile",
           element: <UserProfile />,
         },
         {
           path: "settings",
           element: <UserSettings />,
+        },
+        {
+          path: "products",
+          element: <UserProduct />,
         },
       ],
     },
