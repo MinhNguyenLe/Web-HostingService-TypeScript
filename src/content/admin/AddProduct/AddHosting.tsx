@@ -80,7 +80,13 @@ function AddHosting() {
       <AddNewProduct sx={sx} handleClickOpen={handleClickOpen} />
       {dataHosting?.hosting ? (
         dataHosting?.hosting.map((item) => {
-          return <HostingItem key={item._id} item={item} />;
+          return (
+            <HostingItem
+              select={() => console.log(111)}
+              key={item._id}
+              item={item}
+            />
+          );
         })
       ) : (
         <div></div>

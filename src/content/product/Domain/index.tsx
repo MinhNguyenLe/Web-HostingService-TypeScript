@@ -77,38 +77,19 @@ const Domain = () => {
       .catch();
   };
   const registerDomain = (item) => {
-    if (available.current) {
-      let newCart = cartRedux.domain;
-      if (newCart.length === 1 && newCart[0].idDomain === "") {
-        newCart = [
-          {
-            idDomain: item?._id,
-            nameUrl: nameUrl.current,
-            dot: item?.dot,
-            product: {
-              idProduct: item?.product._id,
-              price: item?.product.price,
-              months: item?.product.months,
-            },
-          },
-        ];
-      } else {
-        newCart.push({
-          idDomain: item?._id,
-          nameUrl: nameUrl.current,
-          dot: item?.dot,
-          product: {
-            idProduct: item?.product._id,
-            price: item?.product.price,
-            months: item?.product.months,
-          },
-        });
-      }
-      cartDomain(newCart);
-      navigate("../../management/cart", { replace: true });
-    } else {
-      console.log("fail roi thang ngu");
-    }
+    let newCart = [];
+    newCart.push({
+      idDomain: item?._id,
+      nameUrl: nameUrl.current,
+      dot: item?.dot,
+      product: {
+        idProduct: item?.product._id,
+        price: item?.product.price,
+        months: item?.product.months,
+      },
+    });
+    cartDomain(newCart);
+    navigate("../../management/cart", { replace: true });
   };
   return (
     <div>

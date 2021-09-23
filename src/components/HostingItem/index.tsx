@@ -11,7 +11,7 @@ import {
 
 import { useTranslation } from "react-i18next";
 
-const HostingItem = ({ item }) => {
+const HostingItem = ({ select, item }) => {
   const { t } = useTranslation(["hosting"]);
 
   return (
@@ -60,6 +60,7 @@ const HostingItem = ({ item }) => {
         }}
       >
         <Button
+          onClick={() => select(item)}
           sx={{ width: "80%", borderRadius: "22px" }}
           size="large"
           variant="contained"

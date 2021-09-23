@@ -1,11 +1,26 @@
 import React from "react";
 import HostingItem from "src/components/HostingItem";
-import { useTranslation } from "react-i18next";
 
 import { useMutation, useQuery } from "@apollo/client";
 import { HOSTING } from "src/graphql/product";
 
+import { Link, useNavigate } from "react-router-dom";
+
+import { RootState } from "src/redux/reducers";
+import { actionCreators } from "src/redux";
+import { bindActionCreators } from "redux";
+import { useDispatch, useSelector } from "react-redux";
+
 const Hosting = () => {
+  const navigate = useNavigate();
+
+  const cartRedux = useSelector((state: RootState) => state.cart);
+  const dispatch = useDispatch();
+  const { cartHosting, cartDomain } = bindActionCreators(
+    actionCreators,
+    dispatch
+  );
+
   const {
     loading: loadHosting,
     error: errHosting,
@@ -15,11 +30,30 @@ const Hosting = () => {
   if (errHosting) {
     console.log(JSON.stringify(errHosting, null, 2));
   }
+  const selectHosting = (item) => {
+    let newCart = [];
+    newCart.push({
+      idHosting: item._id,
+      RAM: item.RAM,
+      type: item.type,
+      bandwidth: item.bandwidth,
+      SSDMemory: item.SSDMemory,
+      product: {
+        idProduct: item?.product._id,
+        price: item?.product.price,
+        months: item?.product.months,
+      },
+    });
+    cartHosting(newCart);
+    navigate("../../management/cart", { replace: true });
+  };
   return (
     <div>
       {dataHosting?.hosting ? (
         dataHosting?.hosting.map((item) => {
-          return <HostingItem key={item._id} item={item} />;
+          return (
+            <HostingItem select={selectHosting} key={item._id} item={item} />
+          );
         })
       ) : (
         <div></div>

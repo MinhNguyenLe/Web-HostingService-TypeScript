@@ -28,7 +28,7 @@ const useOptions = () => {
   return options;
 };
 
-const CardForm = () => {
+const CardForm = ({ submitPayment }) => {
   const stripe = useStripe();
   const elements = useElements();
   const options = useOptions();
@@ -50,6 +50,7 @@ const CardForm = () => {
         body: JSON.stringify({ items: [{ id: "xl-tshirt" }] }),
       })
       .then((res) => {
+        console.log(res);
         return res.json();
       })
       .then((data) => {
@@ -60,15 +61,6 @@ const CardForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // if (!stripe || !elements) {
-    //   console.log("error");
-    //   return;
-    // }
-    // const payload = await stripe.createPaymentMethod({
-    //   type: "card",
-    //   card: elements.getElement(CardElement),
-    // });
-    // console.log("[PaymentMethod]", payload);
     setProcessing(true);
     const payload = await stripe.confirmCardPayment(clientSecret, {
       payment_method: {
@@ -80,6 +72,10 @@ const CardForm = () => {
       setProcessing(false);
       console.log(payload.error.message);
     } else {
+      console.log(payload.paymentIntent);
+
+      submitPayment(payload.paymentIntent);
+
       setError(null);
       setProcessing(false);
       setSucceeded(true);

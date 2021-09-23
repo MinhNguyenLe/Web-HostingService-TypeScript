@@ -10,11 +10,11 @@ import "./styles.css";
 
 const stripePromise = loadStripe("pk_test_TYooMQauvdEDq54NiTphI7jx");
 
-const PaymentForm = () => {
+const PaymentForm = ({ submitPayment }) => {
   return (
     <div>
       <Elements stripe={stripePromise}>
-        <CardForm />
+        <CardForm submitPayment={submitPayment} />
         <IdealBankForm />
         <IbanForm />
       </Elements>
