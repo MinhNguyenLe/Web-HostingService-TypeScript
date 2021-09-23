@@ -1,7 +1,7 @@
 import { ListSubheader, List } from "@material-ui/core";
 import { useLocation, matchPath } from "react-router-dom";
 import SidebarMenuItem from "./item";
-import menuItems, { menuItemsAdmin, MenuItem } from "./items";
+import menuItemsWithPermission, { MenuItem } from "./items";
 import { experimentalStyled } from "@material-ui/core/styles";
 
 import { RootState } from "src/redux/reducers";
@@ -203,11 +203,11 @@ const reduceChildRoutes = ({
 function SidebarMenu() {
   const location = useLocation();
 
-  const userRedux = useSelector((state: RootState) => state.user);
+  const userRedux = useSelector((state: RootState) => state.user.user);
 
   return (
     <>
-      {(userRedux.isPermission ? menuItems : menuItemsAdmin).map((section) => (
+      {menuItemsWithPermission(userRedux.isPermission).map((section) => (
         <MenuWrapper
           key={section.heading}
           subheader={

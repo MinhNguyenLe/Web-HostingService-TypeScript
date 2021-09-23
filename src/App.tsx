@@ -1,5 +1,5 @@
 import { useRoutes } from "react-router-dom";
-import routes, { routesAdmin } from "./router";
+import checkPermissionRouter from "./router";
 import AdapterDateFns from "@material-ui/lab/AdapterDateFns";
 import LocalizationProvider from "@material-ui/lab/LocalizationProvider";
 
@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 
 const App = () => {
   const userRedux = useSelector((state: RootState) => state.user);
-  const content = useRoutes(userRedux.isPermission ? routes : routesAdmin);
+  const content = useRoutes(checkPermissionRouter(userRedux.user.isPermission));
   return (
     <ThemeProvider>
       <LocalizationProvider dateAdapter={AdapterDateFns}>

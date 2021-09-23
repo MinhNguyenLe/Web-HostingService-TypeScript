@@ -15,7 +15,7 @@ const Login = () => {
     password: "",
     email: "",
   });
-  const state = useSelector((state: RootState) => state.user);
+  const state = useSelector((state: RootState) => state.user.user);
   const dispatch = useDispatch();
   const { buyerRedux } = bindActionCreators(actionCreators, dispatch);
 

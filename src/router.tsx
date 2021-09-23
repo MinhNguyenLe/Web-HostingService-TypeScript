@@ -7,9 +7,6 @@ import BaseLayout from "src/layouts/BaseLayout";
 
 import SuspenseLoader from "src/components/SuspenseLoader";
 
-import { RootState } from "src/redux/reducers";
-import { useSelector } from "react-redux";
-
 const Loader = (Component) => (props) =>
   (
     <Suspense fallback={<SuspenseLoader />}>
@@ -95,438 +92,236 @@ const StatusMaintenance = Loader(
   lazy(() => import("src/content/pages/Status/Maintenance"))
 );
 
-const routes: PartialRouteObject[] = [
-  {
-    path: "*",
-    element: <BaseLayout />,
-    children: [
-      {
-        path: "/",
-        element: <Overview />,
-      },
-      {
-        path: "overview",
-        element: <Navigate to="/" replace />,
-      },
-      {
-        path: "account",
-        element: <Navigate to="/account/login" replace />,
-      },
-      {
-        path: "login",
-        element: <Navigate to="/account/login" replace />,
-      },
-      {
-        path: "register",
-        element: <Navigate to="/account/register" replace />,
-      },
-      // {
-      //   path: "test",
-      //   element: <Test to="/test" replace />,
-      // },
-      {
-        path: "status",
-        children: [
-          {
-            path: "/",
-            element: <Navigate to="404" replace />,
-          },
-          {
-            path: "404",
-            element: <Status404 />,
-          },
-          {
-            path: "500",
-            element: <Status500 />,
-          },
-          {
-            path: "maintenance",
-            element: <StatusMaintenance />,
-          },
-          {
-            path: "coming-soon",
-            element: <StatusComingSoon />,
-          },
-        ],
-      },
-      {
-        path: "*",
-        element: <Status404 />,
-      },
-    ],
-  },
-  {
-    path: "account",
-    element: <BaseLayout />,
-    children: [
-      {
-        path: "/",
-        element: <Navigate to="/account/login" replace />,
-      },
-      {
-        path: "login",
-        element: <Login />,
-      },
-      {
-        path: "register",
-        element: <Register />,
-      },
-    ],
-  },
-  {
-    path: "product",
-    element: <SidebarLayout />,
-    children: [
-      {
-        path: "/",
-        element: <Navigate to="/product/domain" replace />,
-      },
-      {
-        path: "domain",
-        element: <Domain />,
-      },
-      {
-        path: "hosting",
-        element: <Domain />,
-      },
-      {
-        path: "vps",
-        element: <Domain />,
-      },
-      {
-        path: "server",
-        element: <Domain />,
-      },
-    ],
-  },
-  {
-    path: "management",
-    element: <SidebarLayout />,
-    children: [
-      {
-        path: "/",
-        element: <Navigate to="/management/transactions" replace />,
-      },
-      {
-        path: "cart",
-        element: <ViewCart />,
-      },
-      {
-        path: "cart/payment",
-        element: <Payment />,
-      },
-      {
-        path: "transactions",
-        element: <Transactions />,
-      },
-      {
-        path: "profile",
-        children: [
-          {
-            path: "/",
-            element: <Navigate to="details" replace />,
-          },
-          {
-            path: "details",
-            element: <UserProfile />,
-          },
-          {
-            path: "settings",
-            element: <UserSettings />,
-          },
-        ],
-      },
-    ],
-  },
-  {
-    path: "dashboards",
-    element: <SidebarLayout />,
-    children: [
-      {
-        path: "/",
-        element: <Navigate to="/dashboards/crypto" replace />,
-      },
-      {
-        path: "crypto",
-        element: <Crypto />,
-      },
-      {
-        path: "messenger",
-        element: <Messenger />,
-      },
-    ],
-  },
-  {
-    path: "components",
-    element: <SidebarLayout />,
-    children: [
-      {
-        path: "/",
-        element: <Navigate to="/components/buttons" replace />,
-      },
-      {
-        path: "buttons",
-        element: <Buttons />,
-      },
-      {
-        path: "modals",
-        element: <Modals />,
-      },
-      {
-        path: "accordions",
-        element: <Accordions />,
-      },
-      {
-        path: "tabs",
-        element: <Tabs />,
-      },
-      {
-        path: "badges",
-        element: <Badges />,
-      },
-      {
-        path: "tooltips",
-        element: <Tooltips />,
-      },
-      {
-        path: "avatars",
-        element: <Avatars />,
-      },
-      {
-        path: "cards",
-        element: <Cards />,
-      },
-      {
-        path: "forms",
-        element: <Forms />,
-      },
-    ],
-  },
-];
-
-export const routesAdmin: PartialRouteObject[] = [
-  {
-    path: "*",
-    element: <BaseLayout />,
-    children: [
-      {
-        path: "/",
-        element: <Overview />,
-      },
-      {
-        path: "overview",
-        element: <Navigate to="/" replace />,
-      },
-      {
-        path: "account",
-        element: <Navigate to="/account/login" replace />,
-      },
-      {
-        path: "login",
-        element: <Navigate to="/account/login" replace />,
-      },
-      {
-        path: "register",
-        element: <Navigate to="/account/register" replace />,
-      },
-      // {
-      //   path: "test",
-      //   element: <Test to="/test" replace />,
-      // },
-      {
-        path: "status",
-        children: [
-          {
-            path: "/",
-            element: <Navigate to="404" replace />,
-          },
-          {
-            path: "404",
-            element: <Status404 />,
-          },
-          {
-            path: "500",
-            element: <Status500 />,
-          },
-          {
-            path: "maintenance",
-            element: <StatusMaintenance />,
-          },
-          {
-            path: "coming-soon",
-            element: <StatusComingSoon />,
-          },
-        ],
-      },
-      {
-        path: "*",
-        element: <Status404 />,
-      },
-    ],
-  },
-  {
-    path: "account",
-    element: <BaseLayout />,
-    children: [
-      {
-        path: "/",
-        element: <Navigate to="/account/login" replace />,
-      },
-      {
-        path: "login",
-        element: <Login />,
-      },
-      {
-        path: "register",
-        element: <Register />,
-      },
-    ],
-  },
-  {
-    path: "product",
-    element: <SidebarLayout />,
-    children: [
-      {
-        path: "/",
-        element: <Navigate to="/product/domain" replace />,
-      },
-      {
-        path: "domain",
-        element: <Domain />,
-      },
-      {
-        path: "hosting",
-        element: <Domain />,
-      },
-      {
-        path: "vps",
-        element: <Domain />,
-      },
-      {
-        path: "server",
-        element: <Domain />,
-      },
-    ],
-  },
-  {
-    path: "management",
-    element: <SidebarLayout />,
-    children: [
-      {
-        path: "/",
-        element: <Navigate to="/management/transactions" replace />,
-      },
-      {
-        path: "admin",
-        children: [
-          {
-            path: "/",
-            element: <Navigate to="statistic" replace />,
-          },
-          {
-            path: "add",
-            element: <AddProduct />,
-          },
-          {
-            path: "statistic",
-            element: <Transactions />,
-          },
-        ],
-      },
-      {
-        path: "cart",
-        element: <ViewCart />,
-      },
-      {
-        path: "cart/payment",
-        element: <Payment />,
-      },
-      {
-        path: "transactions",
-        element: <Transactions />,
-      },
-      {
-        path: "profile",
-        children: [
-          {
-            path: "/",
-            element: <Navigate to="details" replace />,
-          },
-          {
-            path: "details",
-            element: <UserProfile />,
-          },
-          {
-            path: "settings",
-            element: <UserSettings />,
-          },
-        ],
-      },
-    ],
-  },
-  {
-    path: "dashboards",
-    element: <SidebarLayout />,
-    children: [
-      {
-        path: "/",
-        element: <Navigate to="/dashboards/crypto" replace />,
-      },
-      {
-        path: "crypto",
-        element: <Crypto />,
-      },
-      {
-        path: "messenger",
-        element: <Messenger />,
-      },
-    ],
-  },
-  {
-    path: "components",
-    element: <SidebarLayout />,
-    children: [
-      {
-        path: "/",
-        element: <Navigate to="/components/buttons" replace />,
-      },
-      {
-        path: "buttons",
-        element: <Buttons />,
-      },
-      {
-        path: "modals",
-        element: <Modals />,
-      },
-      {
-        path: "accordions",
-        element: <Accordions />,
-      },
-      {
-        path: "tabs",
-        element: <Tabs />,
-      },
-      {
-        path: "badges",
-        element: <Badges />,
-      },
-      {
-        path: "tooltips",
-        element: <Tooltips />,
-      },
-      {
-        path: "avatars",
-        element: <Avatars />,
-      },
-      {
-        path: "cards",
-        element: <Cards />,
-      },
-      {
-        path: "forms",
-        element: <Forms />,
-      },
-    ],
-  },
-];
-export default routes;
+const checkPermissionRouter = (isPermission: boolean): PartialRouteObject[] => {
+  const arrayManagementPath = [
+    {
+      path: "/",
+      element: <Navigate to="/management/transactions" replace />,
+    },
+    {
+      path: "admin",
+      children: [
+        {
+          path: "/",
+          element: <Navigate to="statistic" replace />,
+        },
+        {
+          path: "add",
+          element: <AddProduct />,
+        },
+        {
+          path: "statistic",
+          element: <Transactions />,
+        },
+      ],
+    },
+    {
+      path: "cart",
+      element: <ViewCart />,
+    },
+    {
+      path: "cart/payment",
+      element: <Payment />,
+    },
+    {
+      path: "transactions",
+      element: <Transactions />,
+    },
+    {
+      path: "profile",
+      children: [
+        {
+          path: "/",
+          element: <Navigate to="details" replace />,
+        },
+        {
+          path: "details",
+          element: <UserProfile />,
+        },
+        {
+          path: "settings",
+          element: <UserSettings />,
+        },
+      ],
+    },
+  ];
+  let pathUser = [];
+  if (!isPermission)
+    pathUser = arrayManagementPath.filter((item) => item.path !== "admin");
+  else pathUser = [...arrayManagementPath];
+  return [
+    {
+      path: "*",
+      element: <BaseLayout />,
+      children: [
+        {
+          path: "/",
+          element: <Overview />,
+        },
+        {
+          path: "overview",
+          element: <Navigate to="/" replace />,
+        },
+        {
+          path: "account",
+          element: <Navigate to="/account/login" replace />,
+        },
+        {
+          path: "login",
+          element: <Navigate to="/account/login" replace />,
+        },
+        {
+          path: "register",
+          element: <Navigate to="/account/register" replace />,
+        },
+        // {
+        //   path: "test",
+        //   element: <Test to="/test" replace />,
+        // },
+        {
+          path: "status",
+          children: [
+            {
+              path: "/",
+              element: <Navigate to="404" replace />,
+            },
+            {
+              path: "404",
+              element: <Status404 />,
+            },
+            {
+              path: "500",
+              element: <Status500 />,
+            },
+            {
+              path: "maintenance",
+              element: <StatusMaintenance />,
+            },
+            {
+              path: "coming-soon",
+              element: <StatusComingSoon />,
+            },
+          ],
+        },
+        {
+          path: "*",
+          element: <Status404 />,
+        },
+      ],
+    },
+    {
+      path: "account",
+      element: <BaseLayout />,
+      children: [
+        {
+          path: "/",
+          element: <Navigate to="/account/login" replace />,
+        },
+        {
+          path: "login",
+          element: <Login />,
+        },
+        {
+          path: "register",
+          element: <Register />,
+        },
+      ],
+    },
+    {
+      path: "product",
+      element: <SidebarLayout />,
+      children: [
+        {
+          path: "/",
+          element: <Navigate to="/product/domain" replace />,
+        },
+        {
+          path: "domain",
+          element: <Domain />,
+        },
+        {
+          path: "hosting",
+          element: <Domain />,
+        },
+        {
+          path: "vps",
+          element: <Domain />,
+        },
+        {
+          path: "server",
+          element: <Domain />,
+        },
+      ],
+    },
+    {
+      path: "management",
+      element: <SidebarLayout />,
+      children: pathUser,
+    },
+    {
+      path: "dashboards",
+      element: <SidebarLayout />,
+      children: [
+        {
+          path: "/",
+          element: <Navigate to="/dashboards/crypto" replace />,
+        },
+        {
+          path: "crypto",
+          element: <Crypto />,
+        },
+        {
+          path: "messenger",
+          element: <Messenger />,
+        },
+      ],
+    },
+    {
+      path: "components",
+      element: <SidebarLayout />,
+      children: [
+        {
+          path: "/",
+          element: <Navigate to="/components/buttons" replace />,
+        },
+        {
+          path: "buttons",
+          element: <Buttons />,
+        },
+        {
+          path: "modals",
+          element: <Modals />,
+        },
+        {
+          path: "accordions",
+          element: <Accordions />,
+        },
+        {
+          path: "tabs",
+          element: <Tabs />,
+        },
+        {
+          path: "badges",
+          element: <Badges />,
+        },
+        {
+          path: "tooltips",
+          element: <Tooltips />,
+        },
+        {
+          path: "avatars",
+          element: <Avatars />,
+        },
+        {
+          path: "cards",
+          element: <Cards />,
+        },
+        {
+          path: "forms",
+          element: <Forms />,
+        },
+      ],
+    },
+  ];
+};
+export default checkPermissionRouter;

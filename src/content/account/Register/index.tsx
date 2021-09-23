@@ -10,7 +10,6 @@ import { bindActionCreators } from "redux";
 import { useDispatch, useSelector } from "react-redux";
 
 const Register = () => {
-  const buyer = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
 
   const { buyerRedux } = bindActionCreators(actionCreators, dispatch);

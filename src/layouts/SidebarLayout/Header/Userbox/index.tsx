@@ -62,7 +62,7 @@ const UserBoxDescription = experimentalStyled(Typography)(
 );
 
 function HeaderUserbox() {
-  const userRedux = useSelector((state: RootState) => state.user);
+  const userRedux = useSelector((state: RootState) => state.user.user);
 
   const user = {
     name: userRedux.userName || "Catherine Pike",

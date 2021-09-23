@@ -12,6 +12,9 @@ export interface AccountType {
   isPermission: boolean;
 }
 
+export interface UserType {
+  user: AccountType;
+}
 export interface CartType {
   domain: Array<DomainType>;
 }

@@ -11,10 +11,10 @@ import { reducerCart } from "./cart";
 //   storage: storage,
 // };
 
-const tokenPersistConfig = {
-  key: "token",
+const userPersistConfig = {
+  key: "user",
   storage: storage,
-  whitelist: ["token"],
+  whitelist: ["user"],
 };
 
 const pagePersistConfig = {
@@ -34,7 +34,7 @@ type pageState = ReturnType<typeof reducerPage>;
 type cartState = ReturnType<typeof reducerCart>;
 
 const reducers = combineReducers({
-  user: persistReducer<userState>(tokenPersistConfig, reducerUser),
+  user: persistReducer<userState>(userPersistConfig, reducerUser),
   page: persistReducer<pageState>(pagePersistConfig, reducerPage),
   cart: persistReducer<cartState>(cartPersistConfig, reducerCart),
 });
