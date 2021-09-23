@@ -29,10 +29,30 @@ export interface DomainType {
   };
 }
 
-interface Cart {
+export interface HostingType {
+  idHosting: string;
+  RAM: string;
+  SSDMemory: string;
+  bandwidth: string;
+  type: string;
+  product: {
+    idProduct: string;
+    price: number;
+    months: number;
+  };
+}
+
+interface Domain {
   type: "CART_DOMAIN";
   payload: {
     domain: Array<DomainType>;
+  };
+}
+
+interface Hosting {
+  type: "CART_HOSTING";
+  payload: {
+    hosting: Array<HostingType>;
   };
 }
 
@@ -43,4 +63,4 @@ interface Lang {
   };
 }
 
-export type Action = Buyer | Theme | Lang | Cart;
+export type Action = Buyer | Theme | Lang | Domain | Hosting;

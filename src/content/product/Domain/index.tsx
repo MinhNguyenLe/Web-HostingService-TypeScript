@@ -6,7 +6,8 @@ import axios, { AxiosResponse } from "axios";
 import CardDomain from "../../../components/Domain/CardDomain";
 import SearchAvailable from "../../../components/Domain/SearchAvailable";
 
-import { gql, useMutation, useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
+import { DOMAINS } from "src/graphql/product";
 
 import { useTranslation } from "react-i18next";
 
@@ -142,21 +143,5 @@ const Domain = () => {
     </div>
   );
 };
-
-const DOMAINS = gql`
-  query domains {
-    domains {
-      _id
-      dot
-      information
-      images
-      product {
-        _id
-        months
-        price
-      }
-    }
-  }
-`;
 
 export default Domain;

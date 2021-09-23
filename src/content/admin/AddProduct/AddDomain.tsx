@@ -11,7 +11,8 @@ import AddNewProduct from "../../../components/Product/AddNewProduct";
 
 import axios from "axios";
 
-import { gql, useMutation, useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
+import { DOMAINS, CREATE_DOMAIN } from "src/graphql/product";
 
 function AddDomain() {
   const { t } = useTranslation(["addproduct"]);
@@ -120,51 +121,5 @@ function AddDomain() {
     </Grid>
   );
 }
-
-const CREATE_DOMAIN = gql`
-  mutation createDomain(
-    $dot: String!
-    $information: String!
-    $price: Float!
-    $months: Int!
-    $images: String!
-  ) {
-    createDomain(
-      createDomain: {
-        dot: $dot
-        information: $information
-        price: $price
-        months: $months
-        images: $images
-      }
-    ) {
-      _id
-      dot
-      information
-      images
-      product {
-        _id
-        months
-        price
-      }
-    }
-  }
-`;
-
-const DOMAINS = gql`
-  query domains {
-    domains {
-      _id
-      dot
-      information
-      images
-      product {
-        _id
-        months
-        price
-      }
-    }
-  }
-`;
 
 export default AddDomain;

@@ -8,7 +8,8 @@ import { actionCreators } from "src/redux";
 import { bindActionCreators } from "redux";
 import { useDispatch, useSelector } from "react-redux";
 
-import { gql, useMutation, useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
+import { LOGIN } from "src/graphql/user";
 
 const Login = () => {
   const [values, setValues] = useState({
@@ -56,25 +57,5 @@ const Login = () => {
     </div>
   );
 };
-
-const LOGIN = gql`
-  mutation login($email: String!, $password: String!) {
-    login(login: { email: $email, password: $password }) {
-      _id
-      user {
-        userName
-        email
-        password
-        isPermission
-        _id
-      }
-      name
-      typeBuyer
-      quantity
-      createdAt
-      token
-    }
-  }
-`;
 
 export default Login;

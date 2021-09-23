@@ -22,7 +22,8 @@ import { useSelector } from "react-redux";
 
 import { Link, useNavigate } from "react-router-dom";
 
-import { gql, useMutation, useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
+import { BUY_ONE } from "src/graphql/product";
 
 const ButtonError = experimentalStyled(Button)(
   ({ theme }) => `
@@ -167,32 +168,5 @@ const ViewCart = () => {
     </Grid>
   );
 };
-
-const BUY_ONE = gql`
-  mutation createUserDomain(
-    $nameUrl: String!
-    $user: ID!
-    $domain: ID!
-    $product: ID!
-  ) {
-    createUserDomain(
-      createUserDomain: {
-        nameUrl: $nameUrl
-        user: $user
-        domain: $domain
-        product: $product
-      }
-    ) {
-      _id
-      userProduct {
-        price
-        months
-        _id
-      }
-      nameUrl
-      dot
-    }
-  }
-`;
 
 export default ViewCart;

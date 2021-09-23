@@ -16,7 +16,9 @@ import {
 
 import { useTranslation } from "react-i18next";
 
-import { gql, useMutation, useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
+
+import { HOSTING, CREATE_HOSTING } from "src/graphql/product";
 
 import HostingItem from "src/components/HostingItem";
 import AddNewProduct from "src/components/Product/AddNewProduct";
@@ -86,59 +88,5 @@ function AddHosting() {
     </Grid>
   );
 }
-
-const CREATE_HOSTING = gql`
-  mutation createHosting(
-    $type: String!
-    $bandwidth: String!
-    $information: String!
-    $RAM: String!
-    $SSDMemory: String!
-    $price: Float!
-    $months: Int!
-  ) {
-    createHosting(
-      createHosting: {
-        type: $type
-        bandwidth: $bandwidth
-        information: $information
-        price: $price
-        months: $months
-        SSDMemory: $SSDMemory
-        RAM: $RAM
-      }
-    ) {
-      _id
-      RAM
-      type
-      SSDMemory
-      bandwidth
-      information
-      product {
-        _id
-        months
-        price
-      }
-    }
-  }
-`;
-
-const HOSTING = gql`
-  query hosting {
-    hosting {
-      _id
-      SSDMemory
-      RAM
-      bandwidth
-      type
-      information
-      product {
-        _id
-        months
-        price
-      }
-    }
-  }
-`;
 
 export default AddHosting;

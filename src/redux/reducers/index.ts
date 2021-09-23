@@ -26,7 +26,7 @@ const pagePersistConfig = {
 const cartPersistConfig = {
   key: "cart",
   storage: storage,
-  whitelist: ["domain"],
+  whitelist: ["domain", "hosting"],
 };
 
 type userState = ReturnType<typeof reducerUser>;

@@ -2,12 +2,13 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import RegisterStyle from "../../../components/RegisterStyle";
 
-import { gql, useMutation, useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 
 import { RootState } from "src/redux/reducers";
 import { actionCreators } from "src/redux";
 import { bindActionCreators } from "redux";
 import { useDispatch, useSelector } from "react-redux";
+import { REGISTER } from "src/graphql/user";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -57,39 +58,5 @@ const Register = () => {
     </div>
   );
 };
-
-const REGISTER = gql`
-  mutation register(
-    $userName: String!
-    $email: String!
-    $password: String!
-    $quantity: Int!
-    $name: String!
-  ) {
-    register(
-      register: {
-        userName: $userName
-        email: $email
-        password: $password
-        quantity: $quantity
-        name: $name
-      }
-    ) {
-      _id
-      user {
-        userName
-        email
-        password
-        isPermission
-        _id
-      }
-      name
-      typeBuyer
-      quantity
-      createdAt
-      token
-    }
-  }
-`;
 
 export default Register;

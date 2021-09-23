@@ -1,5 +1,5 @@
 import { Dispatch } from "redux";
-import { Action, DomainType } from "../actions/index";
+import { Action, DomainType, HostingType } from "../actions/index";
 
 export interface AccountType {
   email: string;
@@ -17,9 +17,21 @@ export interface UserType {
 }
 export interface CartType {
   domain: Array<DomainType>;
+  hosting: Array<HostingType>;
 }
 
 // export type State = Account | Cart;
+
+export const cartHosting = (hosting: Array<HostingType>) => {
+  return (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: "CART_HOSTING",
+      payload: {
+        hosting: hosting,
+      },
+    });
+  };
+};
 
 export const cartDomain = (domain: Array<DomainType>) => {
   return (dispatch: Dispatch<Action>) => {
