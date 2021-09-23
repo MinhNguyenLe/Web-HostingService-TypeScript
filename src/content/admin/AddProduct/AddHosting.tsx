@@ -14,25 +14,131 @@ import {
   Avatar,
 } from "@material-ui/core";
 
-import EditTwoToneIcon from "@material-ui/icons/EditTwoTone";
-import DoneTwoToneIcon from "@material-ui/icons/DoneTwoTone";
-import Text from "src/components/Text";
-import Label from "src/components/Label";
-
 import { useTranslation } from "react-i18next";
-
-import AddTwoToneIcon from "@material-ui/icons/AddTwoTone";
-import { experimentalStyled } from "@material-ui/core/styles";
-
-import CardDomain from "../../../components/Domain/CardDomain";
-import DialogDomain from "../../../components/Dialog/DialogDomain";
-
-import axios from "axios";
 
 import { gql, useMutation, useQuery } from "@apollo/client";
 
+import HostingItem from "src/components/HostingItem";
+import AddNewProduct from "src/components/Product/AddNewProduct";
+import DialogHosting from "src/components/Dialog/DialogHosting";
+
 function AddHosting() {
-  return <div>aaaaahosting </div>;
+  const [open, setOpen] = useState<boolean>(false);
+  const [item, setItem] = useState({
+    SSDMemory: "",
+    RAM: "",
+    bandwidth: "",
+    months: 0,
+    price: 0,
+    type: "",
+    information: "",
+  });
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const sx = {
+    width: "290px",
+    minWidth: 290,
+    minHeight: 380,
+  };
+  const {
+    loading: loadHosting,
+    error: errHosting,
+    data: dataHosting,
+  } = useQuery(HOSTING);
+
+  const [createHosting, { data, loading, error }] = useMutation(
+    CREATE_HOSTING,
+    {
+      update(proxy, result) {
+        let data = result?.data?.createHosting;
+        console.log(data);
+      },
+      variables: item,
+    }
+  );
+  if (loadHosting || loading) console.log("loading");
+  if (errHosting || error) {
+    console.log(JSON.stringify(errHosting || error, null, 2));
+  }
+  const createNew = () => {
+    createHosting();
+    setOpen(false);
+    console.log(item);
+  };
+  return (
+    <Grid sx={{ display: "flex", flexWrap: "wrap" }}>
+      <DialogHosting
+        item={item}
+        setItem={setItem}
+        setOpen={setOpen}
+        open={open}
+        createNew={createNew}
+      />
+      <AddNewProduct sx={sx} handleClickOpen={handleClickOpen} />
+      {dataHosting?.hosting ? (
+        dataHosting?.hosting.map((item) => {
+          return <HostingItem key={item._id} item={item} />;
+        })
+      ) : (
+        <div></div>
+      )}
+    </Grid>
+  );
 }
+
+const CREATE_HOSTING = gql`
+  mutation createHosting(
+    $type: String!
+    $bandwidth: String!
+    $information: String!
+    $RAM: String!
+    $SSDMemory: String!
+    $price: Float!
+    $months: Int!
+  ) {
+    createHosting(
+      createHosting: {
+        type: $type
+        bandwidth: $bandwidth
+        information: $information
+        price: $price
+        months: $months
+        SSDMemory: $SSDMemory
+        RAM: $RAM
+      }
+    ) {
+      _id
+      RAM
+      type
+      SSDMemory
+      bandwidth
+      information
+      product {
+        _id
+        months
+        price
+      }
+    }
+  }
+`;
+
+const HOSTING = gql`
+  query hosting {
+    hosting {
+      _id
+      SSDMemory
+      RAM
+      bandwidth
+      type
+      information
+      product {
+        _id
+        months
+        price
+      }
+    }
+  }
+`;
 
 export default AddHosting;

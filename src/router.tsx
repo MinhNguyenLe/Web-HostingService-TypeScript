@@ -21,11 +21,12 @@ const Loader = (Component) => (props) =>
 const ViewCart = Loader(lazy(() => import("src/content/cart/ViewCart")));
 const Payment = Loader(lazy(() => import("src/content/cart/Payment")));
 
-//admion
+//admin
 const AddProduct = Loader(lazy(() => import("src/content/admin/AddProduct")));
 
-//domain
+//product
 const Domain = Loader(lazy(() => import("src/content/product/Domain")));
+const Hosting = Loader(lazy(() => import("src/content/product/Hosting")));
 
 // login
 const Login = Loader(lazy(() => import("src/content/account/Login")));
@@ -241,7 +242,7 @@ const checkPermissionRouter = (isPermission: boolean): PartialRouteObject[] => {
         },
         {
           path: "hosting",
-          element: <Domain />,
+          element: <Hosting />,
         },
         {
           path: "vps",

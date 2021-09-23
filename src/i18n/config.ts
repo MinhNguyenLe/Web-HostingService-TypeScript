@@ -23,6 +23,9 @@ import vi_addproduct from "./vi/add-product.json";
 import en_cart from "./en/cart.json";
 import vi_cart from "./vi/cart.json";
 
+import en_hosting from "./en/hosting.json";
+import vi_hosting from "./vi/hosting.json";
+
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 
@@ -36,6 +39,7 @@ export const resources = {
     addproduct: en_addproduct,
     dialog: en_dialog,
     cart: en_cart,
+    hosting: en_hosting,
   },
   vi: {
     headerMenu: vi_headerMenu,
@@ -46,6 +50,7 @@ export const resources = {
     addproduct: vi_addproduct,
     dialog: vi_dialog,
     cart: vi_cart,
+    hosting: vi_hosting,
   },
 } as const;
 
@@ -65,6 +70,7 @@ i18n
       "addproduct",
       "dialog",
       "cart",
+      "hosting",
     ],
     detection: {
       order: ["cookie", "htmlTag", "localStorage", "path", "subdomain"],

@@ -11,11 +11,11 @@ import {
 
 import { useTranslation } from "react-i18next";
 
-const HostingItem = ({}) => {
-  const { t } = useTranslation(["register"]);
+const HostingItem = ({ item }) => {
+  const { t } = useTranslation(["hosting"]);
 
   return (
-    <Card sx={{ maxWidth: 345, minWidth: 290 }}>
+    <Card sx={{ maxWidth: 345, minWidth: 290, height: "380px" }}>
       <CardActionArea>
         <CardContent
           sx={{
@@ -30,10 +30,10 @@ const HostingItem = ({}) => {
             variant="h4"
             component="div"
           >
-            Single Shared Hosting
+            {item.type}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Ideal solution for beginners
+            {item.information}
           </Typography>
           <CardContent
             sx={{
@@ -44,10 +44,10 @@ const HostingItem = ({}) => {
             }}
           >
             <Typography variant="h1" color="secondary">
-              50.000 VNĐ
+              {item.product.price}VNĐ
             </Typography>
             <Typography variant="h6" color="secondary">
-              /năm
+              /{item.product.months} {t("4")}
             </Typography>
           </CardContent>
         </CardContent>
@@ -83,12 +83,9 @@ const HostingItem = ({}) => {
             padding: "6px 0",
           }}
         >
+          <Typography variant="caption">{t("1")}</Typography>
           <Typography sx={{ fontWeight: "bold" }} variant="subtitle2">
-            30GB{" "}
-          </Typography>
-          <Typography variant="caption" color="#333">
-            {" "}
-            SSD Storage
+            {item.SSDMemory}
           </Typography>
         </CardContent>
         <CardContent
@@ -100,12 +97,9 @@ const HostingItem = ({}) => {
             padding: "6px 0",
           }}
         >
+          <Typography variant="caption">{t("2")}</Typography>
           <Typography sx={{ fontWeight: "bold" }} variant="subtitle2">
-            30GB{" "}
-          </Typography>
-          <Typography variant="caption" color="#333">
-            {" "}
-            SSD Storage
+            {item.RAM}
           </Typography>
         </CardContent>
         <CardContent
@@ -117,29 +111,9 @@ const HostingItem = ({}) => {
             padding: "6px 0",
           }}
         >
+          <Typography variant="caption">{t("3")}</Typography>
           <Typography sx={{ fontWeight: "bold" }} variant="subtitle2">
-            30GB{" "}
-          </Typography>
-          <Typography variant="caption" color="#333">
-            {" "}
-            SSD Storage
-          </Typography>
-        </CardContent>
-        <CardContent
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "flex-end",
-            width: "80%",
-            padding: "6px 0",
-          }}
-        >
-          <Typography sx={{ fontWeight: "bold" }} variant="subtitle2">
-            30GB{" "}
-          </Typography>
-          <Typography variant="caption" color="#333">
-            {" "}
-            SSD Storage
+            {item.bandwidth}
           </Typography>
         </CardContent>
       </CardContent>
