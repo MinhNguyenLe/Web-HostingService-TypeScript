@@ -26,6 +26,9 @@ import vi_cart from "./vi/cart.json";
 import en_hosting from "./en/hosting.json";
 import vi_hosting from "./vi/hosting.json";
 
+import en_table_product from "./en/hosting.json";
+import vi_table_product from "./vi/hosting.json";
+
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 
@@ -40,8 +43,10 @@ export const resources = {
     dialog: en_dialog,
     cart: en_cart,
     hosting: en_hosting,
+    tableproduct: en_table_product,
   },
   vi: {
+    tableproduct: vi_table_product,
     headerMenu: vi_headerMenu,
     login: vi_login,
     register: vi_register,

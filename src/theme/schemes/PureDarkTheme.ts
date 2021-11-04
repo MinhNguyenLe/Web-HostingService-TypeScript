@@ -125,8 +125,31 @@ const colors = {
   },
 };
 
+const customThemeDark = {
+  hostingCard: {
+    bg: "#151a36",
+    lineBottom: "#4b5b71",
+    promotion: "#f39513",
+    price: "#556a7e",
+    txInfor: "#f7faee",
+    bgSelect: "#0a0d1f",
+    iconTick: "#0cb2ee",
+  },
+};
+
 export const PureDarkTheme = createTheme({
   // direction: i18n.dir(),
+  customTheme: {
+    hostingCard: {
+      bg: customThemeDark.hostingCard.bg,
+      txInfor: customThemeDark.hostingCard.txInfor,
+      price: customThemeDark.hostingCard.price,
+      promotion: customThemeDark.hostingCard.promotion,
+      bgSelect: customThemeDark.hostingCard.bgSelect,
+      iconTick: customThemeDark.hostingCard.iconTick,
+      lineBottom: customThemeDark.hostingCard.lineBottom,
+    },
+  },
   colors: {
     gradients: {
       blue1: colors.gradients.blue1,

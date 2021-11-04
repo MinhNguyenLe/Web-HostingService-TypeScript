@@ -23,6 +23,9 @@ import { HOSTING, CREATE_HOSTING } from "src/graphql/product";
 import HostingItem from "src/components/HostingItem";
 import AddNewProduct from "src/components/Product/AddNewProduct";
 import DialogHosting from "src/components/Dialog/DialogHosting";
+import HostingTable from "src/components/HostingTable";
+
+import { styled } from "@material-ui/core/styles";
 
 function AddHosting() {
   const [open, setOpen] = useState<boolean>(false);
@@ -41,7 +44,6 @@ function AddHosting() {
   const sx = {
     width: "290px",
     minWidth: 290,
-    minHeight: 380,
   };
   const {
     loading: loadHosting,
@@ -91,6 +93,7 @@ function AddHosting() {
       ) : (
         <div></div>
       )}
+      <HostingTable />
     </Grid>
   );
 }

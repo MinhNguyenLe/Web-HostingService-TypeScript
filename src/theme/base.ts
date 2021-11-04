@@ -15,6 +15,17 @@ export function themeCreatorDark(theme: string): Theme {
 
 declare module "@material-ui/core/styles" {
   interface Theme {
+    customTheme: {
+      hostingCard: {
+        bg: string;
+        promotion: string;
+        price: string;
+        txInfor: string;
+        bgSelect: string;
+        iconTick: string;
+        lineBottom: string;
+      };
+    };
     colors: {
       gradients: {
         blue1: string;
@@ -127,6 +138,17 @@ declare module "@material-ui/core/styles" {
   }
 
   interface ThemeOptions {
+    customTheme: {
+      hostingCard: {
+        bg: string;
+        promotion: string;
+        price: string;
+        txInfor: string;
+        bgSelect: string;
+        iconTick: string;
+        lineBottom: string;
+      };
+    };
     colors: {
       gradients: {
         blue1: string;

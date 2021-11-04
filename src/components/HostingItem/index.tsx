@@ -9,13 +9,42 @@ import {
   CardActionArea,
 } from "@material-ui/core";
 
+import Check from "@material-ui/icons/Check";
+
 import { useTranslation } from "react-i18next";
+
+import { styled } from "@material-ui/core/styles";
+
+const InforTypography = styled(Typography)(({ theme }) => ({
+  color: theme.customTheme.hostingCard.txInfor,
+}));
+
+const IconCheck = styled(Check)(({ theme }) => ({
+  backgroundColor: theme.customTheme.hostingCard.iconTick,
+  color: theme.customTheme.hostingCard.bg,
+}));
+
+const PriceTypography = styled(Typography)(({ theme }) => ({
+  color: theme.customTheme.hostingCard.promotion,
+}));
+
+const CustomCard = styled(Card)(({ theme }) => ({
+  backgroundColor: theme.customTheme.hostingCard.bg,
+}));
+
+const SelectBtn = styled(Button)(({ theme }) => ({
+  backgroundColor: theme.customTheme.hostingCard.bgSelect,
+}));
+
+const Line = styled("div")(({ theme }) => ({
+  backgroundColor: theme.customTheme.hostingCard.lineBottom,
+}));
 
 const HostingItem = ({ select, item }) => {
   const { t } = useTranslation(["hosting"]);
 
   return (
-    <Card sx={{ maxWidth: 345, minWidth: 290, height: "380px" }}>
+    <CustomCard sx={{ minWidth: 380 }}>
       <CardActionArea>
         <CardContent
           sx={{
@@ -24,17 +53,6 @@ const HostingItem = ({ select, item }) => {
             alignItems: "center",
           }}
         >
-          <Typography
-            sx={{ fontWeight: "bold" }}
-            gutterBottom
-            variant="h4"
-            component="div"
-          >
-            {item.type}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {item.information}
-          </Typography>
           <CardContent
             sx={{
               display: "flex",
@@ -43,31 +61,28 @@ const HostingItem = ({ select, item }) => {
               paddingBottom: "0px !important",
             }}
           >
-            <Typography variant="h1" color="secondary">
+            <PriceTypography variant="h1">
               {item.product.price}VNĐ
-            </Typography>
-            <Typography variant="h6" color="secondary">
+            </PriceTypography>
+            <InforTypography variant="h6">
               /{item.product.months} {t("4")}
-            </Typography>
+            </InforTypography>
           </CardContent>
+          <InforTypography
+            sx={{ fontWeight: "bold", fontSize: "20px", paddingTop: "16px" }}
+            gutterBottom
+          >
+            {item.type}
+          </InforTypography>
+          <InforTypography>{item.information}</InforTypography>
         </CardContent>
       </CardActionArea>
-      <CardActions
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
+      <Line
+        style={{
+          height: "2px",
+          margin: "auto 48px",
         }}
-      >
-        <Button
-          onClick={() => select(item)}
-          sx={{ width: "80%", borderRadius: "22px" }}
-          size="large"
-          variant="contained"
-        >
-          Select
-        </Button>
-      </CardActions>
+      ></Line>
       <CardContent
         sx={{
           display: "flex",
@@ -84,10 +99,21 @@ const HostingItem = ({ select, item }) => {
             padding: "6px 0",
           }}
         >
-          <Typography variant="caption">{t("1")}</Typography>
-          <Typography sx={{ fontWeight: "bold" }} variant="subtitle2">
-            {item.SSDMemory}
-          </Typography>
+          <InforTypography
+            sx={{ fontWeight: "500", display: "flex", alignItems: "center" }}
+            variant="subtitle2"
+          >
+            <IconCheck
+              sx={{
+                marginRight: "8px",
+                borderRadius: "50%",
+                fontSize: "18px",
+                padding: "2px",
+                fontWeight: "bold",
+              }}
+            ></IconCheck>
+            {item.SSDMemory} {t("1")}
+          </InforTypography>
         </CardContent>
         <CardContent
           sx={{
@@ -98,10 +124,18 @@ const HostingItem = ({ select, item }) => {
             padding: "6px 0",
           }}
         >
-          <Typography variant="caption">{t("2")}</Typography>
-          <Typography sx={{ fontWeight: "bold" }} variant="subtitle2">
-            {item.RAM}
-          </Typography>
+          <InforTypography sx={{ fontWeight: "500" }} variant="subtitle2">
+            <IconCheck
+              sx={{
+                marginRight: "8px",
+                borderRadius: "50%",
+                fontSize: "18px",
+                padding: "2px",
+                fontWeight: "bold",
+              }}
+            ></IconCheck>
+            {item.RAM} {t("2")}
+          </InforTypography>
         </CardContent>
         <CardContent
           sx={{
@@ -109,16 +143,46 @@ const HostingItem = ({ select, item }) => {
             flexDirection: "row",
             alignItems: "flex-end",
             width: "80%",
-            padding: "6px 0",
+            padding: "6px 0 !important",
           }}
         >
-          <Typography variant="caption">{t("3")}</Typography>
-          <Typography sx={{ fontWeight: "bold" }} variant="subtitle2">
-            {item.bandwidth}
-          </Typography>
+          <InforTypography sx={{ fontWeight: "500" }} variant="subtitle2">
+            <IconCheck
+              sx={{
+                marginRight: "8px",
+                borderRadius: "50%",
+                fontSize: "18px",
+                padding: "2px",
+                fontWeight: "bold",
+              }}
+            ></IconCheck>
+            {item.bandwidth} {t("3")}
+          </InforTypography>
         </CardContent>
       </CardContent>
-    </Card>
+      <CardActions
+        sx={{
+          margin: "auto 48px ",
+          padding: "0 0 32px 0 ",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <SelectBtn
+          onClick={() => select(item)}
+          sx={{
+            width: "100%",
+            borderRadius: "22px",
+            fontWeight: "500",
+          }}
+          size="large"
+          variant="contained"
+        >
+          Select
+        </SelectBtn>
+      </CardActions>
+    </CustomCard>
   );
 };
 
