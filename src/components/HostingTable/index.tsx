@@ -22,7 +22,7 @@ import { format, subHours, subWeeks, subDays } from "date-fns";
 
 import { useTranslation } from "react-i18next";
 
-function HostingTable() {
+function HostingTable({ data }) {
   const { t } = useTranslation(["addproduct"]);
   const theme = useTheme();
 
@@ -43,44 +43,6 @@ function HostingTable() {
     setPage(0);
   };
 
-  const logs = [
-    {
-      id: 1,
-      browser: " Safari/537.36",
-      ipaddress: "3.70.73.142",
-      location: "United States",
-      date: subDays(new Date(), 2).getTime(),
-    },
-    {
-      id: 2,
-      browser: "Chrome/36.0.1985.67",
-      ipaddress: "138.13.136.179",
-      location: "China",
-      date: subDays(new Date(), 6).getTime(),
-    },
-    {
-      id: 3,
-      browser: "Googlebot/2.1",
-      ipaddress: "119.229.170.253",
-      location: "China",
-      date: subHours(new Date(), 15).getTime(),
-    },
-    {
-      id: 4,
-      browser: "AppleWebKit/535.1",
-      ipaddress: "206.8.99.49",
-      location: "Philippines",
-      date: subDays(new Date(), 4).getTime(),
-    },
-    {
-      id: 5,
-      browser: "Mozilla/5.0",
-      ipaddress: "235.40.59.85",
-      location: "China",
-      date: subWeeks(new Date(), 3).getTime(),
-    },
-  ];
-
   return (
     <Grid container spacing={3}>
       <Grid item xs={12}>
@@ -96,42 +58,56 @@ function HostingTable() {
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>Browser</TableCell>
-                  <TableCell>IP Address</TableCell>
-                  <TableCell>Location</TableCell>
-                  <TableCell>Date/Time</TableCell>
-                  <TableCell>Add new</TableCell>
+                  <TableCell>Name</TableCell>
+                  <TableCell>Price</TableCell>
+                  <TableCell>SSD Memory</TableCell>
+                  <TableCell>RAM</TableCell>
+                  <TableCell>Bandwidth</TableCell>
+                  <TableCell>Created at</TableCell>
                   <TableCell align="right">Actions</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {logs.map((log) => (
-                  <TableRow key={log.id} hover>
-                    <TableCell>{log.browser}</TableCell>
-                    <TableCell>{log.ipaddress}</TableCell>
-                    <TableCell>{log.location}</TableCell>
-                    <TableCell>1</TableCell>
-                    <TableCell>
-                      {format(log.date, "dd MMMM, yyyy - h:mm:ss a")}
-                    </TableCell>
-                    <TableCell align="right">
-                      <Tooltip placement="top" title="Delete" arrow>
-                        <IconButton
-                          sx={{
-                            "&:hover": {
-                              background: theme.colors.error.lighter,
-                            },
-                            color: theme.palette.error.main,
-                          }}
-                          color="inherit"
-                          size="small"
-                        >
-                          <DeleteTwoToneIcon fontSize="small" />
-                        </IconButton>
-                      </Tooltip>
-                    </TableCell>
-                  </TableRow>
-                ))}
+                {data ? (
+                  data?.map((item) => (
+                    <TableRow key={item._id} hover>
+                      <TableCell>{item.type}</TableCell>
+                      <TableCell>
+                        {new Intl.NumberFormat("vn-VN", {
+                          style: "currency",
+                          currency: "VND",
+                        }).format(item.product.price)}
+                      </TableCell>
+                      <TableCell>{item.SSDMemory}</TableCell>
+                      <TableCell>{item.RAM}</TableCell>
+                      <TableCell>{item.bandwidth}</TableCell>
+                      <TableCell>
+                        {new Intl.DateTimeFormat("en-US").format(
+                          item.createdAt
+                        )}
+                      </TableCell>
+                      <TableCell align="right">
+                        <Tooltip placement="top" title="Delete" arrow>
+                          <IconButton
+                            onClick={() => console.log(item.createdAt)}
+                            sx={{
+                              "&:hover": {
+                                background: theme.colors.error.lighter,
+                              },
+                              color: theme.palette.error.main,
+                            }}
+                            color="inherit"
+                            size="small"
+                          >
+                            <DeleteTwoToneIcon fontSize="small" />
+                          </IconButton>
+                        </Tooltip>
+                      </TableCell>
+                    </TableRow>
+                  ))
+                ) : (
+                  <div></div>
+                )}
               </TableBody>
             </Table>
           </TableContainer>

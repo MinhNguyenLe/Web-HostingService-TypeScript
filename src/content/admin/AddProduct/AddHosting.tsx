@@ -91,9 +91,9 @@ function AddHosting() {
           );
         })
       ) : (
-        <div></div>
+        <div>Loading ... </div>
       )}
-      <HostingTable />
+      <HostingTable data={dataHosting?.hosting} />
     </Grid>
   );
 }

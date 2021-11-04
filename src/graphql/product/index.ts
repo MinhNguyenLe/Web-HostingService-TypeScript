@@ -4,6 +4,7 @@ export const HOSTING = gql`
   query hosting {
     hosting {
       _id
+      createdAt
       SSDMemory
       RAM
       bandwidth

@@ -62,7 +62,10 @@ const HostingItem = ({ select, item }) => {
             }}
           >
             <PriceTypography variant="h1">
-              {item.product.price}VNĐ
+              {new Intl.NumberFormat("vn-VN", {
+                style: "currency",
+                currency: "VND",
+              }).format(item.product.price)}
             </PriceTypography>
             <InforTypography variant="h6">
               /{item.product.months} {t("4")}
