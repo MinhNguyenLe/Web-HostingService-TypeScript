@@ -22,6 +22,13 @@ import { format, subHours, subWeeks, subDays } from "date-fns";
 
 import { useTranslation } from "react-i18next";
 
+import ModeEditOutline from "@material-ui/icons/ModeEditOutline";
+import { styled } from "@material-ui/core/styles";
+
+const EditIcon = styled(ModeEditOutline)(({ theme }) => ({
+  color: theme.customTheme.hostingCard.txInfor,
+}));
+
 function HostingTable({ data }) {
   const { t } = useTranslation(["addproduct"]);
   const theme = useTheme();
@@ -87,9 +94,11 @@ function HostingTable({ data }) {
                         )}
                       </TableCell>
                       <TableCell align="right">
+                        <Tooltip placement="top" title="edit" arrow>
+                          <EditIcon></EditIcon>
+                        </Tooltip>
                         <Tooltip placement="top" title="Delete" arrow>
                           <IconButton
-                            onClick={() => console.log(item.createdAt)}
                             sx={{
                               "&:hover": {
                                 background: theme.colors.error.lighter,
