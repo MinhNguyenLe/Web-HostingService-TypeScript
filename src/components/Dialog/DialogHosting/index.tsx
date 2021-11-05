@@ -7,6 +7,7 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  TextareaAutosize,
 } from "@material-ui/core";
 
 import { useTranslation } from "react-i18next";
@@ -45,87 +46,152 @@ const DialogHosting = ({ item, setItem, open, setOpen, createNew }) => {
   const bandwidth = useRef<HTMLInputElement>(null);
   const type = useRef<HTMLInputElement>(null);
   const information = useRef<HTMLInputElement>(null);
+  const domain = useRef<HTMLInputElement>(null);
+  const website = useRef<HTMLInputElement>(null);
+  const support = useRef<HTMLInputElement>(null);
+  const name = useRef<HTMLInputElement>(null);
 
   return (
     <div>
       <Dialog open={open} onClose={() => setOpen(false)}>
-        <DialogTitle sx={{ fontSize: "20px", minWidth: 280, width: "360px" }}>
+        <DialogTitle
+          sx={{
+            fontSize: "20px",
+            paddingBottom: "0px",
+          }}
+        >
           {t("13")}
         </DialogTitle>
-        <DialogContent>
-          <TextField
-            inputRef={price}
-            onChange={() => changeInfo("price", price.current.value)}
-            autoFocus
-            margin="dense"
-            label={t("18")}
-            type="number"
-            fullWidth
-            variant="standard"
-          />
-          <TextField
-            inputRef={months}
-            onChange={() => changeInfo("months", months.current.value)}
-            autoFocus
-            margin="dense"
-            label={t("8")}
-            type="number"
-            fullWidth
-            variant="standard"
-          />
-          <TextField
-            inputRef={type}
-            onChange={() => changeInfo("type", type.current.value)}
-            autoFocus
-            margin="dense"
-            label={t("19")}
-            type="text"
-            fullWidth
-            variant="standard"
-          />
-          <TextField
-            inputRef={information}
-            onChange={() =>
-              changeInfo("information", information.current.value)
-            }
-            autoFocus
-            margin="dense"
-            label={t("20")}
-            type="text"
-            fullWidth
-            variant="standard"
-          />
-          <TextField
-            inputRef={ssd}
-            onChange={() => changeInfo("ssd", ssd.current.value)}
-            autoFocus
-            margin="dense"
-            label={t("14")}
-            type="text"
-            fullWidth
-            variant="standard"
-          />
-          <TextField
-            inputRef={ram}
-            onChange={() => changeInfo("ram", ram.current.value)}
-            autoFocus
-            margin="dense"
-            label={t("15")}
-            type="text"
-            fullWidth
-            variant="standard"
-          />
-          <TextField
-            inputRef={bandwidth}
-            onChange={() => changeInfo("bandwidth", bandwidth.current.value)}
-            autoFocus
-            margin="dense"
-            label={t("16")}
-            type="text"
-            fullWidth
-            variant="standard"
-          />
-        </DialogContent>
+        <div>
+          <div style={{ display: "flex" }}>
+            <DialogContent sx={{ flex: 1, paddingBottom: "0px" }}>
+              <TextField
+                inputRef={name}
+                onChange={() => changeInfo("name", name.current.value)}
+                autoFocus
+                margin="dense"
+                label={t("22")}
+                type="text"
+                fullWidth
+                variant="standard"
+              />
+              <TextField
+                inputRef={type}
+                onChange={() => changeInfo("type", type.current.value)}
+                autoFocus
+                margin="dense"
+                label={t("19")}
+                type="text"
+                fullWidth
+                variant="standard"
+              />
+              <TextField
+                inputRef={price}
+                onChange={() => changeInfo("price", price.current.value)}
+                autoFocus
+                margin="dense"
+                label={t("18")}
+                type="number"
+                fullWidth
+                variant="standard"
+              />
+            </DialogContent>
+            <DialogContent sx={{ flex: 1, paddingBottom: "0px" }}>
+              <TextField
+                inputRef={months}
+                onChange={() => changeInfo("months", months.current.value)}
+                autoFocus
+                margin="dense"
+                label={t("8")}
+                type="number"
+                fullWidth
+                variant="standard"
+              />
+              <TextField
+                inputRef={domain}
+                onChange={() => changeInfo("domain", domain.current.value)}
+                autoFocus
+                margin="dense"
+                label={t("23")}
+                type="text"
+                fullWidth
+                variant="standard"
+              />
+              <TextField
+                inputRef={website}
+                onChange={() => changeInfo("website", website.current.value)}
+                autoFocus
+                margin="dense"
+                label={t("24")}
+                type="text"
+                fullWidth
+                variant="standard"
+              />
+            </DialogContent>
+            <DialogContent sx={{ flex: 1, paddingBottom: "0px" }}>
+              <TextField
+                inputRef={ssd}
+                onChange={() => changeInfo("ssd", ssd.current.value)}
+                autoFocus
+                margin="dense"
+                label={t("14")}
+                type="text"
+                fullWidth
+                variant="standard"
+              />
+              <TextField
+                inputRef={ram}
+                onChange={() => changeInfo("ram", ram.current.value)}
+                autoFocus
+                margin="dense"
+                label={t("15")}
+                type="text"
+                fullWidth
+                variant="standard"
+              />
+              <TextField
+                inputRef={bandwidth}
+                onChange={() =>
+                  changeInfo("bandwidth", bandwidth.current.value)
+                }
+                autoFocus
+                margin="dense"
+                label={t("16")}
+                type="text"
+                fullWidth
+                variant="standard"
+              />
+            </DialogContent>
+          </div>
+          <div style={{ display: "flex" }}>
+            <DialogContent sx={{ paddingTop: "0px" }}>
+              <TextField
+                inputRef={information}
+                onChange={() =>
+                  changeInfo("information", information.current.value)
+                }
+                autoFocus
+                margin="dense"
+                label={t("20")}
+                type="text"
+                fullWidth
+                variant="standard"
+              />
+            </DialogContent>
+            <DialogContent sx={{ paddingTop: "0px" }}>
+              <TextField
+                inputRef={support}
+                onChange={() => changeInfo("support", support.current.value)}
+                autoFocus
+                margin="dense"
+                label={t("21")}
+                type="text"
+                fullWidth
+                variant="standard"
+              />
+            </DialogContent>
+          </div>
+        </div>
         <DialogActions>
           <Button onClick={createNew}>{t("2")}</Button>
           <Button onClick={() => setOpen(false)}>{t("3")}</Button>

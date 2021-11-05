@@ -6,7 +6,7 @@
   "5": "Domain name",
   "6": "Upload domain's image",
   "7": "Information Domain",
-  "8": "Expiry",
+  "8": "Number of month",
   "9": "Cancel",
   "10": "Domain price",
   "11": "Domain name",
@@ -16,7 +16,11 @@
   "15": "RAM",
   "16": "Bandwidth",
   "17": "months",
-  "18": "Price of Hosting",
-  "19": "Type of Hosting (Title)",
-  "20": "Content of Hosting (Information)"
+  "18": "Price ",
+  "19": "Type",
+  "20": "Content(Information)",
+  "21": "List support",
+  "22": "Name",
+  "23": "Domain",
+  "24": "Website"
 }

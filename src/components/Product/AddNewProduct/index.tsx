@@ -43,11 +43,11 @@ const AvatarAddWrapper = experimentalStyled(Avatar)(
 `
 );
 
-const AddNewProduct = ({ sx, handleClickOpen }) => {
+const AddNewProduct = ({ handleClickOpen }) => {
   const { t } = useTranslation(["addproduct"]);
 
   return (
-    <Card onClick={handleClickOpen} sx={sx}>
+    <Card onClick={handleClickOpen}>
       <Tooltip arrow title={t("3")}>
         <CardAddAction>
           <CardActionArea sx={{ px: 1 }}>

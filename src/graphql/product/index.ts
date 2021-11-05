@@ -1,9 +1,14 @@
+import { DomainType } from "./../../redux/actions/index";
 import { gql } from "@apollo/client";
 
 export const HOSTING = gql`
   query hosting {
     hosting {
       _id
+      name
+      domain
+      website
+      support
       createdAt
       SSDMemory
       RAM
@@ -94,6 +99,10 @@ export const BUY_ONE = gql`
 
 export const CREATE_HOSTING = gql`
   mutation createHosting(
+    $name: String!
+    $domain: String!
+    $website: String!
+    $support: [String]!
     $type: String!
     $bandwidth: String!
     $information: String!
@@ -104,6 +113,10 @@ export const CREATE_HOSTING = gql`
   ) {
     createHosting(
       createHosting: {
+        name: $name
+        domain: $domain
+        website: $website
+        support: $support
         type: $type
         bandwidth: $bandwidth
         information: $information

@@ -80,16 +80,22 @@ function AddDomain() {
     <Grid
       container
       spacing={3}
-      sx={{ paddingLeft: "24px", display: "flex", flexWrap: "wrap" }}
+      sx={{
+        paddingLeft: "24px",
+        display: "flex",
+        flexWrap: "wrap",
+      }}
     >
-      <DialogDomain
-        item={item}
-        setItem={setItem}
-        open={open}
-        setOpen={setOpen}
-        createNew={createNew}
-      />
-      <AddNewProduct sx={sx} handleClickOpen={handleClickOpen} />
+      <Grid style={{ margin: " 8px 16px 8px 0", width: "200px" }}>
+        <DialogDomain
+          item={item}
+          setItem={setItem}
+          open={open}
+          setOpen={setOpen}
+          createNew={createNew}
+        />
+        <AddNewProduct handleClickOpen={handleClickOpen} />
+      </Grid>
       {allDomain?.domains ? (
         allDomain?.domains.map((item) => {
           return (
@@ -108,16 +114,6 @@ function AddDomain() {
       ) : (
         <div></div>
       )}
-      <Card sx={{ margin: " 8px 16px 8px 0" }}>
-        <CardDomain
-          chooseDot={() => console.log(1111)}
-          item={1}
-          registerDomain={() => console.log("aaaaaaaaa")}
-          image="https://assets.hostinger.com/images/domain-checker-2020/tlds-all/icon-link-dc6d553c49.svg"
-          price="5000"
-          information="sdjngf oiurnisurdnb iuehbius hgkregh "
-        />
-      </Card>
     </Grid>
   );
 }

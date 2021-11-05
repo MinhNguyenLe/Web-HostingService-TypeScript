@@ -72,14 +72,16 @@ function AddHosting() {
   };
   return (
     <Grid sx={{ display: "flex", flexWrap: "wrap" }}>
-      <DialogHosting
-        item={item}
-        setItem={setItem}
-        setOpen={setOpen}
-        open={open}
-        createNew={createNew}
-      />
-      <AddNewProduct sx={sx} handleClickOpen={handleClickOpen} />
+      <Grid style={{ margin: " 8px 16px 8px 0", width: "200px" }}>
+        <DialogHosting
+          item={item}
+          setItem={setItem}
+          setOpen={setOpen}
+          open={open}
+          createNew={createNew}
+        />
+        <AddNewProduct handleClickOpen={handleClickOpen} />
+      </Grid>
       {dataHosting?.hosting ? (
         dataHosting?.hosting.map((item) => {
           return (
