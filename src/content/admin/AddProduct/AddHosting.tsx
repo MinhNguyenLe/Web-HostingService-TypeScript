@@ -74,6 +74,7 @@ function AddHosting() {
     <Grid sx={{ display: "flex", flexWrap: "wrap" }}>
       <Grid style={{ margin: " 8px 16px 8px 0", width: "200px" }}>
         <DialogHosting
+          page="create"
           item={item}
           setItem={setItem}
           setOpen={setOpen}

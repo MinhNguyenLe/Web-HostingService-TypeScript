@@ -12,32 +12,8 @@ import {
 
 import { useTranslation } from "react-i18next";
 
-const DialogHosting = ({ item, setItem, open, setOpen, createNew }) => {
+const DialogHosting = ({ page, item, setItem, open, setOpen, createNew }) => {
   const { t } = useTranslation("dialog");
-
-  const changeInfo = (type: string, value: string) => {
-    if (type === "ssd") {
-      setItem({ ...item, SSDMemory: value });
-    }
-    if (type === "ram") {
-      setItem({ ...item, RAM: value });
-    }
-    if (type === "bandwidth") {
-      setItem({ ...item, bandwidth: value });
-    }
-    if (type === "price") {
-      setItem({ ...item, price: parseInt(value) });
-    }
-    if (type === "months") {
-      setItem({ ...item, months: parseInt(value) });
-    }
-    if (type === "type") {
-      setItem({ ...item, type: value });
-    }
-    if (type === "information") {
-      setItem({ ...item, information: value });
-    }
-  };
 
   const price = useRef<HTMLInputElement>(null);
   const months = useRef<HTMLInputElement>(null);
@@ -50,7 +26,38 @@ const DialogHosting = ({ item, setItem, open, setOpen, createNew }) => {
   const website = useRef<HTMLInputElement>(null);
   const support = useRef<HTMLInputElement>(null);
   const name = useRef<HTMLInputElement>(null);
+  /**
+   * create new hosting
+   */
+  const changeInfo = (type: string, value: string) => {
+    if (page === "create") {
+      if (type === "ssd") {
+        setItem({ ...item, SSDMemory: value });
+      }
+      if (type === "ram") {
+        setItem({ ...item, RAM: value });
+      }
+      if (type === "bandwidth") {
+        setItem({ ...item, bandwidth: value });
+      }
+      if (type === "price") {
+        setItem({ ...item, price: parseInt(value) });
+      }
+      if (type === "months") {
+        setItem({ ...item, months: parseInt(value) });
+      }
+      if (type === "type") {
+        setItem({ ...item, type: value });
+      }
+      if (type === "information") {
+        setItem({ ...item, information: value });
+      }
+    }
+  };
 
+  /**
+   * change information hosting
+   */
   return (
     <div>
       <Dialog open={open} onClose={() => setOpen(false)}>
