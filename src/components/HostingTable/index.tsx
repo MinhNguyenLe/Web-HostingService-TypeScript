@@ -34,7 +34,7 @@ const EditIcon = styled(ModeEditOutline)(({ theme }) => ({
 }));
 
 function HostingTable({ handleDelete, data, openDialog, setItem }) {
-  const { t } = useTranslation(["addproduct"]);
+  const { t } = useTranslation(["hosting"]);
   const theme = useTheme();
 
   const hostRdux = useSelector((state: RootState) => state.hostDetail);
@@ -78,33 +78,38 @@ function HostingTable({ handleDelete, data, openDialog, setItem }) {
   };
 
   return (
-    <Grid container spacing={3}>
+    <Grid container spacing={3} sx={{ marginTop: "20px" }}>
       <Grid item xs={12}>
         <Card>
           <CardHeader
             subheaderTypographyProps={{}}
             titleTypographyProps={{}}
-            title="Access Logs"
-            subheader="Recent sign in activity logs"
+            title={t("16")}
+            subheader={t("17")}
           />
           <Divider />
           <TableContainer>
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>Name</TableCell>
-                  <TableCell>Price</TableCell>
-                  <TableCell>SSD Memory</TableCell>
-                  <TableCell>RAM</TableCell>
-                  <TableCell>Bandwidth</TableCell>
-                  <TableCell>Created at</TableCell>
-                  <TableCell align="right">Actions</TableCell>
+                  <TableCell>{t("7")}</TableCell>
+                  <TableCell>{t("8")}</TableCell>
+                  <TableCell>{t("9")}</TableCell>
+                  <TableCell>{t("10")}</TableCell>
+                  <TableCell>{t("11")}</TableCell>
+                  <TableCell>{t("12")}</TableCell>
+                  <TableCell>{t("13")}</TableCell>
+                  <TableCell>{t("5")}</TableCell>
+                  <TableCell>{t("6")}</TableCell>
+                  <TableCell>{t("14")}</TableCell>
+                  <TableCell align="right">{t("15")}</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {data ? (
                   data?.map((item) => (
                     <TableRow key={item._id} hover>
+                      <TableCell>{item.name}</TableCell>
                       <TableCell>{item.type}</TableCell>
                       <TableCell>
                         {new Intl.NumberFormat("vn-VN", {
@@ -112,9 +117,12 @@ function HostingTable({ handleDelete, data, openDialog, setItem }) {
                           currency: "VND",
                         }).format(item.product.price)}
                       </TableCell>
+                      <TableCell>{item.product.months}</TableCell>
                       <TableCell>{item.SSDMemory}</TableCell>
                       <TableCell>{item.RAM}</TableCell>
                       <TableCell>{item.bandwidth}</TableCell>
+                      <TableCell>{item.domain}</TableCell>
+                      <TableCell>{item.website}</TableCell>
                       <TableCell>
                         {new Intl.DateTimeFormat("en-US").format(
                           item.createdAt

@@ -7,7 +7,7 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  TextareaAutosize,
+  CircularProgress,
 } from "@material-ui/core";
 
 import { useTranslation } from "react-i18next";
@@ -243,10 +243,15 @@ const DialogHosting = ({
           </div>
         </div>
         <DialogActions>
-          <Button onClick={handleSubmit}>
-            {page === "create" ? t("2") : t("26")}
+          <CircularProgress
+            sx={{ width: "20px !important", height: "20px !important" }}
+          />
+          <Button onClick={handleSubmit} disabled={true}>
+            {page === "create" ? t("2") : t("26")}{" "}
           </Button>
-          <Button onClick={() => setOpen(false)}>{t("3")}</Button>
+          <Button onClick={() => setOpen(false)} disabled={true}>
+            {t("3")}
+          </Button>
         </DialogActions>
       </Dialog>
     </div>

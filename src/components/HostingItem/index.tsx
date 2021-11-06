@@ -40,7 +40,7 @@ const Line = styled("div")(({ theme }) => ({
   backgroundColor: theme.customTheme.hostingCard.lineBottom,
 }));
 
-const HostingItem = ({ select, item }) => {
+const HostingItem = ({ choose, item, user }) => {
   const { t } = useTranslation(["hosting"]);
 
   return (
@@ -75,9 +75,9 @@ const HostingItem = ({ select, item }) => {
             sx={{ fontWeight: "bold", fontSize: "20px", paddingTop: "16px" }}
             gutterBottom
           >
-            {item.type}
+            {item.name}
           </InforTypography>
-          <InforTypography>{item.information}</InforTypography>
+          <InforTypography>{item.type}</InforTypography>
         </CardContent>
       </CardActionArea>
       <Line
@@ -162,6 +162,88 @@ const HostingItem = ({ select, item }) => {
             {item.bandwidth} {t("3")}
           </InforTypography>
         </CardContent>
+        {item.support.map((content) => (
+          <CardContent
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "flex-end",
+              width: "80%",
+              padding: "6px 0 !important",
+            }}
+          >
+            <InforTypography sx={{ fontWeight: "500" }} variant="subtitle2">
+              <IconCheck
+                sx={{
+                  marginRight: "8px",
+                  borderRadius: "50%",
+                  fontSize: "18px",
+                  padding: "2px",
+                  fontWeight: "bold",
+                }}
+              ></IconCheck>
+              {content}
+            </InforTypography>
+          </CardContent>
+        ))}
+        <CardContent
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "flex-end",
+            width: "80%",
+            padding: "6px 0 !important",
+          }}
+        >
+          <InforTypography sx={{ fontWeight: "500" }} variant="subtitle2">
+            <IconCheck
+              sx={{
+                marginRight: "8px",
+                borderRadius: "50%",
+                fontSize: "18px",
+                padding: "2px",
+                fontWeight: "bold",
+              }}
+            ></IconCheck>
+            {item.domain} {t("5")}
+          </InforTypography>
+        </CardContent>
+        <CardContent
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "flex-end",
+            width: "80%",
+            padding: "6px 0 !important",
+          }}
+        >
+          <InforTypography sx={{ fontWeight: "500" }} variant="subtitle2">
+            <IconCheck
+              sx={{
+                marginRight: "8px",
+                borderRadius: "50%",
+                fontSize: "18px",
+                padding: "2px",
+                fontWeight: "bold",
+              }}
+            ></IconCheck>
+            {item.website} {t("6")}
+          </InforTypography>
+        </CardContent>
+        <CardContent
+          sx={{
+            margin: "auto 48px ",
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "flex-end",
+            width: "80%",
+            padding: "6px 0 !important",
+          }}
+        >
+          <InforTypography sx={{ fontWeight: "500" }} variant="subtitle2">
+            {item.information}
+          </InforTypography>
+        </CardContent>
       </CardContent>
       <CardActions
         sx={{
@@ -173,7 +255,7 @@ const HostingItem = ({ select, item }) => {
         }}
       >
         <SelectBtn
-          onClick={() => select(item)}
+          onClick={() => choose(item)}
           sx={{
             width: "100%",
             borderRadius: "22px",
@@ -182,11 +264,17 @@ const HostingItem = ({ select, item }) => {
           size="large"
           variant="contained"
         >
-          Select
+          {user === "buyer" ? t("18") : t("19")}
         </SelectBtn>
       </CardActions>
     </CustomCard>
   );
+};
+
+HostingItem.defaultProps = {
+  item: {},
+  choose: () => console.log("defaultt"),
+  user: "",
 };
 
 export default HostingItem;

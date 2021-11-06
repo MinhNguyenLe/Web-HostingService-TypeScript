@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 
 import {
   Grid,
+  CircularProgress,
   Typography,
   CardContent,
   Card,
@@ -43,7 +44,10 @@ function AddHosting() {
 
   const listHostRdux = useSelector((state: RootState) => state.hostDetail.list);
   const dispatch = useDispatch();
-  const { listHosting } = bindActionCreators(actionCreators, dispatch);
+  const { listHosting, focusHosting } = bindActionCreators(
+    actionCreators,
+    dispatch
+  );
 
   const [item, setItem] = useState({
     name: "",
@@ -130,32 +134,35 @@ function AddHosting() {
     setOpenCreate(false);
     console.log(item);
   };
-  const editItem = () => {
-    editHosting();
+  const editFromTable = async () => {
+    await editHosting();
     setOpenEdit(false);
   };
-
+  const editFromItem = (item) => {
+    focusHosting(item);
+    setOpenEdit(true);
+    console.log(item);
+  };
   const deleteItem = (id) => {
     deleteHosting({ variables: { id } });
   };
-  return (
+  return loadHosting ? (
+    <CircularProgress />
+  ) : (
     <Grid sx={{ display: "flex", flexWrap: "wrap" }}>
       <Grid style={{ margin: " 8px 16px 8px 0", width: "360px" }}>
         <AddNewProduct handleClickOpen={handleClickOpenCreate} />
       </Grid>
-      {listHostRdux?.length ? (
-        listHostRdux.map((item) => {
-          return (
-            <HostingItem
-              select={() => console.log(111)}
-              key={item._id}
-              item={item}
-            />
-          );
-        })
-      ) : (
-        <div>Loading ... </div>
-      )}
+      {listHostRdux?.map((item) => {
+        return (
+          <HostingItem
+            key={item._id}
+            item={item}
+            user="manager"
+            choose={editFromItem}
+          />
+        );
+      })}
       <HostingTable
         setItem={setItemE}
         data={listHostRdux}
@@ -176,7 +183,7 @@ function AddHosting() {
         setItem={setItemE}
         setOpen={setOpenEdit}
         open={openEdit}
-        handleSubmit={editItem}
+        handleSubmit={editFromTable}
       />
     </Grid>
   );

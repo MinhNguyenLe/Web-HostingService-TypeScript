@@ -41,7 +41,12 @@ const Hosting = () => {
       {dataHosting?.hosting ? (
         dataHosting?.hosting.map((item) => {
           return (
-            <HostingItem select={selectHosting} key={item._id} item={item} />
+            <HostingItem
+              choose={selectHosting}
+              key={item._id}
+              item={item}
+              user="buyer"
+            />
           );
         })
       ) : (
