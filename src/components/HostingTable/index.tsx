@@ -33,7 +33,7 @@ const EditIcon = styled(ModeEditOutline)(({ theme }) => ({
   color: theme.customTheme.hostingCard.txInfor,
 }));
 
-function HostingTable({ data, openDialog, setItem }) {
+function HostingTable({ handleDelete, data, openDialog, setItem }) {
   const { t } = useTranslation(["addproduct"]);
   const theme = useTheme();
 
@@ -139,6 +139,7 @@ function HostingTable({ data, openDialog, setItem }) {
                             }}
                             color="inherit"
                             size="small"
+                            onClick={() => handleDelete(item._id)}
                           >
                             <DeleteTwoToneIcon fontSize="small" />
                           </IconButton>

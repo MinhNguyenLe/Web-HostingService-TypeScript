@@ -18,7 +18,12 @@ import { useTranslation } from "react-i18next";
 
 import { useMutation, useQuery } from "@apollo/client";
 
-import { HOSTING, CREATE_HOSTING, EDIT_HOSTING } from "src/graphql/product";
+import {
+  HOSTING,
+  CREATE_HOSTING,
+  EDIT_HOSTING,
+  DELETE_HOSTING,
+} from "src/graphql/product";
 
 import HostingItem from "src/components/HostingItem";
 import AddNewProduct from "src/components/Product/AddNewProduct";
@@ -103,10 +108,22 @@ function AddHosting() {
       variables: itemE,
     });
 
-  if (loadHosting || loading || loadingE)
-    console.log("loading GRAPHQL", loadHosting || loading || loadingE);
-  if (errHosting || error || errorE) {
-    console.log(JSON.stringify(errHosting || error || errorE, null, 2));
+  const [deleteHosting, { data: dataD, loading: loadingD, error: errorD }] =
+    useMutation(DELETE_HOSTING, {
+      update(proxy, result) {
+        listHosting(result?.data?.deleteHosting);
+      },
+    });
+
+  if (loadHosting || loading || loadingE || loadingD)
+    console.log(
+      "loading GRAPHQL",
+      loadHosting || loading || loadingE || loadingD
+    );
+  if (errHosting || error || errorE || errorD) {
+    console.log(
+      JSON.stringify(errHosting || error || errorE || errorD, null, 2)
+    );
   }
   const createNew = () => {
     createHosting();
@@ -116,6 +133,10 @@ function AddHosting() {
   const editItem = () => {
     editHosting();
     setOpenEdit(false);
+  };
+
+  const deleteItem = (id) => {
+    deleteHosting({ variables: { id } });
   };
   return (
     <Grid sx={{ display: "flex", flexWrap: "wrap" }}>
@@ -139,6 +160,7 @@ function AddHosting() {
         setItem={setItemE}
         data={listHostRdux}
         openDialog={handleClickOpenEdit}
+        handleDelete={deleteItem}
       />
       <DialogHosting
         page="create"

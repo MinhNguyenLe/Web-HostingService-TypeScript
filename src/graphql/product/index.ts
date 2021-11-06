@@ -194,3 +194,27 @@ export const EDIT_HOSTING = gql`
     }
   }
 `;
+
+export const DELETE_HOSTING = gql`
+  # params input from FE {id}
+  mutation deleteHosting($id: ID!) {
+    deleteHosting(deleteHosting: { _id: $id }) {
+      # params input to graphQL {_id}
+      _id
+      RAM
+      type
+      SSDMemory
+      information
+      bandwidth
+      name
+      domain
+      website
+      support
+      product {
+        _id
+        months
+        price
+      }
+    }
+  }
+`;
