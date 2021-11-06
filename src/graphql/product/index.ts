@@ -130,8 +130,62 @@ export const CREATE_HOSTING = gql`
       RAM
       type
       SSDMemory
-      bandwidth
       information
+      bandwidth
+      name
+      domain
+      website
+      support
+      product {
+        _id
+        months
+        price
+      }
+    }
+  }
+`;
+
+export const EDIT_HOSTING = gql`
+  mutation editHosting(
+    $id: ID!
+    $name: String!
+    $domain: String!
+    $website: String!
+    $support: [String]!
+    $type: String!
+    $bandwidth: String!
+    $information: String!
+    $RAM: String!
+    $SSDMemory: String!
+    $price: Float!
+    $months: Int!
+  ) {
+    editHosting(
+      editHosting: {
+        _id: $id
+        name: $name
+        domain: $domain
+        website: $website
+        support: $support
+        type: $type
+        bandwidth: $bandwidth
+        information: $information
+        price: $price
+        months: $months
+        SSDMemory: $SSDMemory
+        RAM: $RAM
+      }
+    ) {
+      _id
+      RAM
+      type
+      SSDMemory
+      information
+      bandwidth
+      name
+      domain
+      website
+      support
       product {
         _id
         months

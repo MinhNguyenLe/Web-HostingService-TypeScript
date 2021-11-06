@@ -1,10 +1,11 @@
-import { Action, HostingDetail } from "../actions";
+import { Action, Hosting } from "../actions";
 
-const stHosting: HostingDetail = {
+const stHosting: Hosting = {
   hosting: {
     name: "",
     domain: "",
     website: "",
+    information: "",
     support: [],
     _id: "",
     RAM: "",
@@ -18,17 +19,23 @@ const stHosting: HostingDetail = {
       months: 0,
     },
   },
+  list: [],
 };
 
 export const redHosting = (
-  state: HostingDetail = stHosting,
+  state: Hosting = stHosting,
   action: Action
-): HostingDetail => {
+): Hosting => {
   switch (action.type) {
     case "FOCUS_HOSTING":
       return {
         ...state,
         hosting: action.payload.hosting,
+      };
+    case "LIST_HOSTING":
+      return {
+        ...state,
+        list: action.payload.list,
       };
     default:
       return { ...state };

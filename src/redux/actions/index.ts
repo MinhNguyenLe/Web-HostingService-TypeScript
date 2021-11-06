@@ -33,6 +33,7 @@ export interface HostingType {
   name: string;
   domain: string;
   website: string;
+  information: string;
   support: string[];
   _id: string;
   RAM: string;
@@ -47,8 +48,9 @@ export interface HostingType {
   };
 }
 
-export interface HostingDetail {
+export interface Hosting {
   hosting: HostingType;
+  list: HostingType[];
 }
 
 interface Domain {
@@ -58,7 +60,7 @@ interface Domain {
   };
 }
 
-interface Hosting {
+interface CartHosting {
   type: "CART_HOSTING";
   payload: {
     hosting: Array<HostingType>;
@@ -79,4 +81,18 @@ interface FocusHosting {
   };
 }
 
-export type Action = Buyer | Theme | Lang | Domain | Hosting | FocusHosting;
+interface ListHosting {
+  type: "LIST_HOSTING";
+  payload: {
+    list: HostingType[];
+  };
+}
+
+export type Action =
+  | Buyer
+  | Theme
+  | Lang
+  | Domain
+  | CartHosting
+  | FocusHosting
+  | ListHosting;

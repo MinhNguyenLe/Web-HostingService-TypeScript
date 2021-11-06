@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 
 import {
   Button,
@@ -12,8 +12,19 @@ import {
 
 import { useTranslation } from "react-i18next";
 
-const DialogHosting = ({ page, item, setItem, open, setOpen, createNew }) => {
+import { RootState } from "src/redux/reducers";
+import { useDispatch, useSelector } from "react-redux";
+
+const DialogHosting = ({
+  page,
+  item,
+  setItem,
+  open,
+  setOpen,
+  handleSubmit,
+}) => {
   const { t } = useTranslation("dialog");
+  const hostRdux = useSelector((state: RootState) => state.hostDetail);
 
   const price = useRef<HTMLInputElement>(null);
   const months = useRef<HTMLInputElement>(null);
@@ -30,28 +41,39 @@ const DialogHosting = ({ page, item, setItem, open, setOpen, createNew }) => {
    * create new hosting
    */
   const changeInfo = (type: string, value: string) => {
-    if (page === "create") {
-      if (type === "ssd") {
-        setItem({ ...item, SSDMemory: value });
-      }
-      if (type === "ram") {
-        setItem({ ...item, RAM: value });
-      }
-      if (type === "bandwidth") {
-        setItem({ ...item, bandwidth: value });
-      }
-      if (type === "price") {
-        setItem({ ...item, price: parseInt(value) });
-      }
-      if (type === "months") {
-        setItem({ ...item, months: parseInt(value) });
-      }
-      if (type === "type") {
-        setItem({ ...item, type: value });
-      }
-      if (type === "information") {
-        setItem({ ...item, information: value });
-      }
+    if (type === "ssd") {
+      console.log(item);
+      setItem({ ...item, SSDMemory: value });
+    }
+    if (type === "ram") {
+      setItem({ ...item, RAM: value });
+    }
+    if (type === "bandwidth") {
+      setItem({ ...item, bandwidth: value });
+    }
+    if (type === "price") {
+      setItem({ ...item, price: parseInt(value) });
+    }
+    if (type === "months") {
+      setItem({ ...item, months: parseInt(value) });
+    }
+    if (type === "type") {
+      setItem({ ...item, type: value });
+    }
+    if (type === "information") {
+      setItem({ ...item, information: value });
+    }
+    if (type === "name") {
+      setItem({ ...item, name: value });
+    }
+    if (type === "domain") {
+      setItem({ ...item, domain: value });
+    }
+    if (type === "website") {
+      setItem({ ...item, website: value });
+    }
+    if (type === "support") {
+      setItem({ ...item, support: [value] });
     }
   };
 
@@ -67,7 +89,7 @@ const DialogHosting = ({ page, item, setItem, open, setOpen, createNew }) => {
             paddingBottom: "0px",
           }}
         >
-          {t("13")}
+          {page === "create" ? t("13") : t("25")}
         </DialogTitle>
         <div>
           <div style={{ display: "flex" }}>
@@ -81,6 +103,7 @@ const DialogHosting = ({ page, item, setItem, open, setOpen, createNew }) => {
                 type="text"
                 fullWidth
                 variant="standard"
+                defaultValue={page === "edit" ? hostRdux.hosting.name : ""}
               />
               <TextField
                 inputRef={type}
@@ -91,6 +114,7 @@ const DialogHosting = ({ page, item, setItem, open, setOpen, createNew }) => {
                 type="text"
                 fullWidth
                 variant="standard"
+                defaultValue={page === "edit" ? hostRdux.hosting.type : ""}
               />
               <TextField
                 inputRef={price}
@@ -101,6 +125,11 @@ const DialogHosting = ({ page, item, setItem, open, setOpen, createNew }) => {
                 type="number"
                 fullWidth
                 variant="standard"
+                defaultValue={
+                  page === "edit"
+                    ? hostRdux.hosting.product.price.toString()
+                    : ""
+                }
               />
             </DialogContent>
             <DialogContent sx={{ flex: 1, paddingBottom: "0px" }}>
@@ -113,6 +142,11 @@ const DialogHosting = ({ page, item, setItem, open, setOpen, createNew }) => {
                 type="number"
                 fullWidth
                 variant="standard"
+                defaultValue={
+                  page === "edit"
+                    ? hostRdux.hosting.product.months.toString()
+                    : ""
+                }
               />
               <TextField
                 inputRef={domain}
@@ -123,6 +157,7 @@ const DialogHosting = ({ page, item, setItem, open, setOpen, createNew }) => {
                 type="text"
                 fullWidth
                 variant="standard"
+                defaultValue={page === "edit" ? hostRdux.hosting.domain : ""}
               />
               <TextField
                 inputRef={website}
@@ -133,6 +168,7 @@ const DialogHosting = ({ page, item, setItem, open, setOpen, createNew }) => {
                 type="text"
                 fullWidth
                 variant="standard"
+                defaultValue={page === "edit" ? hostRdux.hosting.website : ""}
               />
             </DialogContent>
             <DialogContent sx={{ flex: 1, paddingBottom: "0px" }}>
@@ -145,6 +181,7 @@ const DialogHosting = ({ page, item, setItem, open, setOpen, createNew }) => {
                 type="text"
                 fullWidth
                 variant="standard"
+                defaultValue={page === "edit" ? hostRdux.hosting.SSDMemory : ""}
               />
               <TextField
                 inputRef={ram}
@@ -155,6 +192,7 @@ const DialogHosting = ({ page, item, setItem, open, setOpen, createNew }) => {
                 type="text"
                 fullWidth
                 variant="standard"
+                defaultValue={page === "edit" ? hostRdux.hosting.RAM : ""}
               />
               <TextField
                 inputRef={bandwidth}
@@ -167,6 +205,7 @@ const DialogHosting = ({ page, item, setItem, open, setOpen, createNew }) => {
                 type="text"
                 fullWidth
                 variant="standard"
+                defaultValue={page === "edit" ? hostRdux.hosting.bandwidth : ""}
               />
             </DialogContent>
           </div>
@@ -183,6 +222,9 @@ const DialogHosting = ({ page, item, setItem, open, setOpen, createNew }) => {
                 type="text"
                 fullWidth
                 variant="standard"
+                defaultValue={
+                  page === "edit" ? hostRdux.hosting.information : ""
+                }
               />
             </DialogContent>
             <DialogContent sx={{ paddingTop: "0px" }}>
@@ -195,17 +237,15 @@ const DialogHosting = ({ page, item, setItem, open, setOpen, createNew }) => {
                 type="text"
                 fullWidth
                 variant="standard"
+                defaultValue={page === "edit" ? hostRdux.hosting.support : ""}
               />
             </DialogContent>
           </div>
         </div>
         <DialogActions>
-          {page === "create" ? (
-            <Button onClick={createNew}>{t("2")}</Button>
-          ) : (
-            // page === "edit"
-            <Button onClick={createNew}>{t("25")}</Button>
-          )}
+          <Button onClick={handleSubmit}>
+            {page === "create" ? t("2") : t("26")}
+          </Button>
           <Button onClick={() => setOpen(false)}>{t("3")}</Button>
         </DialogActions>
       </Dialog>

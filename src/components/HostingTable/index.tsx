@@ -25,15 +25,15 @@ import ModeEditOutline from "@material-ui/icons/ModeEditOutline";
 import { styled } from "@material-ui/core/styles";
 
 import { RootState } from "src/redux/reducers";
+import { useDispatch, useSelector } from "react-redux";
 import { actionCreators } from "src/redux";
 import { bindActionCreators } from "redux";
-import { useDispatch, useSelector } from "react-redux";
 
 const EditIcon = styled(ModeEditOutline)(({ theme }) => ({
   color: theme.customTheme.hostingCard.txInfor,
 }));
 
-function HostingTable({ data }) {
+function HostingTable({ data, openDialog, setItem }) {
   const { t } = useTranslation(["addproduct"]);
   const theme = useTheme();
 
@@ -60,6 +60,21 @@ function HostingTable({ data }) {
 
   const editHosting = (item) => {
     focusHosting(item);
+    setItem({
+      id: item._id,
+      name: item.name,
+      domain: item.domain,
+      website: item.website,
+      support: item.support,
+      SSDMemory: item.SSDMemory,
+      RAM: item.RAM,
+      bandwidth: item.bandwidth,
+      months: item.product.months,
+      price: item.product.price,
+      type: item.type,
+      information: item.information,
+    });
+    openDialog();
   };
 
   return (

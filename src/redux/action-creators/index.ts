@@ -94,3 +94,14 @@ export const focusHosting = (item: HostingType) => {
     });
   };
 };
+
+export const listHosting = (list: HostingType[]) => {
+  return (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: "LIST_HOSTING",
+      payload: {
+        list: list,
+      },
+    });
+  };
+};
