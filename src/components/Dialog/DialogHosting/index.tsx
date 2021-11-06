@@ -246,7 +246,7 @@ const DialogHosting = ({
           <CircularProgress
             sx={{ width: "20px !important", height: "20px !important" }}
           />
-          <Button onClick={handleSubmit} disabled={true}>
+          <Button onClick={handleSubmit}>
             {page === "create" ? t("2") : t("26")}{" "}
           </Button>
           <Button onClick={() => setOpen(false)} disabled={true}>

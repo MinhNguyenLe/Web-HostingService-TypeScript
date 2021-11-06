@@ -42,13 +42,17 @@ const menuItemsWithPermission = (isPermission: boolean): MenuItems[] => {
       link: "/management/transactions",
     },
     {
-      name: "You are Admin",
+      name: "Admin",
       icon: TableChartTwoToneIcon,
       link: "/management/admin",
       items: [
         {
-          name: "Add new product",
-          link: "/management/admin/add",
+          name: "Cloud Hosting",
+          link: "/management/hosting",
+        },
+        {
+          name: "VPS(Virtual private server)",
+          link: "/management/vps",
         },
         {
           name: "Products are using",

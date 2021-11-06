@@ -22,6 +22,9 @@ import DeleteTwoToneIcon from "@material-ui/icons/DeleteTwoTone";
 import { useTranslation } from "react-i18next";
 
 import ModeEditOutline from "@material-ui/icons/ModeEditOutline";
+import ArrowDownward from "@material-ui/icons/ArrowDownward";
+import ArrowUpward from "@material-ui/icons/ArrowUpward";
+
 import { styled } from "@material-ui/core/styles";
 
 import { RootState } from "src/redux/reducers";
@@ -37,9 +40,13 @@ function HostingTable({ handleDelete, data, openDialog, setItem }) {
   const { t } = useTranslation(["hosting"]);
   const theme = useTheme();
 
-  const hostRdux = useSelector((state: RootState) => state.hostDetail);
+  const listHostRdux = useSelector((state: RootState) => state.hostDetail.list);
+
   const dispatch = useDispatch();
-  const { focusHosting } = bindActionCreators(actionCreators, dispatch);
+  const { focusHosting, listHosting } = bindActionCreators(
+    actionCreators,
+    dispatch
+  );
 
   const [page, setPage] = useState(2);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -77,6 +84,14 @@ function HostingTable({ handleDelete, data, openDialog, setItem }) {
     openDialog();
   };
 
+  const sortWithPriceUp = () => {
+    const result = [...listHostRdux];
+    result.sort(function (a, b) {
+      return a.product.price - b.product.price;
+    });
+    listHosting(result);
+    console.log(result);
+  };
   return (
     <Grid container spacing={3} sx={{ marginTop: "20px" }}>
       <Grid item xs={12}>
@@ -94,8 +109,24 @@ function HostingTable({ handleDelete, data, openDialog, setItem }) {
                 <TableRow>
                   <TableCell>{t("7")}</TableCell>
                   <TableCell>{t("8")}</TableCell>
-                  <TableCell>{t("9")}</TableCell>
-                  <TableCell>{t("10")}</TableCell>
+                  <TableCell>
+                    <IconButton>
+                      <ArrowDownward
+                        sx={{ fontSize: "16px" }}
+                        onClick={() => sortWithPriceUp()}
+                      />{" "}
+                    </IconButton>
+                    {t("9")}
+                  </TableCell>
+                  <TableCell>
+                    <IconButton>
+                      <ArrowUpward
+                        sx={{ fontSize: "16px" }}
+                        onClick={() => console.log(1)}
+                      />{" "}
+                    </IconButton>
+                    {t("10")}
+                  </TableCell>
                   <TableCell>{t("11")}</TableCell>
                   <TableCell>{t("12")}</TableCell>
                   <TableCell>{t("13")}</TableCell>

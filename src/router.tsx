@@ -22,7 +22,10 @@ const ViewCart = Loader(lazy(() => import("src/content/cart/ViewCart")));
 const Payment = Loader(lazy(() => import("src/content/cart/Payment")));
 
 //admin
-const AddProduct = Loader(lazy(() => import("src/content/admin/AddProduct")));
+const AdminHosting = Loader(
+  lazy(() => import("src/content/admin/AdminHosting"))
+);
+const AdminVPS = Loader(lazy(() => import("src/content/admin/AdminVPS")));
 const Management = Loader(lazy(() => import("src/content/admin/Management")));
 
 //product
@@ -98,25 +101,24 @@ const checkPermissionRouter = (isPermission: boolean): PartialRouteObject[] => {
       element: <Navigate to="/management/transactions" replace />,
     },
     {
-      path: "admin",
-      children: [
-        {
-          path: "/",
-          element: <Navigate to="/add" replace />,
-        },
-        {
-          path: "add",
-          element: <AddProduct />,
-        },
-        {
-          path: "user-product",
-          element: <Management />,
-        },
-        {
-          path: "statistic",
-          element: <Transactions />,
-        },
-      ],
+      path: "/",
+      element: <Navigate to="/hosting" replace />,
+    },
+    {
+      path: "hosting",
+      element: <AdminHosting />,
+    },
+    {
+      path: "vps",
+      element: <AdminVPS />,
+    },
+    {
+      path: "user-product",
+      element: <Management />,
+    },
+    {
+      path: "statistic",
+      element: <Transactions />,
     },
     {
       path: "cart",
