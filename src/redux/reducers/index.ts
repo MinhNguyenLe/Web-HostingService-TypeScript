@@ -5,7 +5,7 @@ import storage from "redux-persist/lib/storage";
 import { reducerUser } from "./user";
 import { reducerPage } from "./page";
 import { reducerCart } from "./cart";
-
+import { redHosting } from "./hosting";
 // const rootPersistConfig = {
 //   key: "root",
 //   storage: storage,
@@ -29,14 +29,22 @@ const cartPersistConfig = {
   whitelist: ["domain", "hosting"],
 };
 
+const hostConfig = {
+  key: "hosting detail",
+  storage: storage,
+  whitelist: ["hosting"],
+};
+
 type userState = ReturnType<typeof reducerUser>;
 type pageState = ReturnType<typeof reducerPage>;
 type cartState = ReturnType<typeof reducerCart>;
+type hostState = ReturnType<typeof redHosting>;
 
 const reducers = combineReducers({
   user: persistReducer<userState>(userPersistConfig, reducerUser),
   page: persistReducer<pageState>(pagePersistConfig, reducerPage),
   cart: persistReducer<cartState>(cartPersistConfig, reducerCart),
+  hostDetail: persistReducer<hostState>(hostConfig, redHosting),
 });
 
 export type RootState = ReturnType<typeof reducers>;

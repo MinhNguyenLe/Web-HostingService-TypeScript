@@ -32,18 +32,7 @@ const Hosting = () => {
   }
   const selectHosting = (item) => {
     let newCart = [];
-    newCart.push({
-      idHosting: item._id,
-      RAM: item.RAM,
-      type: item.type,
-      bandwidth: item.bandwidth,
-      SSDMemory: item.SSDMemory,
-      product: {
-        idProduct: item?.product._id,
-        price: item?.product.price,
-        months: item?.product.months,
-      },
-    });
+    newCart.push(item);
     cartHosting(newCart);
     navigate("../../management/cart", { replace: true });
   };

@@ -30,16 +30,25 @@ export interface DomainType {
 }
 
 export interface HostingType {
-  idHosting: string;
+  name: string;
+  domain: string;
+  website: string;
+  support: string[];
+  _id: string;
   RAM: string;
   SSDMemory: string;
   bandwidth: string;
   type: string;
+  createdAt: Date;
   product: {
-    idProduct: string;
+    _id: string;
     price: number;
     months: number;
   };
+}
+
+export interface HostingDetail {
+  hosting: HostingType;
 }
 
 interface Domain {
@@ -63,4 +72,11 @@ interface Lang {
   };
 }
 
-export type Action = Buyer | Theme | Lang | Domain | Hosting;
+interface FocusHosting {
+  type: "FOCUS_HOSTING";
+  payload: {
+    hosting: HostingType;
+  };
+}
+
+export type Action = Buyer | Theme | Lang | Domain | Hosting | FocusHosting;

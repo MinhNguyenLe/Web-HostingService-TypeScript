@@ -1,6 +1,6 @@
 {
   "1": "Add new domain",
-  "2": "Subscribe",
+  "2": "Create",
   "3": "Cancel",
   "4": "Domain price",
   "5": "Domain name",
@@ -11,7 +11,7 @@
   "10": "Domain price",
   "11": "Domain name",
   "12": "Upload domain's image",
-  "13": "Add new hosting",
+  "13": "Create new hosting",
   "14": "Memory of SSD",
   "15": "RAM",
   "16": "Bandwidth",
@@ -22,5 +22,12 @@
   "21": "List support",
   "22": "Name",
   "23": "Domain",
-  "24": "Website"
+  "24": "Website",
+  "25": "Change information",
+  "26": "Accept",
+  "27": "",
+  "28": "",
+  "29": "",
+  "30": "",
+  "31": ""
 }

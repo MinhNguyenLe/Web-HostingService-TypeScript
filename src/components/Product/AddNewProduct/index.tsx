@@ -47,7 +47,7 @@ const AddNewProduct = ({ handleClickOpen }) => {
   const { t } = useTranslation(["addproduct"]);
 
   return (
-    <Card onClick={handleClickOpen}>
+    <Card onClick={handleClickOpen} sx={{ height: "120px" }}>
       <Tooltip arrow title={t("3")}>
         <CardAddAction>
           <CardActionArea sx={{ px: 1 }}>

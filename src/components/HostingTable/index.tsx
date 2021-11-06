@@ -18,12 +18,16 @@ import {
 } from "@material-ui/core";
 
 import DeleteTwoToneIcon from "@material-ui/icons/DeleteTwoTone";
-import { format, subHours, subWeeks, subDays } from "date-fns";
 
 import { useTranslation } from "react-i18next";
 
 import ModeEditOutline from "@material-ui/icons/ModeEditOutline";
 import { styled } from "@material-ui/core/styles";
+
+import { RootState } from "src/redux/reducers";
+import { actionCreators } from "src/redux";
+import { bindActionCreators } from "redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const EditIcon = styled(ModeEditOutline)(({ theme }) => ({
   color: theme.customTheme.hostingCard.txInfor,
@@ -32,6 +36,10 @@ const EditIcon = styled(ModeEditOutline)(({ theme }) => ({
 function HostingTable({ data }) {
   const { t } = useTranslation(["addproduct"]);
   const theme = useTheme();
+
+  const hostRdux = useSelector((state: RootState) => state.hostDetail);
+  const dispatch = useDispatch();
+  const { focusHosting } = bindActionCreators(actionCreators, dispatch);
 
   const [page, setPage] = useState(2);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -48,6 +56,10 @@ function HostingTable({ data }) {
   ) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
+  };
+
+  const editHosting = (item) => {
+    focusHosting(item);
   };
 
   return (
@@ -93,9 +105,14 @@ function HostingTable({ data }) {
                           item.createdAt
                         )}
                       </TableCell>
-                      <TableCell align="right">
+                      <TableCell
+                        align="right"
+                        sx={{ justifyContent: "center" }}
+                      >
                         <Tooltip placement="top" title="edit" arrow>
-                          <EditIcon></EditIcon>
+                          <IconButton onClick={() => editHosting(item)}>
+                            <EditIcon style={{ fontSize: "18px" }}></EditIcon>
+                          </IconButton>
                         </Tooltip>
                         <Tooltip placement="top" title="Delete" arrow>
                           <IconButton

@@ -28,7 +28,7 @@ import HostingTable from "src/components/HostingTable";
 import { styled } from "@material-ui/core/styles";
 
 function AddHosting() {
-  const [open, setOpen] = useState<boolean>(false);
+  const [openCreate, setOpenCreate] = useState<boolean>(false);
   const [item, setItem] = useState({
     SSDMemory: "",
     RAM: "",
@@ -38,12 +38,8 @@ function AddHosting() {
     type: "",
     information: "",
   });
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-  const sx = {
-    width: "290px",
-    minWidth: 290,
+  const handleClickOpenCreate = () => {
+    setOpenCreate(true);
   };
   const {
     loading: loadHosting,
@@ -67,21 +63,13 @@ function AddHosting() {
   }
   const createNew = () => {
     createHosting();
-    setOpen(false);
+    setOpenCreate(false);
     console.log(item);
   };
   return (
     <Grid sx={{ display: "flex", flexWrap: "wrap" }}>
-      <Grid style={{ margin: " 8px 16px 8px 0", width: "200px" }}>
-        <DialogHosting
-          page="create"
-          item={item}
-          setItem={setItem}
-          setOpen={setOpen}
-          open={open}
-          createNew={createNew}
-        />
-        <AddNewProduct handleClickOpen={handleClickOpen} />
+      <Grid style={{ margin: " 8px 16px 8px 0", width: "360px" }}>
+        <AddNewProduct handleClickOpen={handleClickOpenCreate} />
       </Grid>
       {dataHosting?.hosting ? (
         dataHosting?.hosting.map((item) => {
@@ -97,6 +85,14 @@ function AddHosting() {
         <div>Loading ... </div>
       )}
       <HostingTable data={dataHosting?.hosting} />
+      <DialogHosting
+        page="create"
+        item={item}
+        setItem={setItem}
+        setOpen={setOpenCreate}
+        open={openCreate}
+        createNew={createNew}
+      />
     </Grid>
   );
 }

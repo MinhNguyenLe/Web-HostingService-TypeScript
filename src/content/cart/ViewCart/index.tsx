@@ -103,7 +103,7 @@ const ViewCart = () => {
               })}
               {cartRedux.hosting.map((item) => {
                 return (
-                  <div key={item.idHosting}>
+                  <div key={item._id}>
                     <Divider component="li" />
                     <ListItem sx={{ p: 3 }}>
                       <ListItemAvatar sx={{ pr: 2 }}>

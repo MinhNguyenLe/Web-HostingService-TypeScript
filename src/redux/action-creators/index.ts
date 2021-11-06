@@ -83,3 +83,14 @@ export const lang = (lang: number) => {
     });
   };
 };
+
+export const focusHosting = (item: HostingType) => {
+  return (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: "FOCUS_HOSTING",
+      payload: {
+        hosting: item,
+      },
+    });
+  };
+};

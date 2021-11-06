@@ -200,7 +200,12 @@ const DialogHosting = ({ page, item, setItem, open, setOpen, createNew }) => {
           </div>
         </div>
         <DialogActions>
-          <Button onClick={createNew}>{t("2")}</Button>
+          {page === "create" ? (
+            <Button onClick={createNew}>{t("2")}</Button>
+          ) : (
+            // page === "edit"
+            <Button onClick={createNew}>{t("25")}</Button>
+          )}
           <Button onClick={() => setOpen(false)}>{t("3")}</Button>
         </DialogActions>
       </Dialog>

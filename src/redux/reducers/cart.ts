@@ -2,32 +2,8 @@ import { Action } from "../actions";
 import { CartType } from "../action-creators";
 
 const stateCart: CartType = {
-  domain: [
-    // {
-    //   idDomain: "",
-    //   nameUrl: "",
-    //   dot: "",
-    //   product: {
-    //     idProduct: "",
-    //     price: 0,
-    //     months: 12,
-    //   },
-    // },
-  ],
-  hosting: [
-    // {
-    //   idHosting: "",
-    //   RAM: "",
-    //   type: "",
-    //   bandwidth: "",
-    //   SSDMemory: "",
-    //   product: {
-    //     idProduct: "",
-    //     price: 0,
-    //     months: 12,
-    //   },
-    // },
-  ],
+  domain: [],
+  hosting: [],
 };
 
 export const reducerCart = (
