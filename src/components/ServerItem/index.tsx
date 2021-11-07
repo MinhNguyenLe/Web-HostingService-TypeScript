@@ -40,7 +40,7 @@ const Line = styled("div")(({ theme }) => ({
   backgroundColor: theme.customTheme.hostingCard.lineBottom,
 }));
 
-const VPSItem = ({ choose, item, user }) => {
+const ServerItem = ({ choose, item, user }) => {
   const { t } = useTranslation(["vps"]);
 
   return (
@@ -271,10 +271,10 @@ const VPSItem = ({ choose, item, user }) => {
   );
 };
 
-VPSItem.defaultProps = {
+ServerItem.defaultProps = {
   item: {},
   choose: () => console.log("default"),
   user: "",
 };
 
-export default VPSItem;
+export default ServerItem;

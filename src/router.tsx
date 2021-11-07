@@ -26,11 +26,15 @@ const AdminHosting = Loader(
   lazy(() => import("src/content/admin/AdminHosting"))
 );
 const AdminVPS = Loader(lazy(() => import("src/content/admin/AdminVPS")));
+const AdminServer = Loader(lazy(() => import("src/content/admin/AdminServer")));
+
 const Management = Loader(lazy(() => import("src/content/admin/Management")));
 
 //product
 const Domain = Loader(lazy(() => import("src/content/product/Domain")));
 const Hosting = Loader(lazy(() => import("src/content/product/Hosting")));
+const VPS = Loader(lazy(() => import("src/content/product/VPS")));
+const Server = Loader(lazy(() => import("src/content/product/Server")));
 
 // login
 const Login = Loader(lazy(() => import("src/content/account/Login")));
@@ -111,6 +115,10 @@ const checkPermissionRouter = (isPermission: boolean): PartialRouteObject[] => {
     {
       path: "vps",
       element: <AdminVPS />,
+    },
+    {
+      path: "server",
+      element: <AdminServer />,
     },
     {
       path: "user-product",
@@ -254,11 +262,11 @@ const checkPermissionRouter = (isPermission: boolean): PartialRouteObject[] => {
         },
         {
           path: "vps",
-          element: <Domain />,
+          element: <VPS />,
         },
         {
           path: "server",
-          element: <Domain />,
+          element: <Server />,
         },
       ],
     },

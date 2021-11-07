@@ -55,6 +55,10 @@ const menuItemsWithPermission = (isPermission: boolean): MenuItems[] => {
           link: "/management/vps",
         },
         {
+          name: "Server",
+          link: "/management/server",
+        },
+        {
           name: "Products are using",
           link: "/management/admin/user-product",
         },

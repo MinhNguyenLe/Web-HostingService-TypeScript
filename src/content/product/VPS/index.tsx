@@ -1,5 +1,5 @@
 import React from "react";
-import HostingItem from "src/components/HostingItem";
+import VPSItem from "src/components/VPSItem";
 
 import { useMutation, useQuery } from "@apollo/client";
 import { HOSTING } from "src/graphql/product";
@@ -11,7 +11,7 @@ import { actionCreators } from "src/redux";
 import { bindActionCreators } from "redux";
 import { useDispatch, useSelector } from "react-redux";
 
-const Hosting = () => {
+const VPS = () => {
   const navigate = useNavigate();
 
   const cartRedux = useSelector((state: RootState) => state.cart);
@@ -41,7 +41,7 @@ const Hosting = () => {
       {dataHosting?.hosting ? (
         dataHosting?.hosting.map((item) => {
           return (
-            <HostingItem
+            <VPSItem
               choose={selectHosting}
               key={item._id}
               item={item}
@@ -56,4 +56,4 @@ const Hosting = () => {
   );
 };
 
-export default Hosting;
+export default VPS;

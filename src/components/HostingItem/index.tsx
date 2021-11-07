@@ -44,7 +44,7 @@ const HostingItem = ({ choose, item, user }) => {
   const { t } = useTranslation(["hosting"]);
 
   return (
-    <CustomCard sx={{ minWidth: 360, margin: " 8px 16px 8px 0" }}>
+    <CustomCard sx={{ width: 360, margin: " 8px 16px 8px 0" }}>
       <CardActionArea>
         <CardContent
           sx={{
