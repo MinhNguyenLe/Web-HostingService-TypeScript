@@ -1,34 +1,17 @@
 // require("dotenv").config();
 import React, { useState, useEffect } from "react";
 
-import {
-  Grid,
-  CircularProgress,
-  Typography,
-  CardContent,
-  Card,
-  Box,
-  Divider,
-  Button,
-  CardActionArea,
-  Tooltip,
-  Avatar,
-} from "@material-ui/core";
+import { Grid, CircularProgress } from "@material-ui/core";
 
 import { useTranslation } from "react-i18next";
 
 import { useMutation, useQuery } from "@apollo/client";
 
-import {
-  HOSTING,
-  CREATE_HOSTING,
-  EDIT_HOSTING,
-  DELETE_HOSTING,
-} from "src/graphql/product";
+import { VPS, CREATE_VPS, EDIT_VPS, DELETE_HOSTING } from "src/graphql/product";
 
-import HostingItem from "src/components/HostingItem";
+import VPSItem from "src/components/VPSItem";
 import AddNewProduct from "src/components/Product/AddNewProduct";
-import DialogHosting from "src/components/Dialog/DialogHosting";
+import DialogVPS from "src/components/Dialog/DialogVPS";
 import HostingTable from "src/components/HostingTable";
 
 import { styled } from "@material-ui/core/styles";
@@ -42,19 +25,16 @@ function AddVPS() {
   const [openCreate, setOpenCreate] = useState<boolean>(false);
   const [openEdit, setOpenEdit] = useState<boolean>(false);
 
-  const listHostRdux = useSelector((state: RootState) => state.hostDetail.list);
+  const listVPSRdux = useSelector((state: RootState) => state.vps.list);
   const dispatch = useDispatch();
-  const { listHosting, focusHosting } = bindActionCreators(
-    actionCreators,
-    dispatch
-  );
+  const { listVPS, focusVPS } = bindActionCreators(actionCreators, dispatch);
 
   const [item, setItem] = useState({
     name: "",
     domain: "",
-    website: "",
+    CPU: "",
     support: [],
-    SSDMemory: "",
+    cloudStorage: "",
     RAM: "",
     bandwidth: "",
     months: 0,
@@ -67,9 +47,9 @@ function AddVPS() {
     id: "",
     name: "",
     domain: "",
-    website: "",
+    CPU: "",
     support: [],
-    SSDMemory: "",
+    cloudStorage: "",
     RAM: "",
     bandwidth: "",
     months: 0,
@@ -81,81 +61,70 @@ function AddVPS() {
   const handleClickOpenCreate = () => {
     setOpenCreate(true);
   };
-  const handleClickOpenEdit = () => {
-    setOpenEdit(true);
-  };
-  const {
-    loading: loadHosting,
-    error: errHosting,
-    data: dataHosting,
-  } = useQuery(HOSTING);
+  const { loading: loadingVPS, error: errVPS, data: dataVPS } = useQuery(VPS);
 
   useEffect(() => {
-    listHosting(dataHosting?.hosting);
-  }, [loadHosting]);
+    listVPS(dataVPS?.vps);
+  }, [loadingVPS]);
 
-  const [createHosting, { data, loading, error }] = useMutation(
-    CREATE_HOSTING,
-    {
-      update(proxy, result) {
-        listHosting(result?.data?.createHosting);
-      },
-      variables: item,
-    }
-  );
+  const [createVPS, { data, loading, error }] = useMutation(CREATE_VPS, {
+    update(proxy, result) {
+      listVPS(result?.data?.createVPS);
+    },
+    variables: item,
+  });
 
-  const [editHosting, { data: dataE, loading: loadingE, error: errorE }] =
-    useMutation(EDIT_HOSTING, {
+  const [editVPS, { data: dataE, loading: loadingE, error: errorE }] =
+    useMutation(EDIT_VPS, {
       update(proxy, result) {
-        listHosting(result?.data?.editHosting);
+        listVPS(result?.data?.editVPS);
       },
       variables: itemE,
     });
 
-  const [deleteHosting, { data: dataD, loading: loadingD, error: errorD }] =
-    useMutation(DELETE_HOSTING, {
-      update(proxy, result) {
-        listHosting(result?.data?.deleteHosting);
-      },
-    });
-
-  if (loadHosting || loading || loadingE || loadingD)
-    console.log(
-      "loading GRAPHQL",
-      loadHosting || loading || loadingE || loadingD
-    );
-  if (errHosting || error || errorE || errorD) {
-    console.log(
-      JSON.stringify(errHosting || error || errorE || errorD, null, 2)
-    );
+  if (loadingVPS || loading || loadingE)
+    console.log("loading GRAPHQL", loadingVPS || loading || loadingE);
+  if (errVPS || error || errorE) {
+    console.log(JSON.stringify(errVPS || error || errorE, null, 2));
   }
   const createNew = () => {
-    createHosting();
+    createVPS();
     setOpenCreate(false);
     console.log(item);
   };
   const editFromTable = async () => {
-    await editHosting();
+    await editVPS();
     setOpenEdit(false);
   };
   const editFromItem = (item) => {
-    focusHosting(item);
+    setItemE({
+      id: item._id,
+      name: item.name,
+      domain: item.domain,
+      CPU: item.CPU,
+      support: item.support,
+      cloudStorage: item.cloudStorage,
+      RAM: item.RAM,
+      bandwidth: item.bandwidth,
+      months: item.product.months,
+      price: item.product.price,
+      type: item.type,
+      information: item.information,
+    });
+    focusVPS(item);
     setOpenEdit(true);
-    console.log(item);
+    console.log(itemE);
   };
-  const deleteItem = (id) => {
-    deleteHosting({ variables: { id } });
-  };
-  return loadHosting ? (
+  return loadingVPS ? (
     <CircularProgress />
   ) : (
     <Grid sx={{ display: "flex", flexWrap: "wrap" }}>
       <Grid style={{ margin: " 8px 16px 8px 0", width: "360px" }}>
         <AddNewProduct handleClickOpen={handleClickOpenCreate} />
       </Grid>
-      {listHostRdux?.map((item) => {
+      {listVPSRdux?.map((item) => {
         return (
-          <HostingItem
+          <VPSItem
             key={item._id}
             item={item}
             user="manager"
@@ -163,13 +132,7 @@ function AddVPS() {
           />
         );
       })}
-      <HostingTable
-        setItem={setItemE}
-        data={listHostRdux}
-        openDialog={handleClickOpenEdit}
-        handleDelete={deleteItem}
-      />
-      <DialogHosting
+      <DialogVPS
         page="create"
         item={item}
         setItem={setItem}
@@ -177,7 +140,7 @@ function AddVPS() {
         open={openCreate}
         handleSubmit={createNew}
       />
-      <DialogHosting
+      <DialogVPS
         page="edit"
         item={itemE}
         setItem={setItemE}

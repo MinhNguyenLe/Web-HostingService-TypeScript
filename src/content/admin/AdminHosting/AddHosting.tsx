@@ -42,7 +42,7 @@ function AddHosting() {
   const [openCreate, setOpenCreate] = useState<boolean>(false);
   const [openEdit, setOpenEdit] = useState<boolean>(false);
 
-  const listHostRdux = useSelector((state: RootState) => state.hostDetail.list);
+  const listHostRdux = useSelector((state: RootState) => state.hosting.list);
   const dispatch = useDispatch();
   const { listHosting, focusHosting } = bindActionCreators(
     actionCreators,

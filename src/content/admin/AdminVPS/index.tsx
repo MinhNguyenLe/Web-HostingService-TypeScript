@@ -22,7 +22,7 @@ const TabsWrapper = experimentalStyled(Tabs)(
 function AddProduct() {
   const { t } = useTranslation(["addproduct"]);
 
-  const [currentTab, setCurrentTab] = useState<string>("domain");
+  const [currentTab, setCurrentTab] = useState<string>("vps");
 
   const tabs = [
     { value: "vps", label: "Add VPS" },

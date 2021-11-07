@@ -36,17 +36,14 @@ const EditIcon = styled(ModeEditOutline)(({ theme }) => ({
   color: theme.customTheme.hostingCard.txInfor,
 }));
 
-function HostingTable({ handleDelete, data, openDialog, setItem }) {
-  const { t } = useTranslation(["hosting"]);
+function VPSTable({ handleDelete, data, openDialog, setItem }) {
+  const { t } = useTranslation(["vps"]);
   const theme = useTheme();
 
-  const listHostRdux = useSelector((state: RootState) => state.hosting.list);
+  const listVPSRdux = useSelector((state: RootState) => state.vps.list);
 
   const dispatch = useDispatch();
-  const { focusHosting, listHosting } = bindActionCreators(
-    actionCreators,
-    dispatch
-  );
+  const { focusVPS, listVPS } = bindActionCreators(actionCreators, dispatch);
 
   const [page, setPage] = useState(2);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -66,14 +63,14 @@ function HostingTable({ handleDelete, data, openDialog, setItem }) {
   };
 
   const editHosting = (item) => {
-    focusHosting(item);
+    focusVPS(item);
     setItem({
       id: item._id,
       name: item.name,
       domain: item.domain,
-      website: item.website,
+      CPU: item.CPU,
       support: item.support,
-      SSDMemory: item.SSDMemory,
+      cloudStorage: item.cloudStorage,
       RAM: item.RAM,
       bandwidth: item.bandwidth,
       months: item.product.months,
@@ -85,30 +82,30 @@ function HostingTable({ handleDelete, data, openDialog, setItem }) {
   };
 
   const sortWithPriceUp = () => {
-    const result = [...listHostRdux];
+    const result = [...listVPSRdux];
     result.sort(function (a, b) {
       return a.product.price - b.product.price;
     });
-    listHosting(result);
+    listVPS(result);
     console.log(result);
   };
   return (
-    <Grid container spacing={3} sx={{ marginTop: "20px" }}>
+    <Grid container spacing={3}>
       <Grid item xs={12}>
         <Card>
           <CardHeader
             subheaderTypographyProps={{}}
             titleTypographyProps={{}}
-            title={t("16")}
-            subheader={t("17")}
+            title={t("1")}
+            subheader={t("2")}
           />
           <Divider />
           <TableContainer>
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>{t("7")}</TableCell>
-                  <TableCell>{t("8")}</TableCell>
+                  <TableCell>{t("16")}</TableCell>
+                  <TableCell>{t("3")}</TableCell>
                   <TableCell>
                     <IconButton>
                       <ArrowDownward
@@ -116,7 +113,7 @@ function HostingTable({ handleDelete, data, openDialog, setItem }) {
                         onClick={() => sortWithPriceUp()}
                       />{" "}
                     </IconButton>
-                    {t("9")}
+                    {t("17")}
                   </TableCell>
                   <TableCell>
                     <IconButton>
@@ -125,15 +122,15 @@ function HostingTable({ handleDelete, data, openDialog, setItem }) {
                         onClick={() => console.log(1)}
                       />{" "}
                     </IconButton>
-                    {t("10")}
+                    {t("18")}
                   </TableCell>
-                  <TableCell>{t("11")}</TableCell>
-                  <TableCell>{t("12")}</TableCell>
-                  <TableCell>{t("13")}</TableCell>
-                  <TableCell>{t("5")}</TableCell>
                   <TableCell>{t("6")}</TableCell>
-                  <TableCell>{t("14")}</TableCell>
-                  <TableCell align="right">{t("15")}</TableCell>
+                  <TableCell>{t("8")}</TableCell>
+                  <TableCell>{t("7")}</TableCell>
+                  <TableCell>{t("9")}</TableCell>
+                  <TableCell>{t("11")}</TableCell>
+                  <TableCell>{t("10")}</TableCell>
+                  <TableCell align="right">{t("12")}</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -149,11 +146,11 @@ function HostingTable({ handleDelete, data, openDialog, setItem }) {
                         }).format(item.product.price)}
                       </TableCell>
                       <TableCell>{item.product.months}</TableCell>
-                      <TableCell>{item.SSDMemory}</TableCell>
+                      <TableCell>{item.cloudStorage}</TableCell>
+                      <TableCell>{item.CPU}</TableCell>
                       <TableCell>{item.RAM}</TableCell>
                       <TableCell>{item.bandwidth}</TableCell>
                       <TableCell>{item.domain}</TableCell>
-                      <TableCell>{item.website}</TableCell>
                       <TableCell>
                         {new Intl.DateTimeFormat("en-US").format(
                           item.createdAt
@@ -208,4 +205,4 @@ function HostingTable({ handleDelete, data, openDialog, setItem }) {
   );
 }
 
-export default HostingTable;
+export default VPSTable;

@@ -6,6 +6,7 @@ import { reducerUser } from "./user";
 import { reducerPage } from "./page";
 import { reducerCart } from "./cart";
 import { redHosting } from "./hosting";
+import { redVPS } from "./vps";
 // const rootPersistConfig = {
 //   key: "root",
 //   storage: storage,
@@ -35,16 +36,24 @@ const hostConfig = {
   whitelist: ["hosting"],
 };
 
+const vpsConfig = {
+  key: "vps detail",
+  storage: storage,
+  whitelist: ["vps"],
+};
+
 type userState = ReturnType<typeof reducerUser>;
 type pageState = ReturnType<typeof reducerPage>;
 type cartState = ReturnType<typeof reducerCart>;
 type hostState = ReturnType<typeof redHosting>;
+type vpsState = ReturnType<typeof redVPS>;
 
 const reducers = combineReducers({
   user: persistReducer<userState>(userPersistConfig, reducerUser),
   page: persistReducer<pageState>(pagePersistConfig, reducerPage),
   cart: persistReducer<cartState>(cartPersistConfig, reducerCart),
-  hostDetail: persistReducer<hostState>(hostConfig, redHosting),
+  hosting: persistReducer<hostState>(hostConfig, redHosting),
+  vps: persistReducer<vpsState>(vpsConfig, redVPS),
 });
 
 export type RootState = ReturnType<typeof reducers>;

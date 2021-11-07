@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 
 import {
   Button,
@@ -15,33 +15,26 @@ import { useTranslation } from "react-i18next";
 import { RootState } from "src/redux/reducers";
 import { useDispatch, useSelector } from "react-redux";
 
-const DialogHosting = ({
-  page,
-  item,
-  setItem,
-  open,
-  setOpen,
-  handleSubmit,
-}) => {
+const DialogVPS = ({ page, item, setItem, open, setOpen, handleSubmit }) => {
   const { t } = useTranslation("dialog");
-  const hostRdux = useSelector((state: RootState) => state.hosting);
+  const vpsRdux = useSelector((state: RootState) => state.vps);
 
   const price = useRef<HTMLInputElement>(null);
   const months = useRef<HTMLInputElement>(null);
   const ram = useRef<HTMLInputElement>(null);
-  const ssd = useRef<HTMLInputElement>(null);
+  const cloudStorage = useRef<HTMLInputElement>(null);
   const bandwidth = useRef<HTMLInputElement>(null);
   const type = useRef<HTMLInputElement>(null);
   const information = useRef<HTMLInputElement>(null);
   const domain = useRef<HTMLInputElement>(null);
-  const website = useRef<HTMLInputElement>(null);
+  const CPU = useRef<HTMLInputElement>(null);
   const support = useRef<HTMLInputElement>(null);
   const name = useRef<HTMLInputElement>(null);
   /**
-   * create new hosting
+   * create new vps
    */
   const changeInfo = (type: string, value: string) => {
-    if (type === "ssd") {
+    if (type === "cloudStorage") {
       console.log(item);
       setItem({ ...item, SSDMemory: value });
     }
@@ -69,8 +62,8 @@ const DialogHosting = ({
     if (type === "domain") {
       setItem({ ...item, domain: value });
     }
-    if (type === "website") {
-      setItem({ ...item, website: value });
+    if (type === "CPU") {
+      setItem({ ...item, CPU: value });
     }
     if (type === "support") {
       setItem({ ...item, support: [value] });
@@ -78,7 +71,7 @@ const DialogHosting = ({
   };
 
   /**
-   * change information hosting
+   * change information vps
    */
   return (
     <div>
@@ -103,7 +96,7 @@ const DialogHosting = ({
                 type="text"
                 fullWidth
                 variant="standard"
-                defaultValue={page === "edit" ? hostRdux.hosting.name : ""}
+                defaultValue={page === "edit" ? vpsRdux.vps.name : ""}
               />
               <TextField
                 inputRef={type}
@@ -114,7 +107,7 @@ const DialogHosting = ({
                 type="text"
                 fullWidth
                 variant="standard"
-                defaultValue={page === "edit" ? hostRdux.hosting.type : ""}
+                defaultValue={page === "edit" ? vpsRdux.vps.type : ""}
               />
               <TextField
                 inputRef={price}
@@ -126,9 +119,7 @@ const DialogHosting = ({
                 fullWidth
                 variant="standard"
                 defaultValue={
-                  page === "edit"
-                    ? hostRdux.hosting.product.price.toString()
-                    : ""
+                  page === "edit" ? vpsRdux.vps.product.price.toString() : ""
                 }
               />
             </DialogContent>
@@ -143,9 +134,7 @@ const DialogHosting = ({
                 fullWidth
                 variant="standard"
                 defaultValue={
-                  page === "edit"
-                    ? hostRdux.hosting.product.months.toString()
-                    : ""
+                  page === "edit" ? vpsRdux.vps.product.months.toString() : ""
                 }
               />
               <TextField
@@ -157,31 +146,33 @@ const DialogHosting = ({
                 type="text"
                 fullWidth
                 variant="standard"
-                defaultValue={page === "edit" ? hostRdux.hosting.domain : ""}
+                defaultValue={page === "edit" ? vpsRdux.vps.domain : ""}
               />
               <TextField
-                inputRef={website}
-                onChange={() => changeInfo("website", website.current.value)}
+                inputRef={CPU}
+                onChange={() => changeInfo("CPU", CPU.current.value)}
                 autoFocus
                 margin="dense"
-                label={t("24")}
+                label={t("27")}
                 type="text"
                 fullWidth
                 variant="standard"
-                defaultValue={page === "edit" ? hostRdux.hosting.website : ""}
+                defaultValue={page === "edit" ? vpsRdux.vps.CPU : ""}
               />
             </DialogContent>
             <DialogContent sx={{ flex: 1, paddingBottom: "0px" }}>
               <TextField
-                inputRef={ssd}
-                onChange={() => changeInfo("ssd", ssd.current.value)}
+                inputRef={cloudStorage}
+                onChange={() =>
+                  changeInfo("cloudStorage", cloudStorage.current.value)
+                }
                 autoFocus
                 margin="dense"
-                label={t("14")}
+                label={t("28")}
                 type="text"
                 fullWidth
                 variant="standard"
-                defaultValue={page === "edit" ? hostRdux.hosting.SSDMemory : ""}
+                defaultValue={page === "edit" ? vpsRdux.vps.cloudStorage : ""}
               />
               <TextField
                 inputRef={ram}
@@ -192,7 +183,7 @@ const DialogHosting = ({
                 type="text"
                 fullWidth
                 variant="standard"
-                defaultValue={page === "edit" ? hostRdux.hosting.RAM : ""}
+                defaultValue={page === "edit" ? vpsRdux.vps.RAM : ""}
               />
               <TextField
                 inputRef={bandwidth}
@@ -205,7 +196,7 @@ const DialogHosting = ({
                 type="text"
                 fullWidth
                 variant="standard"
-                defaultValue={page === "edit" ? hostRdux.hosting.bandwidth : ""}
+                defaultValue={page === "edit" ? vpsRdux.vps.bandwidth : ""}
               />
             </DialogContent>
           </div>
@@ -222,9 +213,7 @@ const DialogHosting = ({
                 type="text"
                 fullWidth
                 variant="standard"
-                defaultValue={
-                  page === "edit" ? hostRdux.hosting.information : ""
-                }
+                defaultValue={page === "edit" ? vpsRdux.vps.information : ""}
               />
             </DialogContent>
             <DialogContent sx={{ paddingTop: "0px" }}>
@@ -237,7 +226,7 @@ const DialogHosting = ({
                 type="text"
                 fullWidth
                 variant="standard"
-                defaultValue={page === "edit" ? hostRdux.hosting.support : ""}
+                defaultValue={page === "edit" ? vpsRdux.vps.support : ""}
               />
             </DialogContent>
           </div>
@@ -258,4 +247,4 @@ const DialogHosting = ({
   );
 };
 
-export default DialogHosting;
+export default DialogVPS;

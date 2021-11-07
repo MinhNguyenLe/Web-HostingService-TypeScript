@@ -1,5 +1,5 @@
 import { Dispatch } from "redux";
-import { Action, DomainType, HostingType } from "../actions/index";
+import { Action, DomainType, HostingType, VPSType } from "../actions/index";
 
 export interface AccountType {
   email: string;
@@ -99,6 +99,28 @@ export const listHosting = (list: HostingType[]) => {
   return (dispatch: Dispatch<Action>) => {
     dispatch({
       type: "LIST_HOSTING",
+      payload: {
+        list: list,
+      },
+    });
+  };
+};
+
+export const focusVPS = (item: VPSType) => {
+  return (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: "FOCUS_VPS",
+      payload: {
+        vps: item,
+      },
+    });
+  };
+};
+
+export const listVPS = (list: VPSType[]) => {
+  return (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: "LIST_VPS",
       payload: {
         list: list,
       },

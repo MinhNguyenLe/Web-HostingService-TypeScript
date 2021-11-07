@@ -53,6 +53,30 @@ export interface Hosting {
   list: HostingType[];
 }
 
+export interface VPSType {
+  name: string;
+  domain: string;
+  cloudStorage: string;
+  information: string;
+  support: string[];
+  _id: string;
+  RAM: string;
+  CPU: string;
+  bandwidth: string;
+  type: string;
+  createdAt: Date;
+  product: {
+    _id: string;
+    price: number;
+    months: number;
+  };
+}
+
+export interface VPS {
+  vps: VPSType;
+  list: VPSType[];
+}
+
 interface Domain {
   type: "CART_DOMAIN";
   payload: {
@@ -88,6 +112,20 @@ interface ListHosting {
   };
 }
 
+interface FocusVPS {
+  type: "FOCUS_VPS";
+  payload: {
+    vps: VPSType;
+  };
+}
+
+interface ListVPS {
+  type: "LIST_VPS";
+  payload: {
+    list: VPSType[];
+  };
+}
+
 export type Action =
   | Buyer
   | Theme
@@ -95,4 +133,6 @@ export type Action =
   | Domain
   | CartHosting
   | FocusHosting
-  | ListHosting;
+  | ListHosting
+  | FocusVPS
+  | ListVPS;
