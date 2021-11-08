@@ -2,7 +2,7 @@ import React from "react";
 import VPSItem from "src/components/VPSItem";
 
 import { useMutation, useQuery } from "@apollo/client";
-import { HOSTING } from "src/graphql/product";
+import { VPS } from "src/graphql/product";
 
 import { Link, useNavigate } from "react-router-dom";
 
@@ -11,7 +11,7 @@ import { actionCreators } from "src/redux";
 import { bindActionCreators } from "redux";
 import { useDispatch, useSelector } from "react-redux";
 
-const VPS = () => {
+const VPSBuyer = () => {
   const navigate = useNavigate();
 
   const cartRedux = useSelector((state: RootState) => state.cart);
@@ -21,14 +21,10 @@ const VPS = () => {
     dispatch
   );
 
-  const {
-    loading: loadHosting,
-    error: errHosting,
-    data: dataHosting,
-  } = useQuery(HOSTING);
-  if (loadHosting) console.log("loading");
-  if (errHosting) {
-    console.log(JSON.stringify(errHosting, null, 2));
+  const { loading: loadVPS, error: errVPS, data: dataVPS } = useQuery(VPS);
+  if (loadVPS) console.log("loading");
+  if (errVPS) {
+    console.log(JSON.stringify(errVPS, null, 2));
   }
   const selectHosting = (item) => {
     let newCart = [];
@@ -38,8 +34,8 @@ const VPS = () => {
   };
   return (
     <div style={{ display: "flex", flexWrap: "wrap", margin: " auto 36px" }}>
-      {dataHosting?.hosting ? (
-        dataHosting?.hosting.map((item) => {
+      {dataVPS?.vps ? (
+        dataVPS?.vps.map((item) => {
           return (
             <VPSItem
               choose={selectHosting}
@@ -56,4 +52,4 @@ const VPS = () => {
   );
 };
 
-export default VPS;
+export default VPSBuyer;

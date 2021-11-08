@@ -2,7 +2,7 @@ import React from "react";
 import ServerItem from "src/components/ServerItem";
 
 import { useMutation, useQuery } from "@apollo/client";
-import { HOSTING } from "src/graphql/product";
+import { SERVER } from "src/graphql/product";
 
 import { Link, useNavigate } from "react-router-dom";
 
@@ -22,13 +22,13 @@ const Server = () => {
   );
 
   const {
-    loading: loadHosting,
-    error: errHosting,
-    data: dataHosting,
-  } = useQuery(HOSTING);
-  if (loadHosting) console.log("loading");
-  if (errHosting) {
-    console.log(JSON.stringify(errHosting, null, 2));
+    loading: loadServer,
+    error: errServer,
+    data: dataServer,
+  } = useQuery(SERVER);
+  if (loadServer) console.log("loading");
+  if (errServer) {
+    console.log(JSON.stringify(errServer, null, 2));
   }
   const selectHosting = (item) => {
     let newCart = [];
@@ -38,8 +38,8 @@ const Server = () => {
   };
   return (
     <div style={{ display: "flex", flexWrap: "wrap", margin: " auto 36px" }}>
-      {dataHosting?.hosting ? (
-        dataHosting?.hosting.map((item) => {
+      {dataServer?.servers ? (
+        dataServer?.servers.map((item) => {
           return (
             <ServerItem
               choose={selectHosting}
