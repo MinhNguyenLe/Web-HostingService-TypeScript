@@ -14,10 +14,10 @@ import {
   DELETE_HOSTING,
 } from "src/graphql/product";
 
-import ServerItem from "src/components/ServerItem";
+import ServerItem from "src/components/Server/ServerItem";
 import AddNewProduct from "src/components/Product/AddNewProduct";
 import DialogServer from "src/components/Dialog/DialogServer";
-import ServerTable from "src/components/ServerTable";
+import ServerTable from "src/components/Server/ServerTable";
 
 import { styled } from "@material-ui/core/styles";
 

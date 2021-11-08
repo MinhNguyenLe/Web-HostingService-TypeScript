@@ -1,5 +1,5 @@
 import React from "react";
-import VPSItem from "src/components/VPSItem";
+import VPSItem from "src/components/VPS/VPSItem";
 
 import { useMutation, useQuery } from "@apollo/client";
 import { VPS } from "src/graphql/product";

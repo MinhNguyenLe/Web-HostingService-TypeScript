@@ -1,5 +1,5 @@
 import React from "react";
-import ServerItem from "src/components/ServerItem";
+import ServerItem from "src/components/Server/ServerItem";
 
 import { useMutation, useQuery } from "@apollo/client";
 import { SERVER } from "src/graphql/product";

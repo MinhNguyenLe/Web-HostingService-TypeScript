@@ -1,5 +1,5 @@
 import React from "react";
-import HostingItem from "src/components/HostingItem";
+import HostingItem from "src/components/Hosting/HostingItem";
 
 import { useMutation, useQuery } from "@apollo/client";
 import { HOSTING } from "src/graphql/product";

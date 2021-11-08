@@ -22,7 +22,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { VPS, EDIT_VPS, DELETE_VPS } from "src/graphql/product";
 
 import DialogVPS from "src/components/Dialog/DialogVPS";
-import VPSTable from "src/components/VPSTable";
+import VPSTable from "src/components/VPS/VPSTable";
 
 import { styled } from "@material-ui/core/styles";
 

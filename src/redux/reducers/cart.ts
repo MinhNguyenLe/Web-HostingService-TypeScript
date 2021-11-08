@@ -2,6 +2,7 @@ import { Action } from "../actions";
 import { CartType } from "../action-creators";
 
 const stateCart: CartType = {
+  // choose : {domain :[],hosting:[],vps:[],server:[]},
   domain: [],
   hosting: [],
 };

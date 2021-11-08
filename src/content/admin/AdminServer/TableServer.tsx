@@ -10,7 +10,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { SERVER, EDIT_SERVER, DELETE_SERVER } from "src/graphql/product";
 
 import DialogServer from "src/components/Dialog/DialogServer";
-import ServerTable from "src/components/ServerTable";
+import ServerTable from "src/components/Server/ServerTable";
 
 import { styled } from "@material-ui/core/styles";
 

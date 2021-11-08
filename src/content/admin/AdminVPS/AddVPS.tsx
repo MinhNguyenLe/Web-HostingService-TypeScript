@@ -9,10 +9,10 @@ import { useMutation, useQuery } from "@apollo/client";
 
 import { VPS, CREATE_VPS, EDIT_VPS, DELETE_HOSTING } from "src/graphql/product";
 
-import VPSItem from "src/components/VPSItem";
+import VPSItem from "src/components/VPS/VPSItem";
 import AddNewProduct from "src/components/Product/AddNewProduct";
 import DialogVPS from "src/components/Dialog/DialogVPS";
-import HostingTable from "src/components/HostingTable";
+import HostingTable from "src/components/Hosting/HostingTable";
 
 import { styled } from "@material-ui/core/styles";
 

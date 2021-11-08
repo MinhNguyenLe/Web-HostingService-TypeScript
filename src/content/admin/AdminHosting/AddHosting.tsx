@@ -26,10 +26,10 @@ import {
   DELETE_HOSTING,
 } from "src/graphql/product";
 
-import HostingItem from "src/components/HostingItem";
+import HostingItem from "src/components/Hosting/HostingItem";
 import AddNewProduct from "src/components/Product/AddNewProduct";
 import DialogHosting from "src/components/Dialog/DialogHosting";
-import HostingTable from "src/components/HostingTable";
+import HostingTable from "src/components/Hosting/HostingTable";
 
 import { styled } from "@material-ui/core/styles";
 
