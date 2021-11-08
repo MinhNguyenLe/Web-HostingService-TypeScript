@@ -1,13 +1,10 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect } from "react";
 import {
   Card,
   Grid,
   ListItem,
-  Tooltip,
-  IconButton,
   List,
   ListItemText,
-  Checkbox,
   Divider,
   Button,
   useTheme,
@@ -15,10 +12,6 @@ import {
   Avatar,
 } from "@material-ui/core";
 import { experimentalStyled } from "@material-ui/core/styles";
-import DeleteTwoToneIcon from "@material-ui/icons/DeleteTwoTone";
-
-import DoneTwoToneIcon from "@material-ui/icons/DoneTwoTone";
-
 import { useTranslation } from "react-i18next";
 
 import { RootState } from "src/redux/reducers";
@@ -26,29 +19,9 @@ import { actionCreators } from "src/redux";
 import { bindActionCreators } from "redux";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Link, useNavigate } from "react-router-dom";
-import { handleBreakpoints } from "@material-ui/system";
+import { useNavigate } from "react-router-dom";
 
 import CartItem from "../CartItem";
-
-const ButtonError = experimentalStyled(Button)(
-  ({ theme }) => `
-     background: ${theme.colors.error.main};
-     color: ${theme.palette.error.contrastText};
-
-     &:hover {
-        background: ${theme.colors.error.dark};
-     }
-    `
-);
-
-const AvatarSuccess = experimentalStyled(Avatar)(
-  ({ theme }) => `
-    background: ${theme.colors.success.light};
-    width: ${theme.spacing(5)};
-    height: ${theme.spacing(5)};
-`
-);
 
 const ViewCart = () => {
   const theme = useTheme();
@@ -194,6 +167,7 @@ const ViewCart = () => {
               {cartRedux.domain.map((item) => {
                 return (
                   <CartItem
+                    page="check"
                     type="domain"
                     key={item._id}
                     item={item}
@@ -205,6 +179,7 @@ const ViewCart = () => {
               {cartRedux.hosting.map((item) => {
                 return (
                   <CartItem
+                    page="check"
                     type="hosting"
                     key={item._id}
                     item={item}
@@ -216,6 +191,7 @@ const ViewCart = () => {
               {cartRedux.vps?.map((item) => {
                 return (
                   <CartItem
+                    page="check"
                     type="vps"
                     key={item._id}
                     item={item}
@@ -227,6 +203,7 @@ const ViewCart = () => {
               {cartRedux.server?.map((item) => {
                 return (
                   <CartItem
+                    page="check"
                     type="server"
                     key={item._id}
                     item={item}

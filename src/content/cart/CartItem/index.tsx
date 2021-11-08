@@ -11,7 +11,7 @@ import {
 } from "@material-ui/core";
 import DeleteTwoToneIcon from "@material-ui/icons/DeleteTwoTone";
 
-const CartItem = ({ item, handleChecked, deleteItem, type }) => {
+const CartItem = ({ page, item, handleChecked, deleteItem, type }) => {
   const theme = useTheme();
   return (
     <div key={item._id}>
@@ -25,11 +25,13 @@ const CartItem = ({ item, handleChecked, deleteItem, type }) => {
       >
         <div style={{ display: "flex" }}>
           <ListItemAvatar sx={{ pr: 2 }}>
-            <Checkbox
-              onChange={(e) => handleChecked(type, e.target.checked, item)}
-              defaultChecked={false}
-              sx={{ "& .MuiSvgIcon-root": { fontSize: 28 } }}
-            />
+            {page === "check" && (
+              <Checkbox
+                onChange={(e) => handleChecked(type, e.target.checked, item)}
+                defaultChecked={false}
+                sx={{ "& .MuiSvgIcon-root": { fontSize: 28 } }}
+              />
+            )}
           </ListItemAvatar>
           <ListItemText
             sx={{ flex: "none !important" }}
@@ -46,24 +48,34 @@ const CartItem = ({ item, handleChecked, deleteItem, type }) => {
           />
         </div>
         <span>{item.product.price}</span>
-        <Tooltip placement="top" title="Delete" arrow>
-          <IconButton
-            sx={{
-              "&:hover": {
-                background: theme.colors.error.lighter,
-              },
-              color: theme.palette.error.main,
-            }}
-            color="inherit"
-            size="small"
-            onClick={() => deleteItem(type, item)}
-          >
-            <DeleteTwoToneIcon fontSize="medium" />
-          </IconButton>
-        </Tooltip>
+        {page === "check" && (
+          <Tooltip placement="top" title="Delete" arrow>
+            <IconButton
+              sx={{
+                "&:hover": {
+                  background: theme.colors.error.lighter,
+                },
+                color: theme.palette.error.main,
+              }}
+              color="inherit"
+              size="small"
+              onClick={() => deleteItem(type, item)}
+            >
+              <DeleteTwoToneIcon fontSize="medium" />
+            </IconButton>
+          </Tooltip>
+        )}
       </ListItem>
     </div>
   );
+};
+
+CartItem.defaultProps = {
+  page: "",
+  item: {},
+  handleChecked: () => 1,
+  deleteItem: () => 1,
+  type: "",
 };
 
 export default CartItem;
