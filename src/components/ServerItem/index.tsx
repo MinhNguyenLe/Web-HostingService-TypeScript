@@ -41,7 +41,7 @@ const Line = styled("div")(({ theme }) => ({
 }));
 
 const ServerItem = ({ choose, item, user }) => {
-  const { t } = useTranslation(["vps"]);
+  const { t } = useTranslation(["server"]);
 
   return (
     <CustomCard sx={{ width: 360, margin: " 8px 16px 8px 0" }}>
@@ -115,7 +115,7 @@ const ServerItem = ({ choose, item, user }) => {
                 fontWeight: "bold",
               }}
             ></IconCheck>
-            {item.cloudStorage} {t("6")}
+            {item.SSD} {t("21")}
           </InforTypography>
         </CardContent>
         <CardContent
@@ -227,7 +227,30 @@ const ServerItem = ({ choose, item, user }) => {
                 fontWeight: "bold",
               }}
             ></IconCheck>
-            {item.domain} {t("11")}
+            {item.HDD} {t("20")}
+          </InforTypography>
+        </CardContent>
+        <CardContent
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "flex-end",
+            width: "80%",
+            padding: "6px 0 !important",
+          }}
+        >
+          <InforTypography sx={{ fontWeight: "500" }} variant="subtitle2">
+            <IconCheck
+              sx={{
+                marginRight: "8px",
+                borderRadius: "50%",
+                fontSize: "18px",
+                padding: "2px",
+                fontWeight: "bold",
+              }}
+            ></IconCheck>
+            {t("19")}
+            {item.timeSetup}
           </InforTypography>
         </CardContent>
         <CardContent

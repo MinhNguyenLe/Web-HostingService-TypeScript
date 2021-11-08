@@ -37,13 +37,16 @@ const EditIcon = styled(ModeEditOutline)(({ theme }) => ({
 }));
 
 function ServerTable({ handleDelete, data, openDialog, setItem }) {
-  const { t } = useTranslation(["vps"]);
+  const { t } = useTranslation(["server"]);
   const theme = useTheme();
 
-  const listVPSRdux = useSelector((state: RootState) => state.vps.list);
+  const listServerRdux = useSelector((state: RootState) => state.server.list);
 
   const dispatch = useDispatch();
-  const { focusVPS, listVPS } = bindActionCreators(actionCreators, dispatch);
+  const { focusServer, listServer } = bindActionCreators(
+    actionCreators,
+    dispatch
+  );
 
   const [page, setPage] = useState(2);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -63,30 +66,31 @@ function ServerTable({ handleDelete, data, openDialog, setItem }) {
   };
 
   const editHosting = (item) => {
-    focusVPS(item);
+    focusServer(item);
     setItem({
       id: item._id,
       name: item.name,
-      domain: item.domain,
+      SSD: item.SSD,
       CPU: item.CPU,
       support: item.support,
-      cloudStorage: item.cloudStorage,
+      HDD: item.HDD,
       RAM: item.RAM,
       bandwidth: item.bandwidth,
       months: item.product.months,
       price: item.product.price,
       type: item.type,
       information: item.information,
+      timeSetup: item.timeSetup,
     });
     openDialog();
   };
 
   const sortWithPriceUp = () => {
-    const result = [...listVPSRdux];
+    const result = [...listServerRdux];
     result.sort(function (a, b) {
       return a.product.price - b.product.price;
     });
-    listVPS(result);
+    listServer(result);
     console.log(result);
   };
   return (
@@ -117,18 +121,16 @@ function ServerTable({ handleDelete, data, openDialog, setItem }) {
                   </TableCell>
                   <TableCell>
                     <IconButton>
-                      <ArrowUpward
-                        sx={{ fontSize: "16px" }}
-                        onClick={() => console.log(1)}
-                      />{" "}
+                      <ArrowUpward sx={{ fontSize: "16px" }} />{" "}
                     </IconButton>
                     {t("18")}
                   </TableCell>
-                  <TableCell>{t("6")}</TableCell>
                   <TableCell>{t("8")}</TableCell>
+                  <TableCell>{t("21")}</TableCell>
+                  <TableCell>{t("20")}</TableCell>
                   <TableCell>{t("7")}</TableCell>
                   <TableCell>{t("9")}</TableCell>
-                  <TableCell>{t("11")}</TableCell>
+                  <TableCell>{t("22")}</TableCell>
                   <TableCell>{t("10")}</TableCell>
                   <TableCell align="right">{t("12")}</TableCell>
                 </TableRow>
@@ -146,11 +148,12 @@ function ServerTable({ handleDelete, data, openDialog, setItem }) {
                         }).format(item.product.price)}
                       </TableCell>
                       <TableCell>{item.product.months}</TableCell>
-                      <TableCell>{item.cloudStorage}</TableCell>
                       <TableCell>{item.CPU}</TableCell>
+                      <TableCell>{item.SSD}</TableCell>
+                      <TableCell>{item.HDD}</TableCell>
                       <TableCell>{item.RAM}</TableCell>
                       <TableCell>{item.bandwidth}</TableCell>
-                      <TableCell>{item.domain}</TableCell>
+                      <TableCell>{item.timeSetup}</TableCell>
                       <TableCell>
                         {new Intl.DateTimeFormat("en-US").format(
                           item.createdAt

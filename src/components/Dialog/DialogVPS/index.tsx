@@ -36,7 +36,7 @@ const DialogVPS = ({ page, item, setItem, open, setOpen, handleSubmit }) => {
   const changeInfo = (type: string, value: string) => {
     if (type === "cloudStorage") {
       console.log(item);
-      setItem({ ...item, SSDMemory: value });
+      setItem({ ...item, cloudStorage: value });
     }
     if (type === "ram") {
       setItem({ ...item, RAM: value });

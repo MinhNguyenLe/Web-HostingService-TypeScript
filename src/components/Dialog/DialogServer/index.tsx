@@ -17,26 +17,27 @@ import { useDispatch, useSelector } from "react-redux";
 
 const DialogServer = ({ page, item, setItem, open, setOpen, handleSubmit }) => {
   const { t } = useTranslation("dialog");
-  const vpsRdux = useSelector((state: RootState) => state.vps);
+  const serverRdux = useSelector((state: RootState) => state.server);
 
   const price = useRef<HTMLInputElement>(null);
   const months = useRef<HTMLInputElement>(null);
   const ram = useRef<HTMLInputElement>(null);
-  const cloudStorage = useRef<HTMLInputElement>(null);
+  const SSD = useRef<HTMLInputElement>(null);
   const bandwidth = useRef<HTMLInputElement>(null);
   const type = useRef<HTMLInputElement>(null);
   const information = useRef<HTMLInputElement>(null);
-  const domain = useRef<HTMLInputElement>(null);
+  const HDD = useRef<HTMLInputElement>(null);
   const CPU = useRef<HTMLInputElement>(null);
   const support = useRef<HTMLInputElement>(null);
   const name = useRef<HTMLInputElement>(null);
+  const timeSetup = useRef<HTMLInputElement>(null);
   /**
-   * create new vps
+   * create new server
    */
   const changeInfo = (type: string, value: string) => {
-    if (type === "cloudStorage") {
+    if (type === "SSD") {
       console.log(item);
-      setItem({ ...item, SSDMemory: value });
+      setItem({ ...item, SSD: value });
     }
     if (type === "ram") {
       setItem({ ...item, RAM: value });
@@ -59,8 +60,8 @@ const DialogServer = ({ page, item, setItem, open, setOpen, handleSubmit }) => {
     if (type === "name") {
       setItem({ ...item, name: value });
     }
-    if (type === "domain") {
-      setItem({ ...item, domain: value });
+    if (type === "HDD") {
+      setItem({ ...item, HDD: value });
     }
     if (type === "CPU") {
       setItem({ ...item, CPU: value });
@@ -68,10 +69,13 @@ const DialogServer = ({ page, item, setItem, open, setOpen, handleSubmit }) => {
     if (type === "support") {
       setItem({ ...item, support: [value] });
     }
+    if (type === "timeSetup") {
+      setItem({ ...item, timeSetup: value });
+    }
   };
 
   /**
-   * change information vps
+   * change information server
    */
   return (
     <div>
@@ -96,7 +100,7 @@ const DialogServer = ({ page, item, setItem, open, setOpen, handleSubmit }) => {
                 type="text"
                 fullWidth
                 variant="standard"
-                defaultValue={page === "edit" ? vpsRdux.vps.name : ""}
+                defaultValue={page === "edit" ? serverRdux.server.name : ""}
               />
               <TextField
                 inputRef={type}
@@ -107,7 +111,7 @@ const DialogServer = ({ page, item, setItem, open, setOpen, handleSubmit }) => {
                 type="text"
                 fullWidth
                 variant="standard"
-                defaultValue={page === "edit" ? vpsRdux.vps.type : ""}
+                defaultValue={page === "edit" ? serverRdux.server.type : ""}
               />
               <TextField
                 inputRef={price}
@@ -119,7 +123,9 @@ const DialogServer = ({ page, item, setItem, open, setOpen, handleSubmit }) => {
                 fullWidth
                 variant="standard"
                 defaultValue={
-                  page === "edit" ? vpsRdux.vps.product.price.toString() : ""
+                  page === "edit"
+                    ? serverRdux.server.product.price.toString()
+                    : ""
                 }
               />
             </DialogContent>
@@ -134,19 +140,21 @@ const DialogServer = ({ page, item, setItem, open, setOpen, handleSubmit }) => {
                 fullWidth
                 variant="standard"
                 defaultValue={
-                  page === "edit" ? vpsRdux.vps.product.months.toString() : ""
+                  page === "edit"
+                    ? serverRdux.server.product.months.toString()
+                    : ""
                 }
               />
               <TextField
-                inputRef={domain}
-                onChange={() => changeInfo("domain", domain.current.value)}
+                inputRef={HDD}
+                onChange={() => changeInfo("HDD", HDD.current.value)}
                 autoFocus
                 margin="dense"
-                label={t("23")}
+                label={t("30")}
                 type="text"
                 fullWidth
                 variant="standard"
-                defaultValue={page === "edit" ? vpsRdux.vps.domain : ""}
+                defaultValue={page === "edit" ? serverRdux.server.HDD : ""}
               />
               <TextField
                 inputRef={CPU}
@@ -157,22 +165,20 @@ const DialogServer = ({ page, item, setItem, open, setOpen, handleSubmit }) => {
                 type="text"
                 fullWidth
                 variant="standard"
-                defaultValue={page === "edit" ? vpsRdux.vps.CPU : ""}
+                defaultValue={page === "edit" ? serverRdux.server.CPU : ""}
               />
             </DialogContent>
             <DialogContent sx={{ flex: 1, paddingBottom: "0px" }}>
               <TextField
-                inputRef={cloudStorage}
-                onChange={() =>
-                  changeInfo("cloudStorage", cloudStorage.current.value)
-                }
+                inputRef={SSD}
+                onChange={() => changeInfo("SSD", SSD.current.value)}
                 autoFocus
                 margin="dense"
-                label={t("28")}
+                label={t("14")}
                 type="text"
                 fullWidth
                 variant="standard"
-                defaultValue={page === "edit" ? vpsRdux.vps.cloudStorage : ""}
+                defaultValue={page === "edit" ? serverRdux.server.SSD : ""}
               />
               <TextField
                 inputRef={ram}
@@ -183,7 +189,7 @@ const DialogServer = ({ page, item, setItem, open, setOpen, handleSubmit }) => {
                 type="text"
                 fullWidth
                 variant="standard"
-                defaultValue={page === "edit" ? vpsRdux.vps.RAM : ""}
+                defaultValue={page === "edit" ? serverRdux.server.RAM : ""}
               />
               <TextField
                 inputRef={bandwidth}
@@ -196,7 +202,9 @@ const DialogServer = ({ page, item, setItem, open, setOpen, handleSubmit }) => {
                 type="text"
                 fullWidth
                 variant="standard"
-                defaultValue={page === "edit" ? vpsRdux.vps.bandwidth : ""}
+                defaultValue={
+                  page === "edit" ? serverRdux.server.bandwidth : ""
+                }
               />
             </DialogContent>
           </div>
@@ -213,10 +221,10 @@ const DialogServer = ({ page, item, setItem, open, setOpen, handleSubmit }) => {
                 type="text"
                 fullWidth
                 variant="standard"
-                defaultValue={page === "edit" ? vpsRdux.vps.information : ""}
+                defaultValue={
+                  page === "edit" ? serverRdux.server.information : ""
+                }
               />
-            </DialogContent>
-            <DialogContent sx={{ paddingTop: "0px" }}>
               <TextField
                 inputRef={support}
                 onChange={() => changeInfo("support", support.current.value)}
@@ -226,7 +234,24 @@ const DialogServer = ({ page, item, setItem, open, setOpen, handleSubmit }) => {
                 type="text"
                 fullWidth
                 variant="standard"
-                defaultValue={page === "edit" ? vpsRdux.vps.support : ""}
+                defaultValue={page === "edit" ? serverRdux.server.support : ""}
+              />
+            </DialogContent>
+            <DialogContent sx={{ paddingTop: "0px" }}>
+              <TextField
+                inputRef={timeSetup}
+                onChange={() =>
+                  changeInfo("timeSetup", timeSetup.current.value)
+                }
+                autoFocus
+                margin="dense"
+                label={t("29")}
+                type="text"
+                fullWidth
+                variant="standard"
+                defaultValue={
+                  page === "edit" ? serverRdux.server.timeSetup : ""
+                }
               />
             </DialogContent>
           </div>

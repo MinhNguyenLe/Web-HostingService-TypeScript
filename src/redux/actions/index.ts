@@ -71,12 +71,33 @@ export interface VPSType {
     months: number;
   };
 }
-
 export interface VPS {
   vps: VPSType;
   list: VPSType[];
 }
-
+export interface ServerType {
+  name: string;
+  SSD: string;
+  HDD: string;
+  timeSetup: string;
+  information: string;
+  support: string[];
+  _id: string;
+  RAM: string;
+  CPU: string;
+  bandwidth: string;
+  type: string;
+  createdAt: Date;
+  product: {
+    _id: string;
+    price: number;
+    months: number;
+  };
+}
+export interface Server {
+  server: ServerType;
+  list: ServerType[];
+}
 interface Domain {
   type: "CART_DOMAIN";
   payload: {
@@ -126,6 +147,20 @@ interface ListVPS {
   };
 }
 
+interface FocusServer {
+  type: "FOCUS_SERVER";
+  payload: {
+    server: ServerType;
+  };
+}
+
+interface ListServer {
+  type: "LIST_SERVER";
+  payload: {
+    list: ServerType[];
+  };
+}
+
 export type Action =
   | Buyer
   | Theme
@@ -135,4 +170,6 @@ export type Action =
   | FocusHosting
   | ListHosting
   | FocusVPS
-  | ListVPS;
+  | ListVPS
+  | FocusServer
+  | ListServer;

@@ -7,7 +7,12 @@ import { useTranslation } from "react-i18next";
 
 import { useMutation, useQuery } from "@apollo/client";
 
-import { VPS, CREATE_VPS, EDIT_VPS, DELETE_HOSTING } from "src/graphql/product";
+import {
+  SERVER,
+  CREATE_SERVER,
+  EDIT_SERVER,
+  DELETE_HOSTING,
+} from "src/graphql/product";
 
 import ServerItem from "src/components/ServerItem";
 import AddNewProduct from "src/components/Product/AddNewProduct";
@@ -25,104 +30,115 @@ function AddServer() {
   const [openCreate, setOpenCreate] = useState<boolean>(false);
   const [openEdit, setOpenEdit] = useState<boolean>(false);
 
-  const listVPSRdux = useSelector((state: RootState) => state.vps.list);
+  const listServerRdux = useSelector((state: RootState) => state.server.list);
   const dispatch = useDispatch();
-  const { listVPS, focusVPS } = bindActionCreators(actionCreators, dispatch);
+  const { listServer, focusServer } = bindActionCreators(
+    actionCreators,
+    dispatch
+  );
 
   const [item, setItem] = useState({
     name: "",
-    domain: "",
+    HDD: "",
     CPU: "",
     support: [],
-    cloudStorage: "",
+    SSD: "",
     RAM: "",
     bandwidth: "",
     months: 0,
     price: 0,
     type: "",
     information: "",
+    timeSetup: "",
   });
 
   const [itemE, setItemE] = useState({
     id: "",
     name: "",
-    domain: "",
+    HDD: "",
     CPU: "",
     support: [],
-    cloudStorage: "",
+    SSD: "",
     RAM: "",
     bandwidth: "",
     months: 0,
     price: 0,
     type: "",
     information: "",
+    timeSetup: "",
   });
 
   const handleClickOpenCreate = () => {
     setOpenCreate(true);
   };
-  const { loading: loadingVPS, error: errVPS, data: dataVPS } = useQuery(VPS);
+  const {
+    loading: loadingServer,
+    error: errServer,
+    data: dataServer,
+  } = useQuery(SERVER);
 
   useEffect(() => {
-    listVPS(dataVPS?.vps);
-  }, [loadingVPS]);
+    listServer(dataServer?.servers);
+    console.log(dataServer);
+  }, [loadingServer]);
 
-  const [createVPS, { data, loading, error }] = useMutation(CREATE_VPS, {
+  const [createServer, { data, loading, error }] = useMutation(CREATE_SERVER, {
     update(proxy, result) {
-      listVPS(result?.data?.createVPS);
+      listServer(result?.data?.createServer);
     },
     variables: item,
   });
 
-  const [editVPS, { data: dataE, loading: loadingE, error: errorE }] =
-    useMutation(EDIT_VPS, {
+  const [editServer, { data: dataE, loading: loadingE, error: errorE }] =
+    useMutation(EDIT_SERVER, {
       update(proxy, result) {
-        listVPS(result?.data?.editVPS);
+        listServer(result?.data?.editServer);
       },
       variables: itemE,
     });
 
-  if (loadingVPS || loading || loadingE)
-    console.log("loading GRAPHQL", loadingVPS || loading || loadingE);
-  if (errVPS || error || errorE) {
-    console.log(JSON.stringify(errVPS || error || errorE, null, 2));
+  if (loadingServer || loading || loadingE)
+    console.log("loading GRAPHQL", loadingServer || loading || loadingE);
+  if (errServer || error || errorE) {
+    console.log(JSON.stringify(errServer || error || errorE, null, 2));
   }
   const createNew = () => {
-    createVPS();
+    createServer();
     setOpenCreate(false);
     console.log(item);
   };
   const editFromTable = async () => {
-    await editVPS();
+    await editServer();
     setOpenEdit(false);
   };
   const editFromItem = (item) => {
     setItemE({
       id: item._id,
       name: item.name,
-      domain: item.domain,
+      HDD: item.HDD,
       CPU: item.CPU,
       support: item.support,
-      cloudStorage: item.cloudStorage,
+      SSD: item.SSD,
       RAM: item.RAM,
       bandwidth: item.bandwidth,
       months: item.product.months,
       price: item.product.price,
       type: item.type,
       information: item.information,
+      timeSetup: item.timeSetup,
     });
-    focusVPS(item);
+    focusServer(item);
     setOpenEdit(true);
     console.log(itemE);
   };
-  return loadingVPS ? (
+  return loadingServer ? (
     <CircularProgress />
   ) : (
     <Grid sx={{ display: "flex", flexWrap: "wrap" }}>
       <Grid style={{ margin: " 8px 16px 8px 0", width: "360px" }}>
         <AddNewProduct handleClickOpen={handleClickOpenCreate} />
       </Grid>
-      {listVPSRdux?.map((item) => {
+      {listServerRdux?.map((item) => {
         return (
           <ServerItem
             key={item._id}

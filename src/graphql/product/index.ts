@@ -46,6 +46,30 @@ export const VPS = gql`
   }
 `;
 
+export const SERVER = gql`
+  query vps {
+    servers {
+      _id
+      type
+      name
+      information
+      support
+      CPU
+      RAM
+      timeSetup
+      bandwidth
+      SSD
+      HDD
+      createdAt
+      product {
+        _id
+        months
+        price
+      }
+    }
+  }
+`;
+
 export const DOMAINS = gql`
   query domains {
     domains {
@@ -352,6 +376,136 @@ export const DELETE_VPS = gql`
       domain
       cloudStorage
       support
+      product {
+        _id
+        months
+        price
+      }
+    }
+  }
+`;
+
+export const CREATE_SERVER = gql`
+  mutation createServer(
+    $name: String!
+    $CPU: String!
+    $support: [String]!
+    $type: String!
+    $bandwidth: String!
+    $information: String!
+    $RAM: String!
+    $timeSetup: String!
+    $SSD: String!
+    $HDD: String!
+    $price: Float!
+    $months: Int!
+  ) {
+    createServer(
+      createServer: {
+        name: $name
+        CPU: $CPU
+        support: $support
+        type: $type
+        bandwidth: $bandwidth
+        information: $information
+        price: $price
+        months: $months
+        timeSetup: $timeSetup
+        RAM: $RAM
+        SSD: $SSD
+        HDD: $HDD
+      }
+    ) {
+      _id
+      type
+      name
+      information
+      support
+      CPU
+      RAM
+      timeSetup
+      bandwidth
+      SSD
+      HDD
+      createdAt
+      product {
+        _id
+        months
+        price
+      }
+    }
+  }
+`;
+
+export const EDIT_SERVER = gql`
+  mutation editServer(
+    $id: ID!
+    $name: String!
+    $CPU: String!
+    $support: [String]!
+    $type: String!
+    $bandwidth: String!
+    $information: String!
+    $RAM: String!
+    $timeSetup: String!
+    $SSD: String!
+    $HDD: String!
+    $price: Float!
+    $months: Int!
+  ) {
+    editServer(
+      editServer: {
+        _id: $id
+        name: $name
+        CPU: $CPU
+        support: $support
+        type: $type
+        bandwidth: $bandwidth
+        information: $information
+        price: $price
+        months: $months
+        timeSetup: $timeSetup
+        RAM: $RAM
+        SSD: $SSD
+        HDD: $HDD
+      }
+    ) {
+      _id
+      type
+      name
+      information
+      support
+      CPU
+      RAM
+      timeSetup
+      bandwidth
+      SSD
+      HDD
+      createdAt
+      product {
+        _id
+        months
+        price
+      }
+    }
+  }
+`;
+
+export const DELETE_SERVER = gql`
+  mutation deleteServer($id: ID!) {
+    deleteServer(deleteServer: { _id: $id }) {
+      _id
+      type
+      name
+      information
+      support
+      CPU
+      RAM
+      timeSetup
+      bandwidth
+      SSD
+      HDD
+      createdAt
       product {
         _id
         months
