@@ -1,4 +1,4 @@
-import { useState, MouseEvent, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   Card,
   Grid,
@@ -29,6 +29,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { handleBreakpoints } from "@material-ui/system";
 
+import CartItem from "../CartItem";
+
 const ButtonError = experimentalStyled(Button)(
   ({ theme }) => `
      background: ${theme.colors.error.main};
@@ -54,32 +56,103 @@ const ViewCart = () => {
   const { t } = useTranslation(["cart"]);
   const navigate = useNavigate();
 
-  const [hostCheck, setHostCheck] = useState([]);
-
   const cartRedux = useSelector((state: RootState) => state.cart.choose);
   const buyHost = useSelector((state: RootState) => state.cart.buy.hosting);
+  const buyDom = useSelector((state: RootState) => state.cart.buy.domain);
+  const bVPS = useSelector((state: RootState) => state.cart.buy.vps);
+  const buySV = useSelector((state: RootState) => state.cart.buy.server);
+  const totalPriceRdux = useSelector(
+    (state: RootState) => state.cart.totalPrice
+  );
 
   const dispatch = useDispatch();
-  const { cartHosting, buyHosting } = bindActionCreators(
-    actionCreators,
-    dispatch
-  );
+  const {
+    cartHosting,
+    buyHosting,
+    setTotalPrice,
+    buyVPS,
+    buyServer,
+    buyDomain,
+  } = bindActionCreators(actionCreators, dispatch);
+  /**
+   * refresh checked and total price
+   */
+  useEffect(() => {
+    setTotalPrice(0);
+  }, []);
 
   const buyProduct = () => {
     navigate("./payment");
   };
 
-  const handleChecked = (value, item) => {
-    const result = [...buyHost];
-    if (value) {
-      result.push(item);
-      buyHosting(result);
-    } else {
-      buyHosting(
-        result.filter((e) => {
-          if (e._id !== item._id) return e;
-        })
-      );
+  const handleChecked = (type, checked, item) => {
+    if (type === "hosting") {
+      const result = [...buyHost];
+      if (checked) {
+        result.push(item);
+        buyHosting(result);
+        setTotalPrice(totalPriceRdux + item.product.price);
+      } else {
+        buyHosting(
+          result.filter((e) => {
+            if (e._id !== item._id) {
+              return e;
+            }
+          })
+        );
+        setTotalPrice(totalPriceRdux - item.product.price);
+      }
+    }
+    if (type === "vps") {
+      const result = [...bVPS];
+      if (checked) {
+        result.push(item);
+        buyVPS(result);
+        setTotalPrice(totalPriceRdux + item.product.price);
+      } else {
+        buyVPS(
+          result.filter((e) => {
+            if (e._id !== item._id) {
+              return e;
+            }
+          })
+        );
+        setTotalPrice(totalPriceRdux - item.product.price);
+      }
+    }
+    if (type === "server") {
+      const result = [...buySV];
+      if (checked) {
+        result.push(item);
+        buyServer(result);
+        setTotalPrice(totalPriceRdux + item.product.price);
+      } else {
+        buyServer(
+          result.filter((e) => {
+            if (e._id !== item._id) {
+              return e;
+            }
+          })
+        );
+        setTotalPrice(totalPriceRdux - item.product.price);
+      }
+    }
+    if (type === "domain") {
+      const result = [...buyDom];
+      if (checked) {
+        result.push(item);
+        buyDomain(result);
+        setTotalPrice(totalPriceRdux + item.product.price);
+      } else {
+        buyDomain(
+          result.filter((e) => {
+            if (e._id !== item._id) {
+              return e;
+            }
+          })
+        );
+        setTotalPrice(totalPriceRdux - item.product.price);
+      }
     }
   };
 
@@ -90,6 +163,7 @@ const ViewCart = () => {
           if (e._id !== item._id) return e;
         })
       );
+      setTotalPrice(totalPriceRdux - item.product.price);
     }
   };
 
@@ -119,75 +193,61 @@ const ViewCart = () => {
 
               {cartRedux.domain.map((item) => {
                 return (
-                  <div key={item.idDomain}>
-                    <Divider component="li" />
-                    <ListItem sx={{ p: 3 }}>
-                      <ListItemAvatar sx={{ pr: 2 }}>
-                        <AvatarSuccess>
-                          <DoneTwoToneIcon />
-                        </AvatarSuccess>
-                      </ListItemAvatar>
-                      <ListItemText
-                        primaryTypographyProps={{
-                          variant: "h5",
-                          gutterBottom: true,
-                        }}
-                        secondaryTypographyProps={{
-                          variant: "subtitle2",
-                          lineHeight: 1,
-                        }}
-                        primary={`${item?.nameUrl + item?.dot}`}
-                        secondary="Your Twitter account was last syncronized 6 days ago"
-                      />
-                      <ButtonError size="large" variant="outlined">
-                        {t("2")}
-                      </ButtonError>
-                    </ListItem>
-                  </div>
+                  <CartItem
+                    type="domain"
+                    key={item._id}
+                    item={item}
+                    handleChecked={handleChecked}
+                    deleteItem={deleteItem}
+                  />
                 );
               })}
               {cartRedux.hosting.map((item) => {
                 return (
-                  <div key={item._id}>
-                    <Divider component="li" />
-                    <ListItem sx={{ p: 3 }}>
-                      <ListItemAvatar sx={{ pr: 2 }}></ListItemAvatar>
-                      <ListItemText
-                        primaryTypographyProps={{
-                          variant: "h5",
-                          gutterBottom: true,
-                        }}
-                        secondaryTypographyProps={{
-                          variant: "subtitle2",
-                          lineHeight: 1,
-                        }}
-                        primary={item.type}
-                        secondary="Your Twitter account was last syncronized 6 days ago"
-                      />
-                      <Checkbox
-                        onChange={(e) => handleChecked(e.target.checked, item)}
-                        defaultChecked={false}
-                        sx={{ "& .MuiSvgIcon-root": { fontSize: 28 } }}
-                      />
-                      <Tooltip placement="top" title="Delete" arrow>
-                        <IconButton
-                          sx={{
-                            "&:hover": {
-                              background: theme.colors.error.lighter,
-                            },
-                            color: theme.palette.error.main,
-                          }}
-                          color="inherit"
-                          size="small"
-                          onClick={() => deleteItem("hosting", item)}
-                        >
-                          <DeleteTwoToneIcon fontSize="medium" />
-                        </IconButton>
-                      </Tooltip>
-                    </ListItem>
-                  </div>
+                  <CartItem
+                    type="hosting"
+                    key={item._id}
+                    item={item}
+                    handleChecked={handleChecked}
+                    deleteItem={deleteItem}
+                  />
                 );
               })}
+              {cartRedux.vps?.map((item) => {
+                return (
+                  <CartItem
+                    type="vps"
+                    key={item._id}
+                    item={item}
+                    handleChecked={handleChecked}
+                    deleteItem={deleteItem}
+                  />
+                );
+              })}
+              {cartRedux.server?.map((item) => {
+                return (
+                  <CartItem
+                    type="server"
+                    key={item._id}
+                    item={item}
+                    handleChecked={handleChecked}
+                    deleteItem={deleteItem}
+                  />
+                );
+              })}
+              <Divider component="li" />
+              <ListItem sx={{ p: 3 }}>
+                <ListItemText
+                  primaryTypographyProps={{ variant: "h5", gutterBottom: true }}
+                  secondaryTypographyProps={{
+                    variant: "subtitle2",
+                    lineHeight: 1,
+                  }}
+                  primary="Total price"
+                  secondary={t("3")}
+                />
+                <span>{totalPriceRdux}</span>
+              </ListItem>
             </List>
           </Card>
         </Grid>

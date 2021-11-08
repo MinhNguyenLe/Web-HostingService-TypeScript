@@ -76,21 +76,6 @@ const Domain = () => {
       })
       .catch();
   };
-  const registerDomain = (item) => {
-    // let newCart = [];
-    // newCart.push({
-    //   idDomain: item?._id,
-    //   nameUrl: nameUrl.current,
-    //   dot: item?.dot,
-    //   product: {
-    //     idProduct: item?.product._id,
-    //     price: item?.product.price,
-    //     months: item?.product.months,
-    //   },
-    // });
-    // cartDomain(newCart);
-    navigate("../../management/cart", { replace: true });
-  };
   return (
     <div>
       <SearchAvailable
@@ -109,7 +94,6 @@ const Domain = () => {
                 <CardDomain
                   chooseDot={chooseDot}
                   item={item}
-                  registerDomain={registerDomain}
                   image={item["images"][0]}
                   price={item?.product?.price}
                   information={item?.information}

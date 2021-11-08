@@ -103,7 +103,6 @@ function AddDomain() {
               <CardDomain
                 chooseDot={() => console.log(1111)}
                 item={1}
-                registerDomain={() => console.log("aaaaaaaaa")}
                 image={item["images"][0]}
                 price={item?.product?.price}
                 information={item?.information}

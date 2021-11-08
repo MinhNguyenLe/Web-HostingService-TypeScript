@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 const VPSBuyer = () => {
   const navigate = useNavigate();
 
-  const cartRedux = useSelector((state: RootState) => state.cart);
+  const cartRedux = useSelector((state: RootState) => state.cart.choose);
   const dispatch = useDispatch();
   const { cartVPS } = bindActionCreators(actionCreators, dispatch);
 
@@ -24,7 +24,9 @@ const VPSBuyer = () => {
     console.log(JSON.stringify(errVPS, null, 2));
   }
   const select = (item) => {
-    cartVPS(item);
+    let newCart = [...cartRedux.vps];
+    newCart.push(item);
+    cartVPS(newCart);
     navigate("../../management/cart", { replace: true });
   };
   return (

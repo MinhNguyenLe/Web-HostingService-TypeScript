@@ -13,6 +13,7 @@ const stateCart: CartType = {
     vps: [],
     server: [],
   },
+  totalPrice: 0,
 };
 
 export const reducerCart = (
@@ -52,6 +53,11 @@ export const reducerCart = (
       let result8 = { ...state };
       result8.buy.server = action.payload.server;
       return result8;
+    case "SET_TOTAL_PRICE":
+      return {
+        ...state,
+        totalPrice: action.payload.total,
+      };
     default:
       return { ...state };
   }

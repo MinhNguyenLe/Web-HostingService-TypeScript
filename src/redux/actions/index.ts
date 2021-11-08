@@ -18,12 +18,19 @@ interface Theme {
   };
 }
 
+export interface NameDomain {
+  name: string;
+  dot: string;
+}
+
 export interface DomainType {
-  idDomain: string;
+  _id: string;
   nameUrl: string;
+  information: string;
+  createdAt: Date;
   dot: string;
   product: {
-    idProduct: string;
+    _id: string;
     price: number;
     months: number;
   };
@@ -216,6 +223,7 @@ export interface CartType {
     vps: VPSType[];
     server: ServerType[];
   };
+  totalPrice: number;
 }
 
 export interface AccountType {
@@ -232,7 +240,15 @@ export interface UserType {
   user: AccountType;
 }
 
+export interface TotalPrice {
+  type: "SET_TOTAL_PRICE";
+  payload: {
+    total: number;
+  };
+}
+
 export type Action =
+  | TotalPrice
   | Buyer
   | Theme
   | Lang

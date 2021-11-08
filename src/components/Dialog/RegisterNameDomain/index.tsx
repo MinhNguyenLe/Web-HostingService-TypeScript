@@ -13,22 +13,31 @@ import DialogFail from "../DialogFail";
 import { useTranslation } from "react-i18next";
 
 import axios, { AxiosResponse } from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
+import { RootState } from "src/redux/reducers";
+import { actionCreators } from "src/redux";
+import { bindActionCreators } from "redux";
+import { useDispatch, useSelector } from "react-redux";
 interface availDomain {
   data: {
     DomainInfo: Object;
   };
 }
 
-const RegisterNameDomain = ({ setOpen, open, input, setInput }) => {
+const RegisterNameDomain = ({ setOpen, open, input, setInput, item }) => {
   const { t } = useTranslation("dialog");
-
+  const navigate = useNavigate();
   const name = useRef<HTMLInputElement>(null);
   const [openFail, setOpenFail] = useState(false);
 
   const changeInfo = (value) => {
     setInput({ ...input, name: value });
   };
+
+  const cartRedux = useSelector((state: RootState) => state.cart.choose);
+  const dispatch = useDispatch();
+  const { cartDomain } = bindActionCreators(actionCreators, dispatch);
 
   const registerDomainName = () => {
     axios
@@ -40,6 +49,13 @@ const RegisterNameDomain = ({ setOpen, open, input, setInput }) => {
       .then((res: AxiosResponse) => {
         if (res?.data?.DomainInfo.domainAvailability === "AVAILABLE") {
           setOpen(false);
+          let newCart = [...cartRedux.domain];
+          newCart.push({
+            ...item,
+            name: name.current.value,
+          });
+          cartDomain(newCart);
+          navigate("../../management/cart", { replace: true });
         } else setOpenFail(true);
       })
       .catch();

@@ -13,7 +13,6 @@ import RegisterNameDomain from "../../Dialog/RegisterNameDomain";
 
 export default function CardDomain({
   item,
-  registerDomain,
   image,
   price,
   information,
@@ -44,16 +43,12 @@ export default function CardDomain({
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button
-          // onClick={() => registerDomain(item)}
-          onClick={handleClickOpen}
-          size="medium"
-          color="primary"
-        >
+        <Button onClick={handleClickOpen} size="medium" color="primary">
           Register
         </Button>
       </CardActions>
       <RegisterNameDomain
+        item={item}
         setOpen={setOpen}
         open={open}
         input={input}

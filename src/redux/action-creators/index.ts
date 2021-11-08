@@ -100,6 +100,17 @@ export const buyServer = (server: Array<ServerType>) => {
   };
 };
 
+export const setTotalPrice = (total: number) => {
+  return (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: "SET_TOTAL_PRICE",
+      payload: {
+        total: total,
+      },
+    });
+  };
+};
+
 export const buyerRedux = (account: AccountType) => {
   return (dispatch: Dispatch<Action>) => {
     dispatch({

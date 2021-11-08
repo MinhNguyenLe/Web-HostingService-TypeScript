@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 const Server = () => {
   const navigate = useNavigate();
 
-  const cartRedux = useSelector((state: RootState) => state.cart);
+  const cartRedux = useSelector((state: RootState) => state.cart.choose);
   const dispatch = useDispatch();
   const { cartServer } = bindActionCreators(actionCreators, dispatch);
 
@@ -28,7 +28,9 @@ const Server = () => {
     console.log(JSON.stringify(errServer, null, 2));
   }
   const select = (item) => {
-    cartServer(item);
+    let newCart = [...cartRedux.server];
+    newCart.push(item);
+    cartServer(newCart);
     navigate("../../management/cart", { replace: true });
   };
   return (
