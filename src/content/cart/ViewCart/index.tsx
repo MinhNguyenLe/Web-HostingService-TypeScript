@@ -3,14 +3,19 @@ import {
   Card,
   Grid,
   ListItem,
+  Tooltip,
+  IconButton,
   List,
   ListItemText,
+  Checkbox,
   Divider,
   Button,
+  useTheme,
   ListItemAvatar,
   Avatar,
 } from "@material-ui/core";
 import { experimentalStyled } from "@material-ui/core/styles";
+import DeleteTwoToneIcon from "@material-ui/icons/DeleteTwoTone";
 
 import DoneTwoToneIcon from "@material-ui/icons/DoneTwoTone";
 
@@ -18,9 +23,11 @@ import { useTranslation } from "react-i18next";
 
 import { RootState } from "src/redux/reducers";
 import { actionCreators } from "src/redux";
-import { useSelector } from "react-redux";
+import { bindActionCreators } from "redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Link, useNavigate } from "react-router-dom";
+import { handleBreakpoints } from "@material-ui/system";
 
 const ButtonError = experimentalStyled(Button)(
   ({ theme }) => `
@@ -42,12 +49,50 @@ const AvatarSuccess = experimentalStyled(Avatar)(
 );
 
 const ViewCart = () => {
+  const theme = useTheme();
+
   const { t } = useTranslation(["cart"]);
   const navigate = useNavigate();
+
+  const [hostCheck, setHostCheck] = useState([]);
+
   const cartRedux = useSelector((state: RootState) => state.cart.choose);
+  const buyHost = useSelector((state: RootState) => state.cart.buy.hosting);
+
+  const dispatch = useDispatch();
+  const { cartHosting, buyHosting } = bindActionCreators(
+    actionCreators,
+    dispatch
+  );
+
   const buyProduct = () => {
     navigate("./payment");
   };
+
+  const handleChecked = (value, item) => {
+    const result = [...buyHost];
+    if (value) {
+      result.push(item);
+      buyHosting(result);
+    } else {
+      buyHosting(
+        result.filter((e) => {
+          if (e._id !== item._id) return e;
+        })
+      );
+    }
+  };
+
+  const deleteItem = (type, item) => {
+    if (type === "hosting") {
+      cartHosting(
+        [...cartRedux.hosting].filter((e) => {
+          if (e._id !== item._id) return e;
+        })
+      );
+    }
+  };
+
   return (
     <Grid container spacing={3} sx={{ marginTop: "20px" }}>
       <Grid sx={{ margin: "auto" }} item xs={10}>
@@ -106,11 +151,7 @@ const ViewCart = () => {
                   <div key={item._id}>
                     <Divider component="li" />
                     <ListItem sx={{ p: 3 }}>
-                      <ListItemAvatar sx={{ pr: 2 }}>
-                        <AvatarSuccess>
-                          <DoneTwoToneIcon />
-                        </AvatarSuccess>
-                      </ListItemAvatar>
+                      <ListItemAvatar sx={{ pr: 2 }}></ListItemAvatar>
                       <ListItemText
                         primaryTypographyProps={{
                           variant: "h5",
@@ -123,9 +164,26 @@ const ViewCart = () => {
                         primary={item.type}
                         secondary="Your Twitter account was last syncronized 6 days ago"
                       />
-                      <ButtonError size="large" variant="outlined">
-                        {t("2")}
-                      </ButtonError>
+                      <Checkbox
+                        onChange={(e) => handleChecked(e.target.checked, item)}
+                        defaultChecked={false}
+                        sx={{ "& .MuiSvgIcon-root": { fontSize: 28 } }}
+                      />
+                      <Tooltip placement="top" title="Delete" arrow>
+                        <IconButton
+                          sx={{
+                            "&:hover": {
+                              background: theme.colors.error.lighter,
+                            },
+                            color: theme.palette.error.main,
+                          }}
+                          color="inherit"
+                          size="small"
+                          onClick={() => deleteItem("hosting", item)}
+                        >
+                          <DeleteTwoToneIcon fontSize="medium" />
+                        </IconButton>
+                      </Tooltip>
                     </ListItem>
                   </div>
                 );

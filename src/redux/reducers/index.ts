@@ -27,9 +27,9 @@ const pagePersistConfig = {
 };
 
 const cartPersistConfig = {
-  key: "cart",
+  key: "choose-cart",
   storage: storage,
-  whitelist: ["buy", "choose"],
+  whitelist: ["choose"],
 };
 
 const hostConfig = {

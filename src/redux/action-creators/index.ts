@@ -56,6 +56,50 @@ export const cartServer = (server: Array<ServerType>) => {
   };
 };
 
+export const buyHosting = (hosting: Array<HostingType>) => {
+  return (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: "BUY_HOSTING",
+      payload: {
+        hosting: hosting,
+      },
+    });
+  };
+};
+
+export const buyDomain = (domain: Array<DomainType>) => {
+  return (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: "BUY_DOMAIN",
+      payload: {
+        domain: domain,
+      },
+    });
+  };
+};
+
+export const buyVPS = (vps: Array<VPSType>) => {
+  return (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: "BUY_VPS",
+      payload: {
+        vps: vps,
+      },
+    });
+  };
+};
+
+export const buyServer = (server: Array<ServerType>) => {
+  return (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: "BUY_SERVER",
+      payload: {
+        server: server,
+      },
+    });
+  };
+};
+
 export const buyerRedux = (account: AccountType) => {
   return (dispatch: Dispatch<Action>) => {
     dispatch({

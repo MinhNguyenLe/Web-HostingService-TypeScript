@@ -36,6 +36,22 @@ export const reducerCart = (
       let result4 = { ...state };
       result4.choose.server = action.payload.server;
       return result4;
+    case "BUY_DOMAIN":
+      let result5 = { ...state };
+      result5.buy.domain = action.payload.domain;
+      return result5;
+    case "BUY_HOSTING":
+      let result6 = { ...state };
+      result6.buy.hosting = action.payload.hosting;
+      return result6;
+    case "BUY_VPS":
+      let result7 = { ...state };
+      result7.buy.vps = action.payload.vps;
+      return result7;
+    case "BUY_SERVER":
+      let result8 = { ...state };
+      result8.buy.server = action.payload.server;
+      return result8;
     default:
       return { ...state };
   }

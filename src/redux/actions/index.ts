@@ -125,6 +125,35 @@ interface CartServer {
     server: Array<ServerType>;
   };
 }
+
+interface BuyDomain {
+  type: "BUY_DOMAIN";
+  payload: {
+    domain: Array<DomainType>;
+  };
+}
+
+interface BuyHosting {
+  type: "BUY_HOSTING";
+  payload: {
+    hosting: Array<HostingType>;
+  };
+}
+
+interface BuyVPS {
+  type: "BUY_VPS";
+  payload: {
+    vps: Array<VPSType>;
+  };
+}
+
+interface BuyServer {
+  type: "BUY_SERVER";
+  payload: {
+    server: Array<ServerType>;
+  };
+}
+
 interface Lang {
   type: "LANG";
   payload: {
@@ -211,6 +240,10 @@ export type Action =
   | CartServer
   | CartVPS
   | CartHosting
+  | BuyDomain
+  | BuyServer
+  | BuyVPS
+  | BuyHosting
   | FocusHosting
   | ListHosting
   | FocusVPS
