@@ -31,10 +31,18 @@ const Payment = () => {
   }
 
   const submitPayment = (resPayment) => {
-    if (resPayment.status === "succeeded") {
-      buy();
-    }
+    console.log(resPayment);
+    // if (resPayment.status === "succeeded") {
+    //   buy();
+    // }
   };
+
+  /**
+   * Card test ->
+   * 1. 4242 4242 4242 4242 -> success
+   * 2. 4000 0025 0000 3155 -> The card payment requires authentication.
+   * 3. 4000 0000 0000 9995 -> The card is declined
+   */
   return (
     <div>
       <PaymentForm submitPayment={submitPayment} />

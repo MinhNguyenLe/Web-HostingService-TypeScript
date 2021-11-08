@@ -15,8 +15,8 @@ const PaymentForm = ({ submitPayment }) => {
     <div>
       <Elements stripe={stripePromise}>
         <CardForm submitPayment={submitPayment} />
-        <IdealBankForm />
-        <IbanForm />
+        {/* <IdealBankForm />
+        <IbanForm /> */}
       </Elements>
     </div>
   );
