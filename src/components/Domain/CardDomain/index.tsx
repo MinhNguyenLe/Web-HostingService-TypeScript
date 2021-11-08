@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import {
   CardContent,
   CardMedia,
@@ -9,6 +9,8 @@ import {
   CardActionArea,
 } from "@material-ui/core";
 
+import RegisterNameDomain from "../../Dialog/RegisterNameDomain";
+
 export default function CardDomain({
   item,
   registerDomain,
@@ -17,6 +19,17 @@ export default function CardDomain({
   information,
   chooseDot,
 }) {
+  const [open, setOpen] = useState(false);
+  const [input, setInput] = useState({
+    name: "",
+    dot: "",
+  });
+
+  const handleClickOpen = () => {
+    setInput({ ...input, dot: item.dot });
+    setOpen(true);
+  };
+
   return (
     <Card sx={{ width: 320, minWidth: 290, minHeight: 260 }}>
       <CardActionArea onClick={() => chooseDot(item?.dot)}>
@@ -32,13 +45,20 @@ export default function CardDomain({
       </CardActionArea>
       <CardActions>
         <Button
-          onClick={() => registerDomain(item)}
+          // onClick={() => registerDomain(item)}
+          onClick={handleClickOpen}
           size="medium"
           color="primary"
         >
           Register
         </Button>
       </CardActions>
+      <RegisterNameDomain
+        setOpen={setOpen}
+        open={open}
+        input={input}
+        setInput={setInput}
+      />
     </Card>
   );
 }

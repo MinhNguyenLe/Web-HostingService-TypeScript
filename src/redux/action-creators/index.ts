@@ -5,26 +5,10 @@ import {
   HostingType,
   VPSType,
   ServerType,
+  CartType,
+  UserType,
+  AccountType,
 } from "../actions/index";
-
-export interface AccountType {
-  email: string;
-  idBuyer: string;
-  idUser: string;
-  name: string;
-  userName: string;
-  quantity: number;
-  typeBuyer: number;
-  isPermission: boolean;
-}
-
-export interface UserType {
-  user: AccountType;
-}
-export interface CartType {
-  domain: Array<DomainType>;
-  hosting: Array<HostingType>;
-}
 
 // export type State = Account | Cart;
 
@@ -45,6 +29,28 @@ export const cartDomain = (domain: Array<DomainType>) => {
       type: "CART_DOMAIN",
       payload: {
         domain: domain,
+      },
+    });
+  };
+};
+
+export const cartVPS = (vps: Array<VPSType>) => {
+  return (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: "CART_VPS",
+      payload: {
+        vps: vps,
+      },
+    });
+  };
+};
+
+export const cartServer = (server: Array<ServerType>) => {
+  return (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: "CART_SERVER",
+      payload: {
+        server: server,
       },
     });
   };

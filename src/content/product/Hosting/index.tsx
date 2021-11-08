@@ -14,12 +14,9 @@ import { useDispatch, useSelector } from "react-redux";
 const Hosting = () => {
   const navigate = useNavigate();
 
-  const cartRedux = useSelector((state: RootState) => state.cart);
+  const cartRedux = useSelector((state: RootState) => state.cart.choose);
   const dispatch = useDispatch();
-  const { cartHosting, cartDomain } = bindActionCreators(
-    actionCreators,
-    dispatch
-  );
+  const { cartHosting } = bindActionCreators(actionCreators, dispatch);
 
   const {
     loading: loadHosting,
@@ -31,7 +28,7 @@ const Hosting = () => {
     console.log(JSON.stringify(errHosting, null, 2));
   }
   const selectHosting = (item) => {
-    let newCart = [];
+    let newCart = [...cartRedux.hosting];
     newCart.push(item);
     cartHosting(newCart);
     navigate("../../management/cart", { replace: true });

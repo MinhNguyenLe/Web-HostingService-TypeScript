@@ -16,10 +16,7 @@ const Server = () => {
 
   const cartRedux = useSelector((state: RootState) => state.cart);
   const dispatch = useDispatch();
-  const { cartHosting, cartDomain } = bindActionCreators(
-    actionCreators,
-    dispatch
-  );
+  const { cartServer } = bindActionCreators(actionCreators, dispatch);
 
   const {
     loading: loadServer,
@@ -30,10 +27,8 @@ const Server = () => {
   if (errServer) {
     console.log(JSON.stringify(errServer, null, 2));
   }
-  const selectHosting = (item) => {
-    let newCart = [];
-    newCart.push(item);
-    cartHosting(newCart);
+  const select = (item) => {
+    cartServer(item);
     navigate("../../management/cart", { replace: true });
   };
   return (
@@ -42,7 +37,7 @@ const Server = () => {
         dataServer?.servers.map((item) => {
           return (
             <ServerItem
-              choose={selectHosting}
+              choose={select}
               key={item._id}
               item={item}
               user="buyer"

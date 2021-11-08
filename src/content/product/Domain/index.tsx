@@ -77,18 +77,18 @@ const Domain = () => {
       .catch();
   };
   const registerDomain = (item) => {
-    let newCart = [];
-    newCart.push({
-      idDomain: item?._id,
-      nameUrl: nameUrl.current,
-      dot: item?.dot,
-      product: {
-        idProduct: item?.product._id,
-        price: item?.product.price,
-        months: item?.product.months,
-      },
-    });
-    cartDomain(newCart);
+    // let newCart = [];
+    // newCart.push({
+    //   idDomain: item?._id,
+    //   nameUrl: nameUrl.current,
+    //   dot: item?.dot,
+    //   product: {
+    //     idProduct: item?.product._id,
+    //     price: item?.product.price,
+    //     months: item?.product.months,
+    //   },
+    // });
+    // cartDomain(newCart);
     navigate("../../management/cart", { replace: true });
   };
   return (

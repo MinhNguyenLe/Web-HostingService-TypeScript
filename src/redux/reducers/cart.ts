@@ -1,10 +1,18 @@
-import { Action } from "../actions";
-import { CartType } from "../action-creators";
+import { Action, CartType } from "../actions";
 
 const stateCart: CartType = {
-  // choose : {domain :[],hosting:[],vps:[],server:[]},
-  domain: [],
-  hosting: [],
+  buy: {
+    domain: [],
+    hosting: [],
+    vps: [],
+    server: [],
+  },
+  choose: {
+    domain: [],
+    hosting: [],
+    vps: [],
+    server: [],
+  },
 };
 
 export const reducerCart = (
@@ -13,15 +21,21 @@ export const reducerCart = (
 ): CartType => {
   switch (action.type) {
     case "CART_DOMAIN":
-      return {
-        ...state,
-        domain: action.payload.domain,
-      };
+      let result1 = { ...state };
+      result1.choose.domain = action.payload.domain;
+      return result1;
     case "CART_HOSTING":
-      return {
-        ...state,
-        hosting: action.payload.hosting,
-      };
+      let result2 = { ...state };
+      result2.choose.hosting = action.payload.hosting;
+      return result2;
+    case "CART_VPS":
+      let result3 = { ...state };
+      result3.choose.vps = action.payload.vps;
+      return result3;
+    case "CART_SERVER":
+      let result4 = { ...state };
+      result4.choose.server = action.payload.server;
+      return result4;
     default:
       return { ...state };
   }

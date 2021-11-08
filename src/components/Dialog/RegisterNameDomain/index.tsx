@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useRef, useState } from "react";
 import {
   Button,
   TextField,
@@ -8,45 +8,64 @@ import {
   DialogTitle,
   DialogContentText,
 } from "@material-ui/core";
+import DialogFail from "../DialogFail";
 
-const RegisterNameDomain = () => {
-  const [open, setOpen] = React.useState(false);
+import { useTranslation } from "react-i18next";
 
-  const handleClickOpen = () => {
-    setOpen(true);
+import axios, { AxiosResponse } from "axios";
+
+interface availDomain {
+  data: {
+    DomainInfo: Object;
+  };
+}
+
+const RegisterNameDomain = ({ setOpen, open, input, setInput }) => {
+  const { t } = useTranslation("dialog");
+
+  const name = useRef<HTMLInputElement>(null);
+  const [openFail, setOpenFail] = useState(false);
+
+  const changeInfo = (value) => {
+    setInput({ ...input, name: value });
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const registerDomainName = () => {
+    axios
+      .get<availDomain>(
+        `https://domain-availability.whoisxmlapi.com/api/v1?apiKey=at_euKgMtfT4h6beO1APHUGNrP1r7URW&domainName=${
+          name.current.value + input.dot
+        }&credits=DA`
+      )
+      .then((res: AxiosResponse) => {
+        if (res?.data?.DomainInfo.domainAvailability === "AVAILABLE") {
+          setOpen(false);
+        } else setOpenFail(true);
+      })
+      .catch();
   };
-
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Open form dialog
-      </Button>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Subscribe</DialogTitle>
+      <Dialog open={open} onClose={() => setOpen(false)}>
+        <DialogTitle sx={{ width: 320 }}>{t("31")}</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            To subscribe to this website, please enter your email address here.
-            We will send updates occasionally.
-          </DialogContentText>
           <TextField
+            inputRef={name}
+            onChange={() => changeInfo(name.current.value)}
             autoFocus
             margin="dense"
-            id="name"
-            label="Email Address"
-            type="email"
+            label={t("34")}
+            type="text"
             fullWidth
             variant="standard"
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Subscribe</Button>
+          <Button onClick={registerDomainName}>{t("33")}</Button>
+          <Button onClick={() => setOpen(false)}>{t("3")}</Button>
         </DialogActions>
       </Dialog>
+      <DialogFail open={openFail} setOpen={setOpenFail} mess={t("38")} />
     </div>
   );
 };

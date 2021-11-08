@@ -98,7 +98,7 @@ export interface Server {
   server: ServerType;
   list: ServerType[];
 }
-interface Domain {
+interface CartDomain {
   type: "CART_DOMAIN";
   payload: {
     domain: Array<DomainType>;
@@ -112,6 +112,19 @@ interface CartHosting {
   };
 }
 
+interface CartVPS {
+  type: "CART_VPS";
+  payload: {
+    vps: Array<VPSType>;
+  };
+}
+
+interface CartServer {
+  type: "CART_SERVER";
+  payload: {
+    server: Array<ServerType>;
+  };
+}
 interface Lang {
   type: "LANG";
   payload: {
@@ -161,11 +174,42 @@ interface ListServer {
   };
 }
 
+export interface CartType {
+  buy: {
+    domain: DomainType[];
+    hosting: HostingType[];
+    vps: VPSType[];
+    server: ServerType[];
+  };
+  choose: {
+    domain: DomainType[];
+    hosting: HostingType[];
+    vps: VPSType[];
+    server: ServerType[];
+  };
+}
+
+export interface AccountType {
+  email: string;
+  idBuyer: string;
+  idUser: string;
+  name: string;
+  userName: string;
+  quantity: number;
+  typeBuyer: number;
+  isPermission: boolean;
+}
+export interface UserType {
+  user: AccountType;
+}
+
 export type Action =
   | Buyer
   | Theme
   | Lang
-  | Domain
+  | CartDomain
+  | CartServer
+  | CartVPS
   | CartHosting
   | FocusHosting
   | ListHosting

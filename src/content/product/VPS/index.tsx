@@ -16,20 +16,15 @@ const VPSBuyer = () => {
 
   const cartRedux = useSelector((state: RootState) => state.cart);
   const dispatch = useDispatch();
-  const { cartHosting, cartDomain } = bindActionCreators(
-    actionCreators,
-    dispatch
-  );
+  const { cartVPS } = bindActionCreators(actionCreators, dispatch);
 
   const { loading: loadVPS, error: errVPS, data: dataVPS } = useQuery(VPS);
   if (loadVPS) console.log("loading");
   if (errVPS) {
     console.log(JSON.stringify(errVPS, null, 2));
   }
-  const selectHosting = (item) => {
-    let newCart = [];
-    newCart.push(item);
-    cartHosting(newCart);
+  const select = (item) => {
+    cartVPS(item);
     navigate("../../management/cart", { replace: true });
   };
   return (
@@ -37,12 +32,7 @@ const VPSBuyer = () => {
       {dataVPS?.vps ? (
         dataVPS?.vps.map((item) => {
           return (
-            <VPSItem
-              choose={selectHosting}
-              key={item._id}
-              item={item}
-              user="buyer"
-            />
+            <VPSItem choose={select} key={item._id} item={item} user="buyer" />
           );
         })
       ) : (

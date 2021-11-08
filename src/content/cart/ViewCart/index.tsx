@@ -44,7 +44,7 @@ const AvatarSuccess = experimentalStyled(Avatar)(
 const ViewCart = () => {
   const { t } = useTranslation(["cart"]);
   const navigate = useNavigate();
-  const cartRedux = useSelector((state: RootState) => state.cart);
+  const cartRedux = useSelector((state: RootState) => state.cart.choose);
   const buyProduct = () => {
     navigate("./payment");
   };

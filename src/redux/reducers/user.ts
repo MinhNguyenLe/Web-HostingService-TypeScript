@@ -1,5 +1,5 @@
 import { Action } from "../actions";
-import { UserType } from "../action-creators";
+import { UserType } from "../actions";
 
 const stateUser: UserType = {
   user: {
