@@ -27,7 +27,7 @@ const Register = () => {
   const [addUser, { data, loading, error }] = useMutation(REGISTER, {
     update(proxy, result) {
       let data = result.data.register;
-      navigate("../../management/profile/details", { replace: true });
+      navigate("../../dashboards/crypto", { replace: true });
       buyerRedux(data);
     },
     variables: values,

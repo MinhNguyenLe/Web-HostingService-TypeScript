@@ -25,7 +25,7 @@ const Login = () => {
   const [verifyUser, { data, loading, error }] = useMutation(LOGIN, {
     update(proxy, result) {
       let data = result.data.login;
-      navigate("../../management/profile/details", { replace: true });
+      navigate("../../dashboards/crypto", { replace: true });
       buyerRedux(data);
     },
     variables: values,

@@ -207,7 +207,7 @@ function SidebarMenu() {
 
   return (
     <>
-      {menuItemsWithPermission(userRedux.user.isPermission).map((section) => (
+      {menuItemsWithPermission(userRedux.isPermission).map((section) => (
         <MenuWrapper
           key={section.heading}
           subheader={

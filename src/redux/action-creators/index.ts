@@ -5,7 +5,7 @@ import {
   HostingType,
   VPSType,
   ServerType,
-  CartType,
+  AccountType,
   UserType,
   BuyerType,
 } from "../actions/index";
@@ -111,7 +111,7 @@ export const setTotalPrice = (total: number) => {
   };
 };
 
-export const buyerRedux = (account: BuyerType) => {
+export const buyerRedux = (account: UserType) => {
   return (dispatch: Dispatch<Action>) => {
     dispatch({
       type: "SET_BUYER",

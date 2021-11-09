@@ -165,7 +165,7 @@ const RegisterStyle = ({ submitRegister, setValues, values }) => {
                 type="text"
                 label={t("8")}
                 margin="normal"
-                onChange={() => changeInfo(contact.current.value, "name")}
+                onChange={() => changeInfo(contact.current.value, "contact")}
               ></TextField>
               <TextField
                 error={errEmail.current.isErr}

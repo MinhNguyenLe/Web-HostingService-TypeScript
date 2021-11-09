@@ -47,7 +47,7 @@ const Payment = () => {
       console.log(data);
     },
     variables: {
-      user: buyerRedux.account.user,
+      user: buyerRedux.account._id,
       domain: [
         {
           domain: "614c452688d1eb314c7f8311",

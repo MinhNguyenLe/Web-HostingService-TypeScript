@@ -1,7 +1,7 @@
 interface SetBuyer {
   type: "SET_BUYER";
   payload: {
-    account: BuyerType;
+    account: UserType;
   };
 }
 interface Theme {
@@ -225,15 +225,18 @@ export interface UserType {
   userName: string;
   isPermission: boolean;
   listIdProduct: UserProduct[];
+  createdAt: Date;
+  token: string;
+}
+export interface AccountType {
+  account: UserType;
 }
 
 export interface UserProduct {
   _id: string;
-  name: string;
   type: string;
   price: number;
   months: number;
-  user: UserType;
 }
 
 export interface BuyerType {

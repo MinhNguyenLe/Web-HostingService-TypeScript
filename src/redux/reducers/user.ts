@@ -1,31 +1,23 @@
 import { Action } from "../actions";
-import { BuyerState } from "../actions";
+import { AccountType } from "../actions";
 
-const stateUser: BuyerState = {
+const stateUser: AccountType = {
   account: {
     token: "",
     _id: "",
-    user: {
-      _id: "",
-      email: "",
-      password: "",
-      userName: "",
-      isPermission: false,
-      listIdProduct: [],
-    },
-    name: "",
-    type: "",
-    quantity: 0,
-    information: "",
-    contact: "",
+    email: "",
+    password: "",
+    userName: "",
+    isPermission: false,
+    listIdProduct: [],
     createdAt: new Date(),
   },
 };
 
 export const reducerUser = (
-  state: BuyerState = stateUser,
+  state: AccountType = stateUser,
   action: Action
-): BuyerState => {
+): AccountType => {
   switch (action.type) {
     case "SET_BUYER":
       return {
