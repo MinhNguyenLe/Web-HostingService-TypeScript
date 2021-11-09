@@ -13,7 +13,7 @@ import { REGISTER } from "src/graphql/user";
 const Register = () => {
   const dispatch = useDispatch();
 
-  const { buyerRedux } = bindActionCreators(actionCreators, dispatch);
+  const { setBuyer } = bindActionCreators(actionCreators, dispatch);
 
   const navigate = useNavigate();
 
@@ -28,7 +28,7 @@ const Register = () => {
     update(proxy, result) {
       let data = result.data.register;
       navigate("../../dashboards/crypto", { replace: true });
-      buyerRedux(data);
+      setBuyer(data);
     },
     variables: values,
   });

@@ -18,7 +18,7 @@ const Login = () => {
   });
   const state = useSelector((state: RootState) => state.user.account);
   const dispatch = useDispatch();
-  const { buyerRedux } = bindActionCreators(actionCreators, dispatch);
+  const { setBuyer } = bindActionCreators(actionCreators, dispatch);
 
   const navigate = useNavigate();
 
@@ -26,7 +26,7 @@ const Login = () => {
     update(proxy, result) {
       let data = result.data.login;
       navigate("../../dashboards/crypto", { replace: true });
-      buyerRedux(data);
+      setBuyer(data);
     },
     variables: values,
   });

@@ -52,7 +52,7 @@ const RegisterNameDomain = ({ setOpen, open, input, setInput, item }) => {
           let newCart = [...cartRedux.domain];
           newCart.push({
             ...item,
-            name: name.current.value,
+            nameUrl: name.current.value,
           });
           cartDomain(newCart);
           navigate("../../management/cart", { replace: true });

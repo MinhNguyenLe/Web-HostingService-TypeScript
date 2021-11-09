@@ -30,10 +30,9 @@ const CartItem = ({ page, item, handleChecked, deleteItem, type }) => {
         sx={{
           p: 3,
           display: "flex",
-          justifyContent: "space-between",
         }}
       >
-        <div style={{ display: "flex" }}>
+        <div style={{ display: "flex", flex: "3" }}>
           <ListItemAvatar sx={{ pr: 2 }}>
             {page === "check" ? (
               <Checkbox
@@ -57,13 +56,13 @@ const CartItem = ({ page, item, handleChecked, deleteItem, type }) => {
               variant: "subtitle2",
               lineHeight: 1,
             }}
-            primary={item.type}
-            secondary="Your Twitter account was last syncronized 6 days ago"
+            primary={type !== "domain" ? item.name : item.nameUrl}
+            secondary={type !== "domain" ? item.type : item.dot}
           />
         </div>
-        <span>{item.product.price}</span>
+        <span style={{ flex: "2" }}>{item.product.price}</span>
         {page === "check" && (
-          <Tooltip placement="top" title="Delete" arrow>
+          <Tooltip sx={{ flex: "1" }} placement="top" title="Delete" arrow>
             <IconButton
               sx={{
                 "&:hover": {

@@ -111,7 +111,7 @@ export const setTotalPrice = (total: number) => {
   };
 };
 
-export const buyerRedux = (account: UserType) => {
+export const setBuyer = (account: UserType) => {
   return (dispatch: Dispatch<Action>) => {
     dispatch({
       type: "SET_BUYER",

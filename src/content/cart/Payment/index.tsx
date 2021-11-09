@@ -26,35 +26,17 @@ const Payment = () => {
   const { t } = useTranslation(["cart"]);
 
   const payment = useSelector((state: RootState) => state.cart.buy);
-  const buyerRedux = useSelector((state: RootState) => state.user);
+  const buyerRdux = useSelector((state: RootState) => state.user);
   const totalPriceRdux = useSelector(
     (state: RootState) => state.cart.totalPrice
   );
 
   const dispatch = useDispatch();
-  const {
-    cartHosting,
-    buyHosting,
-    setTotalPrice,
-    buyVPS,
-    buyServer,
-    buyDomain,
-  } = bindActionCreators(actionCreators, dispatch);
+  const { setBuyer } = bindActionCreators(actionCreators, dispatch);
 
-  const [buy, { data, loading, error }] = useMutation(BUY_ALL, {
+  const [buyAllProduct, { data, loading, error }] = useMutation(BUY_ALL, {
     update(proxy, result) {
-      let data = result?.data?.buyAllProduct;
-      console.log(data);
-    },
-    variables: {
-      user: buyerRedux.account._id,
-      domain: [
-        {
-          domain: "614c452688d1eb314c7f8311",
-          nameUrl: "test",
-        },
-      ],
-      hosting: [{ hosting: "614c450b88d1eb314c7f8306" }],
+      setBuyer(result?.data?.buyAllProduct);
     },
   });
   if (loading) console.log("loading");
@@ -62,13 +44,48 @@ const Payment = () => {
     console.log(JSON.stringify(error, null, 2));
   }
 
-  useEffect(() => {}, []);
+  const submitPayment = async (resPayment) => {
+    if (resPayment.status === "succeeded") {
+      let domain = [],
+        hosting = [],
+        vps = [],
+        server = [];
+      [...payment.domain].forEach((e) => {
+        domain.push({ _id: e._id, nameUrl: e.nameUrl });
+      });
+      [...payment.hosting].forEach((e) => {
+        hosting.push(e._id);
+      });
+      [...payment.vps].forEach((e) => {
+        vps.push(e._id);
+      });
+      [...payment.server].forEach((e) => {
+        server.push(e._id);
+      });
 
-  const submitPayment = (resPayment) => {
-    console.log(resPayment);
-    // if (resPayment.status === "succeeded") {
-    //   buy();
-    // }
+      console.log(
+        domain,
+        "------------",
+        hosting,
+        "------------",
+        vps,
+        "------------",
+        server,
+        "------",
+        buyerRdux.account._id
+      );
+      await buyAllProduct({
+        variables: {
+          user: buyerRdux.account._id,
+          domain: domain,
+          hosting: hosting,
+          vps: vps,
+          server: server,
+        },
+      });
+    } else {
+      console.log("error payment", resPayment);
+    }
   };
 
   /**
