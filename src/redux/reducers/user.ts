@@ -1,37 +1,36 @@
 import { Action } from "../actions";
-import { UserType } from "../actions";
+import { BuyerState } from "../actions";
 
-const stateUser: UserType = {
-  user: {
-    email: "",
-    idBuyer: "",
-    idUser: "",
+const stateUser: BuyerState = {
+  account: {
+    token: "",
+    _id: "",
+    user: {
+      _id: "",
+      email: "",
+      password: "",
+      userName: "",
+      isPermission: false,
+      listIdProduct: [],
+    },
     name: "",
-    userName: "",
+    type: "",
     quantity: 0,
-    typeBuyer: 1,
-    isPermission: false,
+    information: "",
+    contact: "",
+    createdAt: new Date(),
   },
 };
 
 export const reducerUser = (
-  state: UserType = stateUser,
+  state: BuyerState = stateUser,
   action: Action
-): UserType => {
+): BuyerState => {
   switch (action.type) {
-    case "BUYER":
+    case "SET_BUYER":
       return {
         ...state,
-        user: {
-          email: action.payload.email,
-          idBuyer: action.payload.idBuyer,
-          idUser: action.payload.idUser,
-          name: action.payload.name,
-          userName: action.payload.userName,
-          quantity: action.payload.quantity,
-          typeBuyer: action.payload.typeBuyer,
-          isPermission: action.payload.isPermission,
-        },
+        account: action.payload.account,
       };
     default:
       return { ...state };

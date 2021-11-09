@@ -22,22 +22,13 @@ const Register = () => {
     password: "",
     email: "",
     quantity: 0,
-    name: "",
+    contact: "",
   });
   const [addUser, { data, loading, error }] = useMutation(REGISTER, {
     update(proxy, result) {
       let data = result.data.register;
       navigate("../../management/profile/details", { replace: true });
-      buyerRedux({
-        email: data.user.email,
-        idBuyer: data._id,
-        idUser: data.user._id,
-        name: data.name,
-        userName: data.user.userName,
-        quantity: data.quantity,
-        typeBuyer: data.typeBuyer,
-        isPermission: data.user.isPermission,
-      });
+      buyerRedux(data);
     },
     variables: values,
   });

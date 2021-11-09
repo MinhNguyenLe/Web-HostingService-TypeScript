@@ -7,7 +7,7 @@ import {
   ServerType,
   CartType,
   UserType,
-  AccountType,
+  BuyerType,
 } from "../actions/index";
 
 // export type State = Account | Cart;
@@ -111,19 +111,12 @@ export const setTotalPrice = (total: number) => {
   };
 };
 
-export const buyerRedux = (account: AccountType) => {
+export const buyerRedux = (account: BuyerType) => {
   return (dispatch: Dispatch<Action>) => {
     dispatch({
-      type: "BUYER",
+      type: "SET_BUYER",
       payload: {
-        email: account.email,
-        idBuyer: account.idBuyer,
-        idUser: account.idUser,
-        name: account.name,
-        userName: account.userName,
-        quantity: account.quantity,
-        typeBuyer: account.typeBuyer,
-        isPermission: account.isPermission,
+        account: account,
       },
     });
   };

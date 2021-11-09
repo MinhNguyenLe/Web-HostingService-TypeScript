@@ -1,14 +1,7 @@
-interface Buyer {
-  type: "BUYER";
+interface SetBuyer {
+  type: "SET_BUYER";
   payload: {
-    email: string;
-    idBuyer: string;
-    idUser: string;
-    name: string;
-    userName: string;
-    quantity: number;
-    typeBuyer: number;
-    isPermission: boolean;
+    account: BuyerType;
   };
 }
 interface Theme {
@@ -225,21 +218,39 @@ export interface CartType {
   };
   totalPrice: number;
 }
-
-export interface AccountType {
-  email: string;
-  idBuyer: string;
-  idUser: string;
-  name: string;
-  userName: string;
-  quantity: number;
-  typeBuyer: number;
-  isPermission: boolean;
-}
 export interface UserType {
-  user: AccountType;
+  _id: string;
+  email: string;
+  password: string;
+  userName: string;
+  isPermission: boolean;
+  listIdProduct: UserProduct[];
 }
 
+export interface UserProduct {
+  _id: string;
+  name: string;
+  type: string;
+  price: number;
+  months: number;
+  user: UserType;
+}
+
+export interface BuyerType {
+  token: string;
+  _id: string;
+  user: UserType;
+  name: string;
+  type: string;
+  quantity: number;
+  information: string;
+  contact: string;
+  createdAt: Date;
+}
+
+export interface BuyerState {
+  account: BuyerType;
+}
 export interface TotalPrice {
   type: "SET_TOTAL_PRICE";
   payload: {
@@ -249,7 +260,7 @@ export interface TotalPrice {
 
 export type Action =
   | TotalPrice
-  | Buyer
+  | SetBuyer
   | Theme
   | Lang
   | CartDomain

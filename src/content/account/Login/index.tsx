@@ -16,7 +16,7 @@ const Login = () => {
     password: "",
     email: "",
   });
-  const state = useSelector((state: RootState) => state.user.user);
+  const state = useSelector((state: RootState) => state.user.account);
   const dispatch = useDispatch();
   const { buyerRedux } = bindActionCreators(actionCreators, dispatch);
 
@@ -26,16 +26,7 @@ const Login = () => {
     update(proxy, result) {
       let data = result.data.login;
       navigate("../../management/profile/details", { replace: true });
-      buyerRedux({
-        email: data.user.email,
-        idBuyer: data._id,
-        idUser: data.user._id,
-        name: data.name,
-        userName: data.user.userName,
-        quantity: data.quantity,
-        typeBuyer: data.typeBuyer,
-        isPermission: data.user.isPermission,
-      });
+      buyerRedux(data);
     },
     variables: values,
   });
@@ -53,7 +44,6 @@ const Login = () => {
         setValues={setValues}
         verifyLogin={verifyLogin}
       />
-      <span>{state.email}</span>
     </div>
   );
 };

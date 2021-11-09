@@ -51,7 +51,7 @@ const RegisterStyle = ({ submitRegister, setValues, values }) => {
   const passwordRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const memberRef = useRef<HTMLInputElement>(null);
-  const nameRef = useRef<HTMLInputElement>(null);
+  const contact = useRef<HTMLInputElement>(null);
 
   const errUserName = useRef({
     isErr: false,
@@ -116,8 +116,8 @@ const RegisterStyle = ({ submitRegister, setValues, values }) => {
     if (type === "userName") {
       setValues({ ...values, userName: value });
     }
-    if (type === "name") {
-      setValues({ ...values, name: value });
+    if (type === "contact") {
+      setValues({ ...values, contact: value });
     }
     if (type === "email") {
       setValues({ ...values, email: value });
@@ -160,12 +160,12 @@ const RegisterStyle = ({ submitRegister, setValues, values }) => {
               <TextField
                 error={errName.current.isErr}
                 helperText={errName.current.text}
-                inputRef={nameRef}
+                inputRef={contact}
                 fullWidth
                 type="text"
                 label={t("8")}
                 margin="normal"
-                onChange={() => changeInfo(nameRef.current.value, "name")}
+                onChange={() => changeInfo(contact.current.value, "name")}
               ></TextField>
               <TextField
                 error={errEmail.current.isErr}

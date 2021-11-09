@@ -8,9 +8,19 @@ import {
   ListItemText,
   Tooltip,
   IconButton,
+  Avatar,
 } from "@material-ui/core";
 import DeleteTwoToneIcon from "@material-ui/icons/DeleteTwoTone";
+import { experimentalStyled } from "@material-ui/core/styles";
+import DoneTwoToneIcon from "@material-ui/icons/DoneTwoTone";
 
+const AvatarSuccess = experimentalStyled(Avatar)(
+  ({ theme }) => `
+    background: ${theme.colors.success.light};
+    width: ${theme.spacing(5)};
+    height: ${theme.spacing(5)};
+`
+);
 const CartItem = ({ page, item, handleChecked, deleteItem, type }) => {
   const theme = useTheme();
   return (
@@ -25,12 +35,16 @@ const CartItem = ({ page, item, handleChecked, deleteItem, type }) => {
       >
         <div style={{ display: "flex" }}>
           <ListItemAvatar sx={{ pr: 2 }}>
-            {page === "check" && (
+            {page === "check" ? (
               <Checkbox
                 onChange={(e) => handleChecked(type, e.target.checked, item)}
                 defaultChecked={false}
                 sx={{ "& .MuiSvgIcon-root": { fontSize: 28 } }}
               />
+            ) : (
+              <AvatarSuccess>
+                <DoneTwoToneIcon />
+              </AvatarSuccess>
             )}
           </ListItemAvatar>
           <ListItemText

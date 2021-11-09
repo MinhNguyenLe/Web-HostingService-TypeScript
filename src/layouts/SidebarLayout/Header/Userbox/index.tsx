@@ -62,10 +62,10 @@ const UserBoxDescription = experimentalStyled(Typography)(
 );
 
 function HeaderUserbox() {
-  const userRedux = useSelector((state: RootState) => state.user.user);
+  const userRedux = useSelector((state: RootState) => state.user.account);
 
   const user = {
-    name: userRedux.userName || "Catherine Pike",
+    name: userRedux.user.userName || "Catherine Pike",
     avatar: "/static/images/avatars/1.jpg",
     jobtitle: "Project Manager",
   };

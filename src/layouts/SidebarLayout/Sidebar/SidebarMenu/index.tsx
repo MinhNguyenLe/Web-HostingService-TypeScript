@@ -203,11 +203,11 @@ const reduceChildRoutes = ({
 function SidebarMenu() {
   const location = useLocation();
 
-  const userRedux = useSelector((state: RootState) => state.user.user);
+  const userRedux = useSelector((state: RootState) => state.user.account);
 
   return (
     <>
-      {menuItemsWithPermission(userRedux.isPermission).map((section) => (
+      {menuItemsWithPermission(userRedux.user.isPermission).map((section) => (
         <MenuWrapper
           key={section.heading}
           subheader={
