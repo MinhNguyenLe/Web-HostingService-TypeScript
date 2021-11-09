@@ -59,12 +59,16 @@ const menuItemsWithPermission = (isPermission: boolean): MenuItems[] => {
           link: "/management/server",
         },
         {
+          name: "Customer",
+          link: "/management/customer",
+        },
+        {
           name: "Products are using",
-          link: "/management/admin/user-product",
+          link: "/management/user-product",
         },
         {
           name: "Statistic",
-          link: "/management/admin/statistic",
+          link: "/management/statistic",
         },
       ],
     },
