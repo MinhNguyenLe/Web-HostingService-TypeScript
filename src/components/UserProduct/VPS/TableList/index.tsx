@@ -32,7 +32,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreators } from "src/redux";
 import { bindActionCreators } from "redux";
 
-function TableUser({ handleBlock, data }) {
+function TableList({ handleBlock, data }) {
   const { t } = useTranslation(["admin"]);
   const theme = useTheme();
 
@@ -147,9 +147,9 @@ function TableUser({ handleBlock, data }) {
   );
 }
 
-TableUser.defaultProps = {
+TableList.defaultProps = {
   handleBlock: () => 1,
   data: 0,
 };
 
-export default TableUser;
+export default TableList;

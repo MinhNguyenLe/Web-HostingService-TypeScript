@@ -6,10 +6,10 @@ import { Container, Tabs, Tab, Grid } from "@material-ui/core";
 import Footer from "src/components/Footer";
 import { experimentalStyled } from "@material-ui/core/styles";
 
-import Domain from "./Domain";
-import Hosting from "./Hosting";
-import VPS from "./VPS";
-import Server from "./Server";
+import UserDomain from "./UserDomain";
+import UserHosting from "./UserHosting";
+import UserVPS from "./UserVPS";
+import UserServer from "./UserServer";
 
 import { useTranslation } from "react-i18next";
 
@@ -27,10 +27,10 @@ function UserProduct() {
   const [currentTab, setCurrentTab] = useState<string>("domain");
 
   const tabs = [
-    { value: "domain", label: "Domain" },
-    { value: "hosting", label: "Hosting" },
-    { value: "vps", label: "Cloud VPS" },
-    { value: "server", label: "Server" },
+    { value: "domain", label: "UserDomain" },
+    { value: "hosting", label: "UserHosting" },
+    { value: "vps", label: "Cloud UserVPS" },
+    { value: "server", label: "UserServer" },
   ];
 
   const handleTabsChange = (event: ChangeEvent<{}>, value: string): void => {
@@ -68,10 +68,10 @@ function UserProduct() {
             </TabsWrapper>
           </Grid>
           <Grid item xs={12}>
-            {currentTab === "domain" && <Domain />}
-            {currentTab === "hosting" && <Hosting />}
-            {currentTab === "vps" && <VPS />}
-            {currentTab === "server" && <Server />}
+            {currentTab === "domain" && <UserDomain />}
+            {currentTab === "hosting" && <UserHosting />}
+            {currentTab === "vps" && <UserVPS />}
+            {currentTab === "server" && <UserServer />}
           </Grid>
         </Grid>
       </Container>
