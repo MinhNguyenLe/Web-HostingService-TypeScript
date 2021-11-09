@@ -55,3 +55,52 @@ export const REGISTER = gql`
     }
   }
 `;
+
+export const USER = gql`
+  query users {
+    users {
+      _id
+      createdAt
+      password
+      email
+      isPermission
+      userName
+      listIdProduct {
+        price
+        createdAt
+        months
+        _id
+        type
+      }
+      buyer {
+        _id
+        name
+        information
+        contact
+        quantity
+        createdAt
+      }
+    }
+  }
+`;
+
+export const BUYER = gql`
+  query buyers {
+    buyers {
+      _id
+      name
+      information
+      contact
+      quantity
+      createdAt
+      user {
+        _id
+        createdAt
+        password
+        email
+        isPermission
+        userName
+      }
+    }
+  }
+`;

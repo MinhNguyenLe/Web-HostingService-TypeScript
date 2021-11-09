@@ -220,7 +220,7 @@ const ViewCart = () => {
                     variant: "subtitle2",
                     lineHeight: 1,
                   }}
-                  primary="Total price"
+                  primary={t("6")}
                   secondary={t("3")}
                 />
                 <span>{totalPriceRdux}</span>

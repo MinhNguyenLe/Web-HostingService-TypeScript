@@ -271,7 +271,7 @@ const HostingItem = ({ choose, item, user }) => {
   );
 };
 
-HostingItem.defaultProps = {
+HostingItem.ops = {
   item: {},
   choose: () => console.log("defaultt"),
   user: "",

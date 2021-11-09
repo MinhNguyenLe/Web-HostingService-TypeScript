@@ -17,7 +17,7 @@ import { redServer } from "./server";
 const userPersistConfig = {
   key: "user",
   storage: storage,
-  whitelist: ["user"],
+  whitelist: ["account"],
 };
 
 const pagePersistConfig = {

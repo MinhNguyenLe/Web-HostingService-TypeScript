@@ -20,12 +20,12 @@ const TabsWrapper = experimentalStyled(Tabs)(
 );
 
 function Customer() {
-  const { t } = useTranslation(["addproduct"]);
+  const { t } = useTranslation(["admin"]);
 
-  const [currentTab, setCurrentTab] = useState<string>("domain");
+  const [currentTab, setCurrentTab] = useState<string>("table");
 
   const tabs = [
-    { value: "table list", label: "TableList" },
+    { value: "table", label: "TableList" },
     { value: "chart", label: "Chart" },
   ];
 
@@ -64,7 +64,7 @@ function Customer() {
             </TabsWrapper>
           </Grid>
           <Grid item xs={12}>
-            {currentTab === "table list" && <TableList />}
+            {currentTab === "table" && <TableList />}
             {currentTab === "chart" && <Chart />}
           </Grid>
         </Grid>
