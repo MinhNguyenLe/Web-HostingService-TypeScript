@@ -28,7 +28,7 @@ const AdminHosting = Loader(
 const AdminVPS = Loader(lazy(() => import("src/content/admin/AdminVPS")));
 const AdminServer = Loader(lazy(() => import("src/content/admin/AdminServer")));
 
-const Management = Loader(lazy(() => import("src/content/admin/Management")));
+const Management = Loader(lazy(() => import("src/content/admin/UserProduct")));
 const Customer = Loader(lazy(() => import("src/content/admin/Customer")));
 
 //product

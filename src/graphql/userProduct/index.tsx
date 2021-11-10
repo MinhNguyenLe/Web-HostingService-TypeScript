@@ -115,3 +115,149 @@ export const USER_SERVER_BUYER = gql`
     }
   }
 `;
+
+export const USER_DOMAIN = gql`
+  query userDomain {
+    userDomain {
+      _id
+      dot
+      nameUrl
+      userProduct {
+        _id
+        price
+        months
+        type
+        createdAt
+        user {
+          _id
+          createdAt
+          password
+          email
+          isPermission
+          userName
+          buyer {
+            _id
+            name
+            information
+            contact
+            quantity
+            createdAt
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const USER_HOSTING = gql`
+  query userHosting {
+    userHosting {
+      _id
+      SSDMemory
+      type
+      RAM
+      bandwidth
+      website
+      name
+      support
+      userProduct {
+        _id
+        price
+        months
+        type
+        createdAt
+        user {
+          _id
+          createdAt
+          password
+          email
+          isPermission
+          userName
+          buyer {
+            _id
+            name
+            information
+            contact
+            quantity
+            createdAt
+          }
+        }
+      }
+    }
+  }
+`;
+export const USER_VPS = gql`
+  query userVPS {
+    userVPS {
+      _id
+      CPU
+      cloudStorage
+      RAM
+      type
+      name
+      support
+      userProduct {
+        _id
+        price
+        months
+        type
+        createdAt
+        user {
+          _id
+          createdAt
+          password
+          email
+          isPermission
+          userName
+          buyer {
+            _id
+            name
+            information
+            contact
+            quantity
+            createdAt
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const USER_SERVER = gql`
+  query userServer {
+    userServer {
+      _id
+      HDD
+      SSD
+      CPU
+      RAM
+      bandwidth
+      type
+      name
+      support
+      userProduct {
+        _id
+        price
+        months
+        type
+        createdAt
+        user {
+          _id
+          createdAt
+          password
+          email
+          isPermission
+          userName
+          buyer {
+            _id
+            name
+            information
+            contact
+            quantity
+            createdAt
+          }
+        }
+      }
+    }
+  }
+`;
