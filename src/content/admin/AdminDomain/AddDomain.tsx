@@ -62,9 +62,9 @@ function AddDomain() {
     formData.append("upload_preset", "leminh2k");
     axios
       .post("https://api.cloudinary.com/v1_1/djes0pztf/image/upload", formData)
-      .then((res) => {
+      .then(async (res) => {
         setItem({ ...item, images: res?.data?.secure_url });
-        createDomain();
+        await createDomain();
         console.log(item);
       });
     setOpen(false);

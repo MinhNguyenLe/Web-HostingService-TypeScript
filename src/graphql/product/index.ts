@@ -77,6 +77,7 @@ export const DOMAINS = gql`
       dot
       information
       images
+      createdAt
       product {
         _id
         months

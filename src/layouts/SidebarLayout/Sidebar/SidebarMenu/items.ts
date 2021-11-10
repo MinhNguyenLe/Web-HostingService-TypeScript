@@ -47,6 +47,10 @@ const menuItemsWithPermission = (isPermission: boolean): MenuItems[] => {
       link: "/management/admin",
       items: [
         {
+          name: "Register Domain",
+          link: "/management/domain",
+        },
+        {
           name: "Cloud Hosting",
           link: "/management/hosting",
         },

@@ -22,6 +22,8 @@ const ViewCart = Loader(lazy(() => import("src/content/cart/ViewCart")));
 const Payment = Loader(lazy(() => import("src/content/cart/Payment")));
 
 //admin
+const AdminDomain = Loader(lazy(() => import("src/content/admin/AdminDomain")));
+
 const AdminHosting = Loader(
   lazy(() => import("src/content/admin/AdminHosting"))
 );
@@ -107,7 +109,11 @@ const checkPermissionRouter = (isPermission: boolean): PartialRouteObject[] => {
     },
     {
       path: "/",
-      element: <Navigate to="/hosting" replace />,
+      element: <Navigate to="/domain" replace />,
+    },
+    {
+      path: "domain",
+      element: <AdminDomain />,
     },
     {
       path: "hosting",

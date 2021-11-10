@@ -6,8 +6,8 @@ import { Container, Tabs, Tab, Grid } from "@material-ui/core";
 import Footer from "src/components/Footer";
 import { experimentalStyled } from "@material-ui/core/styles";
 
-import AddHosting from "./AddHosting";
-import TableHosting from "./TableHosting";
+import AddDomain from "./AddDomain";
+import TableDomain from "./TableDomain";
 
 import { useTranslation } from "react-i18next";
 
@@ -22,10 +22,10 @@ const TabsWrapper = experimentalStyled(Tabs)(
 function AddProduct() {
   const { t } = useTranslation(["addproduct"]);
 
-  const [currentTab, setCurrentTab] = useState<string>("hosting");
+  const [currentTab, setCurrentTab] = useState<string>("domain");
 
   const tabs = [
-    { value: "hosting", label: "Add Hosting" },
+    { value: "domain", label: "Add Domain" },
     { value: "table", label: "Table List" },
   ];
 
@@ -64,8 +64,8 @@ function AddProduct() {
             </TabsWrapper>
           </Grid>
           <Grid item xs={12}>
-            {currentTab === "hosting" && <AddHosting />}
-            {currentTab === "table" && <TableHosting />}
+            {currentTab === "domain" && <AddDomain />}
+            {currentTab === "table" && <TableDomain />}
           </Grid>
         </Grid>
       </Container>

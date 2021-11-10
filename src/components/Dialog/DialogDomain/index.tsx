@@ -48,10 +48,6 @@ const DialogDomain = ({ item, setItem, open, setOpen, createNew }) => {
           {t("1")}
         </DialogTitle>
         <DialogContent>
-          {/* <DialogContentText>
-            To subscribe to this website, please enter your email address here.
-            We will send updates occasionally.
-          </DialogContentText> */}
           <TextField
             inputRef={priceRef}
             onChange={() => changeInfo("price", priceRef.current.value)}

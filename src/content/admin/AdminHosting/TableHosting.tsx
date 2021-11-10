@@ -19,11 +19,12 @@ import { useTranslation } from "react-i18next";
 
 import { useMutation, useQuery } from "@apollo/client";
 
-import { HOSTING, CREATE_HOSTING, EDIT_HOSTING } from "src/graphql/product";
+import { HOSTING, EDIT_HOSTING, DELETE_HOSTING } from "src/graphql/product";
 
 import HostingItem from "src/components/Hosting/HostingItem";
 import AddNewProduct from "src/components/Product/AddNewProduct";
 import DialogHosting from "src/components/Dialog/DialogHosting";
+import HostingTable from "src/components/Hosting/HostingTable";
 
 import { styled } from "@material-ui/core/styles";
 
@@ -32,8 +33,7 @@ import { actionCreators } from "src/redux";
 import { bindActionCreators } from "redux";
 import { useDispatch, useSelector } from "react-redux";
 
-function AddHosting() {
-  const [openCreate, setOpenCreate] = useState<boolean>(false);
+function TableHosting() {
   const [openEdit, setOpenEdit] = useState<boolean>(false);
 
   const listHostRdux = useSelector((state: RootState) => state.hosting.list);
@@ -42,20 +42,6 @@ function AddHosting() {
     actionCreators,
     dispatch
   );
-
-  const [item, setItem] = useState({
-    name: "",
-    domain: "",
-    website: "",
-    support: [],
-    SSDMemory: "",
-    RAM: "",
-    bandwidth: "",
-    months: 0,
-    price: 0,
-    type: "",
-    information: "",
-  });
 
   const [itemE, setItemE] = useState({
     id: "",
@@ -72,9 +58,6 @@ function AddHosting() {
     information: "",
   });
 
-  const handleClickOpenCreate = () => {
-    setOpenCreate(true);
-  };
   const handleClickOpenEdit = () => {
     setOpenEdit(true);
   };
@@ -88,16 +71,6 @@ function AddHosting() {
     listHosting(dataHosting?.hosting);
   }, [loadHosting]);
 
-  const [createHosting, { data, loading, error }] = useMutation(
-    CREATE_HOSTING,
-    {
-      update(proxy, result) {
-        listHosting(result?.data?.createHosting);
-      },
-      variables: item,
-    }
-  );
-
   const [editHosting, { data: dataE, loading: loadingE, error: errorE }] =
     useMutation(EDIT_HOSTING, {
       update(proxy, result) {
@@ -106,17 +79,20 @@ function AddHosting() {
       variables: itemE,
     });
 
-  if (loadHosting || loading || loadingE)
-    console.log("loading GRAPHQL", loadHosting || loading || loadingE);
-  if (errHosting || error || errorE) {
-    console.log(JSON.stringify(errHosting || error || errorE, null, 2));
+  const [deleteHosting, { data: dataD, loading: loadingD, error: errorD }] =
+    useMutation(DELETE_HOSTING, {
+      update(proxy, result) {
+        listHosting(result?.data?.deleteHosting);
+      },
+    });
+
+  if (loadHosting || loadingE || loadingD)
+    console.log("loading GRAPHQL", loadHosting || loadingE || loadingD);
+  if (errHosting || errorE || errorD) {
+    console.log(JSON.stringify(errHosting || errorE || errorD, null, 2));
   }
-  const createNew = () => {
-    createHosting();
-    setOpenCreate(false);
-    console.log(item);
-  };
-  const editHostingFromAdmin = async () => {
+
+  const editFromTable = async () => {
     await editHosting();
     setOpenEdit(false);
   };
@@ -125,30 +101,18 @@ function AddHosting() {
     setOpenEdit(true);
     console.log(item);
   };
+  const deleteItem = (id) => {
+    deleteHosting({ variables: { id } });
+  };
   return loadHosting ? (
     <CircularProgress />
   ) : (
     <Grid sx={{ display: "flex", flexWrap: "wrap" }}>
-      <Grid style={{ margin: " 8px 16px 8px 0", width: "360px" }}>
-        <AddNewProduct handleClickOpen={handleClickOpenCreate} />
-      </Grid>
-      {listHostRdux?.map((item) => {
-        return (
-          <HostingItem
-            key={item._id}
-            item={item}
-            user="manager"
-            choose={editFromItem}
-          />
-        );
-      })}
-      <DialogHosting
-        page="create"
-        item={item}
-        setItem={setItem}
-        setOpen={setOpenCreate}
-        open={openCreate}
-        handleSubmit={createNew}
+      <HostingTable
+        setItem={setItemE}
+        data={listHostRdux}
+        openDialog={handleClickOpenEdit}
+        handleDelete={deleteItem}
       />
       <DialogHosting
         page="edit"
@@ -156,10 +120,10 @@ function AddHosting() {
         setItem={setItemE}
         setOpen={setOpenEdit}
         open={openEdit}
-        handleSubmit={editHostingFromAdmin}
+        handleSubmit={editFromTable}
       />
     </Grid>
   );
 }
 
-export default AddHosting;
+export default TableHosting;
