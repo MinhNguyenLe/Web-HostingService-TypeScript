@@ -21,10 +21,6 @@ import BlockIcon from "@material-ui/icons/Block";
 
 import { useTranslation } from "react-i18next";
 
-import ModeEditOutline from "@material-ui/icons/ModeEditOutline";
-import ArrowDownward from "@material-ui/icons/ArrowDownward";
-import ArrowUpward from "@material-ui/icons/ArrowUpward";
-
 import { styled } from "@material-ui/core/styles";
 
 import { RootState } from "src/redux/reducers";
@@ -33,7 +29,7 @@ import { actionCreators } from "src/redux";
 import { bindActionCreators } from "redux";
 
 function TableList({ handleBlock, data }) {
-  const { t } = useTranslation(["admin"]);
+  const { t } = useTranslation(["user"]);
   const theme = useTheme();
 
   const listVPSRdux = useSelector((state: RootState) => state.vps.list);
@@ -64,44 +60,46 @@ function TableList({ handleBlock, data }) {
           <CardHeader
             subheaderTypographyProps={{}}
             titleTypographyProps={{}}
-            title={t("16")}
-            subheader={t("17")}
+            title={t("20")}
+            subheader={t("9")}
           />
           <Divider />
           <TableContainer>
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>{t("6")}</TableCell>
-                  <TableCell>{t("5")}</TableCell>
-                  <TableCell>{t("4")}</TableCell>
-                  <TableCell>{t("7")}</TableCell>
-                  <TableCell>{t("8")}</TableCell>
-                  <TableCell>{t("9")}</TableCell>
-                  <TableCell>{t("10")}</TableCell>
-                  <TableCell>{t("19")}</TableCell>
+                  <TableCell>{t("1")}</TableCell>
                   <TableCell>{t("11")}</TableCell>
-                  <TableCell align="right">{t("20")}</TableCell>
+                  <TableCell>{t("19")}</TableCell>
+                  <TableCell>{t("12")}</TableCell>
+                  <TableCell>{t("21")}</TableCell>
+                  <TableCell>{t("13")}</TableCell>
+                  <TableCell>{t("14")}</TableCell>
+                  <TableCell>{t("16")}</TableCell>
+                  <TableCell>{t("3")}</TableCell>
+                  <TableCell>{t("5")}</TableCell>
+                  <TableCell align="right">{t("4")}</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {data ? (
                   data?.map((item) => (
                     <TableRow key={item._id} hover>
-                      <TableCell>{item.userName}</TableCell>
-                      <TableCell>
-                        {item.isPermission ? "Admin" : "Customer"}
-                      </TableCell>
-                      <TableCell>{item.email}</TableCell>
-                      <TableCell>{item.buyer.contact}</TableCell>
-                      <TableCell>{item.buyer.quantity}</TableCell>
-                      <TableCell>{item.buyer.name}</TableCell>
-                      <TableCell>{item.buyer.type}</TableCell>
-                      <TableCell>{t("21")}</TableCell>
+                      <TableCell>{item.name}</TableCell>
+                      <TableCell>{item.type}</TableCell>
+                      <TableCell>{item.CPU}</TableCell>
+                      <TableCell>{item.SSD}</TableCell>
+                      <TableCell>{item.HDD}</TableCell>
+                      <TableCell>{item.RAM}</TableCell>
+                      <TableCell>{item.bandwidth}</TableCell>{" "}
+                      <TableCell>{item.support}</TableCell>
                       <TableCell>
                         {new Intl.DateTimeFormat("en-US").format(
                           item.createdAt
                         )}
+                      </TableCell>
+                      <TableCell>
+                        {item.idUserProduct.months} {t("6")}
                       </TableCell>
                       <TableCell
                         align="right"

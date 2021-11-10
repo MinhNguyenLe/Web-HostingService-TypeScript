@@ -35,6 +35,9 @@ import vi_vps from "./vi/vps.json";
 import en_server from "./en/server.json";
 import vi_server from "./vi/server.json";
 
+import en_user from "./en/user.json";
+import vi_user from "./vi/user.json";
+
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 
@@ -52,6 +55,7 @@ export const resources = {
     tableproduct: en_table_product,
     vps: en_vps,
     server: en_server,
+    user: en_user,
   },
   vi: {
     tableproduct: vi_table_product,
@@ -66,6 +70,7 @@ export const resources = {
     hosting: vi_hosting,
     vps: vi_vps,
     server: vi_server,
+    user: vi_user,
   },
 } as const;
 
