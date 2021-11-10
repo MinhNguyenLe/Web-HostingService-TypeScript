@@ -29,7 +29,7 @@ import { actionCreators } from "src/redux";
 import { bindActionCreators } from "redux";
 
 function TableList({ handleBlock, data }) {
-  const { t } = useTranslation(["user"]);
+  const { t } = useTranslation(["admin"]);
   const theme = useTheme();
 
   const listVPSRdux = useSelector((state: RootState) => state.vps.list);
@@ -68,42 +68,58 @@ function TableList({ handleBlock, data }) {
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>{t("1")}</TableCell>
-                  <TableCell>{t("11")}</TableCell>
-                  <TableCell>{t("19")}</TableCell>
-                  <TableCell>{t("18")}</TableCell>
-                  <TableCell>{t("13")}</TableCell>
-                  <TableCell>{t("14")}</TableCell>
-                  <TableCell>{t("16")}</TableCell>
-                  <TableCell>{t("3")}</TableCell>
-                  <TableCell>{t("5")}</TableCell>
-                  <TableCell align="right">{t("4")}</TableCell>
+                  <TableCell>{t("23")}</TableCell>
+                  <TableCell>{t("27")}</TableCell>
+                  <TableCell>{t("24")}</TableCell>
+                  <TableCell>{t("25")}</TableCell>
+                  <TableCell>{t("26")}</TableCell>
+                  <TableCell>{t("101")}</TableCell>
+                  <TableCell>{t("111")}</TableCell>
+                  <TableCell>{t("119")}</TableCell>
+                  <TableCell>{t("118")}</TableCell>
+                  <TableCell>{t("113")}</TableCell>
+                  <TableCell>{t("114")}</TableCell>
+                  <TableCell>{t("116")}</TableCell>
+                  <TableCell>{t("103")}</TableCell>
+                  <TableCell>{t("105")}</TableCell>
+                  <TableCell align="right">{t("104")}</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {data ? (
                   data?.map((item) => (
                     <TableRow key={item._id} hover>
+                      <TableCell>{item.userProduct.user.userName}</TableCell>
+                      <TableCell>
+                        {item.userProduct.user.isPermission ? t("28") : t("29")}
+                      </TableCell>
+                      <TableCell>{item.userProduct.user.email}</TableCell>
+                      <TableCell>
+                        {item.userProduct.user.buyer.contact}
+                      </TableCell>
+                      <TableCell>
+                        {item.userProduct.user.buyer.quantity}
+                      </TableCell>
                       <TableCell>{item.name}</TableCell>
                       <TableCell>{item.type}</TableCell>
                       <TableCell>{item.CPU}</TableCell>
                       <TableCell>{item.cloudStorage}</TableCell>
                       <TableCell>{item.RAM}</TableCell>
-                      <TableCell>{item.bandwidth}</TableCell>{" "}
+                      <TableCell>{item.bandwidth}</TableCell>
                       <TableCell>{item.support}</TableCell>
                       <TableCell>
                         {new Intl.DateTimeFormat("en-US").format(
-                          item.idUserProduct.createdAt
+                          item.userProduct.createdAt
                         )}
                       </TableCell>
                       <TableCell>
-                        {item.idUserProduct.months} {t("6")}
+                        {item.userProduct.months} {t("106")}
                       </TableCell>
                       <TableCell
                         align="right"
                         sx={{ justifyContent: "center" }}
                       >
-                        <Tooltip placement="top" title={t("18")} arrow>
+                        <Tooltip placement="top" title={t("118")} arrow>
                           <IconButton
                             sx={{
                               "&:hover": {

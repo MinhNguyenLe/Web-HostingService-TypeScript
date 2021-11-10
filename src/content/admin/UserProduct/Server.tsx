@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 
 import { useMutation, useQuery } from "@apollo/client";
 
-import { USER_SERVER_BUYER } from "src/graphql/userProduct";
+import { USER_SERVER } from "src/graphql/userProduct";
 
 import DialogVPS from "src/components/Dialog/DialogVPS";
 import TableList from "src/components/UserProduct/Server/TableList";
@@ -23,29 +23,17 @@ function Server() {
   const dispatch = useDispatch();
   const { listVPS, focusVPS } = bindActionCreators(actionCreators, dispatch);
 
-  const [getUserServerBuyer, { data: data, loading: load, error: err }] =
-    useMutation(USER_SERVER_BUYER, {
-      update(proxy, result) {
-        console.log(result?.data?.getUserServerBuyer);
-      },
-      variables: {
-        id: userRedux._id,
-      },
-    });
+  const { loading: load, error: err, data } = useQuery(USER_SERVER);
 
   if (load) console.log("loading GRAPHQL", load);
   if (err) {
     console.log(JSON.stringify(err, null, 2));
   }
-
-  useEffect(() => {
-    getUserServerBuyer();
-  }, []);
   return load ? (
     <CircularProgress />
   ) : (
     <Grid sx={{ display: "flex", flexWrap: "wrap" }}>
-      <TableList data={data?.getUserServerBuyer} />
+      <TableList data={data?.userServer} />
     </Grid>
   );
 }

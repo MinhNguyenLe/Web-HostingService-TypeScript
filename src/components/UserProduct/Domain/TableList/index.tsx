@@ -29,7 +29,7 @@ import { actionCreators } from "src/redux";
 import { bindActionCreators } from "redux";
 
 function TableList({ handleBlock, data }) {
-  const { t } = useTranslation(["user"]);
+  const { t } = useTranslation(["admin"]);
   const theme = useTheme();
 
   const listVPSRdux = useSelector((state: RootState) => state.vps.list);
@@ -60,26 +60,42 @@ function TableList({ handleBlock, data }) {
           <CardHeader
             subheaderTypographyProps={{}}
             titleTypographyProps={{}}
-            title={t("8")}
-            subheader={t("9")}
+            title={t("22")}
+            subheader={t("109")}
           />
           <Divider />
           <TableContainer>
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>{t("7")}</TableCell>
-                  <TableCell>{t("1")}</TableCell>
-                  <TableCell>{t("2")}</TableCell>
-                  <TableCell>{t("3")}</TableCell>
-                  <TableCell>{t("5")}</TableCell>
-                  <TableCell align="right">{t("4")}</TableCell>
+                  <TableCell>{t("23")}</TableCell>
+                  <TableCell>{t("27")}</TableCell>
+                  <TableCell>{t("24")}</TableCell>
+                  <TableCell>{t("25")}</TableCell>
+                  <TableCell>{t("26")}</TableCell>
+                  <TableCell>{t("107")}</TableCell>
+                  <TableCell>{t("101")}</TableCell>
+                  <TableCell>{t("102")}</TableCell>
+                  <TableCell>{t("103")}</TableCell>
+                  <TableCell>{t("105")}</TableCell>
+                  <TableCell align="right">{t("104")}</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {data ? (
                   data?.map((item) => (
                     <TableRow key={item._id} hover>
+                      <TableCell>{item.userProduct.user.userName}</TableCell>
+                      <TableCell>
+                        {item.userProduct.user.isPermission ? t("28") : t("29")}
+                      </TableCell>
+                      <TableCell>{item.userProduct.user.email}</TableCell>
+                      <TableCell>
+                        {item.userProduct.user.buyer.contact}
+                      </TableCell>
+                      <TableCell>
+                        {item.userProduct.user.buyer.quantity}
+                      </TableCell>
                       <TableCell>
                         {item.nameUrl}
                         {item.dot}
@@ -88,17 +104,17 @@ function TableList({ handleBlock, data }) {
                       <TableCell>{item.dot}</TableCell>
                       <TableCell>
                         {new Intl.DateTimeFormat("en-US").format(
-                          item.idUserProduct.createdAt
+                          item.userProduct.createdAt
                         )}
                       </TableCell>
                       <TableCell>
-                        {item.idUserProduct.months} {t("6")}
+                        {item.userProduct.months} {t("106")}
                       </TableCell>
                       <TableCell
                         align="right"
                         sx={{ justifyContent: "center" }}
                       >
-                        <Tooltip placement="top" title={t("18")} arrow>
+                        <Tooltip placement="top" title={t("118")} arrow>
                           <IconButton
                             sx={{
                               "&:hover": {
