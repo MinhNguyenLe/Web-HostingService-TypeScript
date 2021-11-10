@@ -9,7 +9,7 @@ import { useMutation, useQuery } from "@apollo/client";
 
 import { USER_DOMAIN_BUYER } from "src/graphql/userProduct";
 
-import TableList from "src/components/UserProduct/Domain/TableList";
+import TableList from "src/components/User/UserDomain/TableList";
 
 import { RootState } from "src/redux/reducers";
 import { actionCreators } from "src/redux";

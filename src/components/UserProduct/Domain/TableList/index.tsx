@@ -67,7 +67,7 @@ function TableList({ handleBlock, data }) {
           <TableContainer>
             <Table>
               <TableHead>
-                <TableRow>
+                <TableRow sx={{ whiteSpace: "pre" }}>
                   <TableCell>{t("23")}</TableCell>
                   <TableCell>{t("27")}</TableCell>
                   <TableCell>{t("24")}</TableCell>
@@ -84,7 +84,7 @@ function TableList({ handleBlock, data }) {
               <TableBody>
                 {data ? (
                   data?.map((item) => (
-                    <TableRow key={item._id} hover>
+                    <TableRow sx={{ whiteSpace: "pre" }} key={item._id} hover>
                       <TableCell>{item.userProduct.user.userName}</TableCell>
                       <TableCell>
                         {item.userProduct.user.isPermission ? t("28") : t("29")}

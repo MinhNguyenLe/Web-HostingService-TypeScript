@@ -10,7 +10,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { USER_VPS_BUYER } from "src/graphql/userProduct";
 
 import DialogVPS from "src/components/Dialog/DialogVPS";
-import TableList from "src/components/UserProduct/VPS/TableList";
+import TableList from "src/components/User/UserVPS/TableList";
 
 import { RootState } from "src/redux/reducers";
 import { actionCreators } from "src/redux";

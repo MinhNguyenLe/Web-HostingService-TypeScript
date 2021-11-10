@@ -67,7 +67,7 @@ function TableList({ handleBlock, data }) {
           <TableContainer>
             <Table>
               <TableHead>
-                <TableRow>
+                <TableRow style={{ whiteSpace: "pre" }}>
                   <TableCell>{t("1")}</TableCell>
                   <TableCell>{t("11")}</TableCell>
                   <TableCell>{t("12")}</TableCell>
