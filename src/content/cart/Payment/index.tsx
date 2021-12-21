@@ -75,7 +75,6 @@ const Payment = () => {
           server: server,
         },
       });
-      navigate("/management/buyer/products")
     } else {
       console.log("error payment", resPayment);
     }

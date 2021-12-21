@@ -4,6 +4,7 @@ import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import useResponsiveFontSize from "../useResponsiveFontSize";
 import { useTranslation } from "react-i18next";
 import DialogFail from "src/components/Dialog/DialogFail";
+import DialogSuccess from "src/components/Dialog/DialogSuccess";
 
 const useOptions = () => {
   const fontSize = useResponsiveFontSize();
@@ -33,6 +34,8 @@ const useOptions = () => {
 const CardForm = ({ submitPayment }) => {
   const { t } = useTranslation(["cart"]);
   const [open, setOpen] = useState(false);
+  const [openS, setOpenS] = useState(false);
+
   const stripe = useStripe();
   const elements = useElements();
   const options = useOptions();
@@ -73,6 +76,7 @@ const CardForm = ({ submitPayment }) => {
     });
     if (payload.error) {
       setError(`Payment failed ${payload.error.message}`);
+      setOpen(true)
       setProcessing(false);
       console.log(payload.error.message);
     } else {
@@ -83,6 +87,7 @@ const CardForm = ({ submitPayment }) => {
       setError(null);
       setProcessing(false);
       setSucceeded(true);
+      setOpenS(true)
     }
   };
 
@@ -103,9 +108,7 @@ const CardForm = ({ submitPayment }) => {
       {t("8")}
       </button>
       {error && <DialogFail open={open} setOpen={setOpen} mess={error} />}
-      {/* <p style={succeeded ? { display: "block" } : { display: "none" }}>
-      {t("9")}
-      </p> */}
+      {succeeded && <DialogSuccess open={openS} setOpen={setOpenS} mess={t("9")} link="/management/buyer/products" />}
     </form>
   );
 };
