@@ -1,4 +1,3 @@
-import { useRef } from "react";
 import PropTypes from "prop-types";
 import {
   Box,
@@ -79,14 +78,7 @@ const CardCoverAction = experimentalStyled(Box)(
 `
 );
 
-const ProfileCover = ({ user }) => {
-  const background = useRef<HTMLInputElement>(null);
-  const avatar = useRef<HTMLInputElement>(null);
-
-  const uploadAvatar = () => {
-    console.log(avatar.current.files[0]);
-  };
-
+const ProfileCoverExample = ({ user }) => {
   return (
     <>
       <Box display="flex" mb={3}>
@@ -107,13 +99,7 @@ const ProfileCover = ({ user }) => {
       <CardCover>
         <CardMedia image={user.coverImg} />
         <CardCoverAction>
-          <Input
-            ref={background}
-            accept="image/*"
-            id="change-cover"
-            multiple
-            type="file"
-          />
+          <Input accept="image/*" id="change-cover" multiple type="file" />
           <label htmlFor="change-cover">
             <Button
               startIcon={<UploadTwoToneIcon />}
@@ -129,8 +115,6 @@ const ProfileCover = ({ user }) => {
         <Avatar variant="rounded" alt={user.name} src={user.avatar} />
         <ButtonUploadWrapper>
           <Input
-            ref={avatar}
-            onChange={() => uploadAvatar()}
             accept="image/*"
             id="icon-button-file"
             name="icon-button-file"
@@ -181,9 +165,9 @@ const ProfileCover = ({ user }) => {
   );
 };
 
-ProfileCover.propTypes = {
+ProfileCoverExample.propTypes = {
   // @ts-ignore
   user: PropTypes.object.isRequired,
 };
 
-export default ProfileCover;
+export default ProfileCoverExample;

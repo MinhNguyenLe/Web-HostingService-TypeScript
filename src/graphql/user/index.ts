@@ -104,3 +104,61 @@ export const BUYER = gql`
     }
   }
 `;
+export const UPLOAD_AVATAR = gql`
+  mutation uploadAvatar($id: ID!, $image: String!) {
+    uploadAvatar(uploadAvatar: { id: $id, image: $image }) {
+      _id
+      createdAt
+      password
+      email
+      isPermission
+      userName
+      avatar
+      background
+      listIdProduct {
+        price
+        createdAt
+        months
+        _id
+        type
+      }
+      buyer {
+        _id
+        name
+        information
+        contact
+        quantity
+        createdAt
+      }
+    }
+  }
+`;
+export const UPLOAD_BACKGROUND = gql`
+  mutation uploadBackground($id: ID!, $image: String!) {
+    uploadBackground(uploadBackground: { id: $id, image: $image }) {
+      _id
+      createdAt
+      password
+      email
+      isPermission
+      userName
+      avatar
+      background
+      listIdProduct {
+        price
+        createdAt
+        months
+        _id
+        type
+      }
+      buyer {
+        _id
+        name
+        information
+        contact
+        quantity
+        createdAt
+      }
+    }
+  }
+`;
