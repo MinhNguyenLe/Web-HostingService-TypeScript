@@ -1,7 +1,11 @@
 {
-  "1": "Login",
-  "2": "Email",
-  "3": "Password",
-  "4": "Register",
-  "5": "Do you don't have account ?"
+  "1": "Mua mọi sản phẩm",
+  "2": "Xóa sản phẩm",
+  "3": "Vui lòng kiểm tra lại giỏ hàng của bạn.",
+  "4": "Đăng kí",
+  "5": "Bạn không có tài khoản?",
+  "6": "Tổng giá",
+  "7": "Chi tiết thẻ",
+  "8": "Thanh toán giỏ hàng bằng hình thức",
+  "9": "Thanh toán thành công, xem kết quả trong"
 }

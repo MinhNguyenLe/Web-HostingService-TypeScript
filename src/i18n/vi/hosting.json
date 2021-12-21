@@ -1,6 +1,24 @@
 {
-  "1": "Vietnamese",
-  "2": "English",
-  "3": "Themes",
-  "4": ""
+  "1": "SSD Memory",
+  "2": "RAM",
+  "3": "Bandwidth",
+  "type-1": "Basic Hosting",
+  "type-2": "For small Business (about 10 members)",
+  "type-3": "For medium Business (about 20-50 members)",
+  "4": "months",
+  "5": "Domain",
+  "6": "website",
+  "7": "Name",
+  "8": "Type",
+  "9": "Price",
+  "10": "Expiry",
+  "11": "SSD",
+  "12": "RAM",
+  "13": "Bandwidth",
+  "14": "Created at",
+  "15": "Editor",
+  "16": "List of Cloud Hosting",
+  "17": "We can change information, delete, create new product and sort data",
+  "18": "Select",
+  "19": "Change information"
 }
