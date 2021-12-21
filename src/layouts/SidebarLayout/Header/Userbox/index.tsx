@@ -25,6 +25,7 @@ import AccountTreeTwoToneIcon from "@material-ui/icons/AccountTreeTwoTone";
 
 import { RootState } from "src/redux/reducers";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const UserBoxButton = experimentalStyled(Button)(
   ({ theme }) => `
@@ -125,25 +126,13 @@ function HeaderUserbox() {
             <AccountBoxTwoToneIcon fontSize="small" />
             <ListItemText primary="My Profile" />
           </ListItem>
-          <ListItem button to="/dashboards/messenger" component={NavLink}>
-            <InboxTwoToneIcon fontSize="small" />
-            <ListItemText primary="Messenger" />
-          </ListItem>
-          <ListItem
-            button
-            to="/management/profile/settings"
-            component={NavLink}
-          >
-            <AccountTreeTwoToneIcon fontSize="small" />
-            <ListItemText primary="Account Settings" />
-          </ListItem>
         </List>
         <Divider />
         <Box sx={{ m: 1 }}>
-          <Button color="primary" fullWidth>
+          <Link to="/account/login" color="primary">
             <LockOpenTwoToneIcon sx={{ mr: 1 }} />
             Sign out
-          </Button>
+          </Link>
         </Box>
       </Popover>
     </>

@@ -1,6 +1,7 @@
 import PaymentForm from "src/components/PaymentForm";
 import { BUY_ALL } from "src/graphql/userProduct";
 import { useMutation, useQuery } from "@apollo/client";
+import { useNavigate } from "react-router-dom";
 
 import { useEffect } from "react";
 import {
@@ -23,6 +24,7 @@ import { useDispatch, useSelector } from "react-redux";
 import CartItem from "../CartItem";
 
 const Payment = () => {
+  const navigate  = useNavigate();
   const { t } = useTranslation(["cart"]);
 
   const payment = useSelector((state: RootState) => state.cart.buy);
@@ -83,6 +85,7 @@ const Payment = () => {
           server: server,
         },
       });
+      navigate("/management/buyer/products")
     } else {
       console.log("error payment", resPayment);
     }
@@ -114,7 +117,7 @@ const Payment = () => {
                       variant: "subtitle2",
                       lineHeight: 1,
                     }}
-                    primary="Hi! MinhLee"
+                    primary={`Hi! ${buyerRdux.account.userName}`}
                     secondary={t("3")}
                   />
                 </ListItem>

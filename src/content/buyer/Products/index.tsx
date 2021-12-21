@@ -27,10 +27,10 @@ function UserProduct() {
   const [currentTab, setCurrentTab] = useState<string>("domain");
 
   const tabs = [
-    { value: "domain", label: "UserDomain" },
-    { value: "hosting", label: "UserHosting" },
-    { value: "vps", label: "Cloud UserVPS" },
-    { value: "server", label: "UserServer" },
+    { value: "domain", label: "User's Domain" },
+    { value: "hosting", label: "User's Hosting" },
+    { value: "vps", label: "Cloud User's VPS" },
+    { value: "server", label: "User's Server" },
   ];
 
   const handleTabsChange = (event: ChangeEvent<{}>, value: string): void => {

@@ -12,7 +12,7 @@ const stripePromise = loadStripe("pk_test_TYooMQauvdEDq54NiTphI7jx");
 
 const PaymentForm = ({ submitPayment }) => {
   return (
-    <div>
+    <div style={{marginLeft:"108px",marginTop:"20px"}}>
       <Elements stripe={stripePromise}>
         <CardForm submitPayment={submitPayment} />
         {/* <IdealBankForm />

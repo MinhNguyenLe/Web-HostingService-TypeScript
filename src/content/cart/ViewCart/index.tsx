@@ -34,6 +34,7 @@ const ViewCart = () => {
   const buyDom = useSelector((state: RootState) => state.cart.buy.domain);
   const bVPS = useSelector((state: RootState) => state.cart.buy.vps);
   const buySV = useSelector((state: RootState) => state.cart.buy.server);
+  const buyerRdux = useSelector((state: RootState) => state.user);
   const totalPriceRdux = useSelector(
     (state: RootState) => state.cart.totalPrice
   );
@@ -156,7 +157,7 @@ const ViewCart = () => {
                     variant: "subtitle2",
                     lineHeight: 1,
                   }}
-                  primary="Hi! MinhLee"
+                  primary={`Hi! ${buyerRdux.account.userName}`}
                   secondary={t("3")}
                 />
                 <Button onClick={buyProduct} size="large" variant="contained">
