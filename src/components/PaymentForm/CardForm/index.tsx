@@ -2,6 +2,8 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 
 import useResponsiveFontSize from "../useResponsiveFontSize";
+import { useTranslation } from "react-i18next";
+import DialogFail from "src/components/Dialog/DialogFail";
 
 const useOptions = () => {
   const fontSize = useResponsiveFontSize();
@@ -29,6 +31,8 @@ const useOptions = () => {
 };
 
 const CardForm = ({ submitPayment }) => {
+  const { t } = useTranslation(["cart"]);
+  const [open, setOpen] = useState(false);
   const stripe = useStripe();
   const elements = useElements();
   const options = useOptions();
@@ -85,22 +89,23 @@ const CardForm = ({ submitPayment }) => {
   return (
     <form onSubmit={handleSubmit}>
       <label className={"label-payment"}>
-        Card details
+      {t("7")}
         <CardElement
           options={options}
           onChange={(event) => {
             setDisabled(event.empty);
             setError(event.error ? event.error.message : "");
+            setOpen(true)
           }}
         />
       </label>
       <button className={"button-payment"} type="submit" disabled={!stripe}>
-        PayWithCartForm
+      {t("8")}
       </button>
-      {error && <div>{error}</div>}
-      <p style={succeeded ? { display: "block" } : { display: "none" }}>
-        Payment succeeded, see the result in your
-      </p>
+      {error && <DialogFail open={open} setOpen={setOpen} mess={error} />}
+      {/* <p style={succeeded ? { display: "block" } : { display: "none" }}>
+      {t("9")}
+      </p> */}
     </form>
   );
 };

@@ -1,3 +1,4 @@
+import React, { useRef, useState } from "react";
 import PaymentForm from "src/components/PaymentForm";
 import { BUY_ALL } from "src/graphql/userProduct";
 import { useMutation, useQuery } from "@apollo/client";
@@ -65,17 +66,6 @@ const Payment = () => {
         server.push(e._id);
       });
 
-      console.log(
-        domain,
-        "------------",
-        hosting,
-        "------------",
-        vps,
-        "------------",
-        server,
-        "------",
-        buyerRdux.account._id
-      );
       await buyAllProduct({
         variables: {
           user: buyerRdux.account._id,
